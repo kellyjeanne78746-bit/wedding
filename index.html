@@ -687,27 +687,31 @@
     background: var(--cream);
     text-align: center;
     overflow: hidden;
+    padding-left: 0;
+    padding-right: 0;
   }
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.8rem;
+  .gallery-track {
+    display: flex;
+    gap: 0.4rem;
     padding: 2rem 0 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
   }
   .gallery-item {
+    flex: 0 0 calc((100% - 1.6rem) / 5);
+    min-width: 0;
     text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s;
   }
   .gallery-item img {
     width: 100%;
-    height: 280px;
+    height: 400px;
     object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 4px;
     transition: transform 0.3s, box-shadow 0.3s;
   }
-  .gallery-item img:hover {
+  .gallery-item:hover img {
     transform: translateY(-4px);
     box-shadow: 0 8px 30px rgba(58,53,50,0.1);
   }
@@ -717,6 +721,51 @@
     font-style: italic;
     color: var(--warm-gray);
     margin-top: 0.4rem;
+  }
+  .gallery-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.8rem;
+  }
+  .gallery-nav button {
+    background: none;
+    border: 1px solid var(--gold-light);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    color: var(--gold-dark);
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-nav button:hover {
+    background: var(--gold);
+    color: var(--white);
+    border-color: var(--gold);
+  }
+  .gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+  .gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+  }
+  .gallery-dot.active {
+    background: var(--gold);
+    transform: scale(1.3);
   }
 
   /* ─── THINGS TO DO ─── */
@@ -1626,8 +1675,9 @@
     .timeline { padding-left: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto; }
     .timeline-item { padding-left: 1rem; }
     .timeline-item::before { left: -1.85rem; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-    .gallery-item img { height: 180px; }
+    .gallery-track { gap: 0.5rem; }
+    .gallery-item { flex: 0 0 calc((100% - 1rem) / 3); }
+    .gallery-item img { height: 200px; }
     .radio-group, .checkbox-group { flex-direction: column; }
     .radio-label, .checkbox-label { width: 100%; }
     footer { min-height: auto; }
@@ -1764,7 +1814,7 @@
   <div class="section-title">Our Story</div>
   <p class="section-text" style="margin: 0 auto;">Two lives, one journey — from the very beginning to forever.</p>
 
-  <div class="gallery-grid">
+  <div class="gallery-track" id="galleryTrack">
     <div class="gallery-item">
       <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=Veronica+age+3" alt="Veronica as a child">
       <div class="gallery-caption">Little Veronica</div>
@@ -1798,6 +1848,12 @@
       <div class="gallery-caption">Forever begins</div>
     </div>
   </div>
+
+  <div class="gallery-nav">
+    <button onclick="slideGallery(-1)" aria-label="Previous">&#8249;</button>
+    <button onclick="slideGallery(1)" aria-label="Next">&#8250;</button>
+  </div>
+  <div class="gallery-dots" id="galleryDots"></div>
 </section>
 
 <div class="divider"></div>
@@ -3125,6 +3181,41 @@
       dropdown.classList.remove('show');
     }
   });
+
+  // ─── GALLERY CAROUSEL ───
+  const galleryTrack = document.getElementById('galleryTrack');
+  const galleryItems = galleryTrack.querySelectorAll('.gallery-item');
+  const dotsContainer = document.getElementById('galleryDots');
+  let galleryIndex = 0;
+  const visibleCount = window.innerWidth <= 768 ? 3 : 5;
+  const totalPages = Math.ceil(galleryItems.length / visibleCount);
+
+  // Build dots
+  for (let i = 0; i < totalPages; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToGalleryPage(i);
+    dotsContainer.appendChild(dot);
+  }
+
+  function goToGalleryPage(page) {
+    galleryIndex = page;
+    const itemWidth = galleryItems[0].offsetWidth;
+    const gap = parseFloat(getComputedStyle(galleryTrack).gap) || 0;
+    const offset = page * visibleCount * (itemWidth + gap);
+    galleryTrack.style.transition = 'transform 0.5s ease';
+    galleryTrack.style.transform = `translateX(-${offset}px)`;
+    dotsContainer.querySelectorAll('.gallery-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === page);
+    });
+  }
+
+  function slideGallery(dir) {
+    const newIndex = galleryIndex + dir;
+    if (newIndex >= 0 && newIndex < totalPages) {
+      goToGalleryPage(newIndex);
+    }
+  }
 
   // ─── SCROLL ANIMATIONS ───
   const observer = new IntersectionObserver((entries) => {
