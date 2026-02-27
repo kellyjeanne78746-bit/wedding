@@ -1530,14 +1530,17 @@
 
   /* ─── REGISTRY ─── */
   .registry-section {
-    background: var(--cream-warm);
+    background: var(--charcoal);
     text-align: center;
+    color: var(--white);
   }
+  .registry-section .section-label { color: var(--gold); }
+  .registry-section .section-title { color: var(--white); }
   .registry-note {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
     font-style: italic;
-    color: var(--warm-gray);
+    color: rgba(255,255,255,0.7);
     max-width: 550px;
     margin: 0 auto 2.5rem;
     line-height: 1.7;
@@ -1546,8 +1549,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.2rem;
-    max-width: 700px;
+    gap: 1.5rem;
+    max-width: 900px;
     margin: 0 auto;
   }
   .registry-card {
@@ -1555,33 +1558,58 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.4rem;
-    width: 160px;
-    padding: 1.2rem 1rem;
-    background: var(--white);
-    border: 1px solid rgba(201,169,110,0.2);
-    border-radius: 8px;
+    gap: 0.8rem;
+    width: 250px;
+    padding: 2.5rem 1.5rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 12px;
     text-decoration: none;
-    transition: box-shadow 0.3s, transform 0.3s;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(4px);
   }
   .registry-card:hover {
-    box-shadow: 0 6px 24px rgba(58,53,50,0.1);
-    transform: translateY(-3px);
+    background: rgba(201,169,110,0.12);
+    border-color: var(--gold);
+    box-shadow: 0 8px 30px rgba(201,169,110,0.15);
+    transform: translateY(-6px);
   }
   .registry-card-icon {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     color: var(--gold);
+    transition: transform 0.4s;
+  }
+  .registry-card:hover .registry-card-icon {
+    transform: scale(1.15);
   }
   .registry-card-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
+    font-size: 1.4rem;
     font-weight: 500;
-    color: var(--charcoal);
+    color: var(--white);
+    letter-spacing: 0.03em;
   }
   .registry-card-desc {
-    font-size: 0.78rem;
-    color: var(--warm-gray);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
     font-weight: 300;
+  }
+  .registry-card-btn {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 20px;
+    padding: 0.4rem 1.2rem;
+    margin-top: 0.3rem;
+    transition: all 0.3s;
+  }
+  .registry-card:hover .registry-card-btn {
+    background: var(--gold);
+    color: var(--charcoal);
+    border-color: var(--gold);
   }
 
   /* ─── FAQ ─── */
@@ -1780,11 +1808,11 @@
     .radio-label, .checkbox-label { width: 100%; }
 
     /* Registry */
-    .registry-cards { gap: 0.8rem; }
-    .registry-card { width: 140px; padding: 1rem 0.8rem; }
-    .registry-card-icon { font-size: 1.2rem; }
-    .registry-card-name { font-size: 0.9rem; }
-    .registry-card-desc { font-size: 0.7rem; }
+    .registry-cards { gap: 1rem; }
+    .registry-card { width: 100%; max-width: 300px; padding: 1.8rem 1.2rem; }
+    .registry-card-icon { font-size: 2rem; }
+    .registry-card-name { font-size: 1.2rem; }
+    .registry-card-desc { font-size: 0.78rem; }
 
     /* Footer */
     footer { min-height: auto; }
@@ -2935,21 +2963,24 @@
 
   <div class="registry-cards">
     <a href="https://www.amazon.com/wedding/registry" target="_blank" class="registry-card">
-      <div class="registry-card-icon">&#9733;</div>
+      <div class="registry-card-icon">&#10047;</div>
       <div class="registry-card-name">Amazon</div>
-      <div class="registry-card-desc">Home & essentials</div>
+      <div class="registry-card-desc">Home essentials for our new chapter together</div>
+      <div class="registry-card-btn">Browse Registry</div>
     </a>
 
     <a href="https://www.zola.com" target="_blank" class="registry-card">
       <div class="registry-card-icon">&#9829;</div>
       <div class="registry-card-name">Zola</div>
-      <div class="registry-card-desc">Curated registry</div>
+      <div class="registry-card-desc">A curated collection of things we love</div>
+      <div class="registry-card-btn">View Wishlist</div>
     </a>
 
     <a href="#" class="registry-card">
-      <div class="registry-card-icon">&#9788;</div>
+      <div class="registry-card-icon">&#9992;</div>
       <div class="registry-card-name">Honeymoon Fund</div>
-      <div class="registry-card-desc">Help us explore Italy</div>
+      <div class="registry-card-desc">Help us explore the Amalfi Coast after the wedding</div>
+      <div class="registry-card-btn">Contribute</div>
     </a>
   </div>
 </section>
