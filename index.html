@@ -3384,43 +3384,18 @@
     return Math.max(0, galleryItems.length - getVisibleCount());
   }
 
-  function buildDots() {
-    dotsContainer.innerHTML = '';
-    const maxPos = getMaxPos();
-    const vis = getVisibleCount();
-    const totalDots = Math.ceil(galleryItems.length / vis);
-    for (let i = 0; i < totalDots; i++) {
-      const dot = document.createElement('button');
-      dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-      dot.onclick = () => {
-        galleryPos = Math.min(i * vis, maxPos);
-        updateGallery();
-      };
-      dotsContainer.appendChild(dot);
-    }
-  }
-
   function updateGallery() {
     const itemWidth = galleryItems[0].offsetWidth;
     const gap = parseFloat(getComputedStyle(galleryTrack).gap) || 0;
     const offset = galleryPos * (itemWidth + gap);
     galleryTrack.style.transition = 'transform 0.5s ease';
     galleryTrack.style.transform = `translateX(-${offset}px)`;
-    const vis = getVisibleCount();
-    const activeDot = Math.min(Math.floor(galleryPos / vis), dotsContainer.children.length - 1);
-    dotsContainer.querySelectorAll('.gallery-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === activeDot);
-    });
   }
 
   function slideGallery(dir) {
-    const vis = getVisibleCount();
-    const newPos = galleryPos + (dir * vis);
-    galleryPos = Math.max(0, Math.min(newPos, getMaxPos()));
+    galleryPos = Math.max(0, Math.min(galleryPos + dir, getMaxPos()));
     updateGallery();
   }
-
-  buildDots();
 
   // ─── SCROLL ANIMATIONS ───
   const observer = new IntersectionObserver((entries) => {
