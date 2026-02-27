@@ -740,12 +740,29 @@
 
   /* ─── PHOTO GALLERY ─── */
   .gallery-section {
-    background: var(--cream);
+    background: linear-gradient(170deg, #FAF3E6 0%, #F5EDDA 40%, #F0E8D0 100%);
     text-align: center;
     overflow: hidden;
     padding-left: 0;
     padding-right: 0;
+    position: relative;
+    border-top: 1px solid rgba(198,177,133,0.3);
+    border-bottom: 1px solid rgba(198,177,133,0.3);
   }
+  .gallery-section::before,
+  .gallery-section::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .gallery-section::before { top: -1px; width: 200px; }
+  .gallery-section::after { bottom: -1px; width: 200px; }
   .gallery-wrapper {
     overflow: hidden;
     padding: 2rem 0 1rem;
