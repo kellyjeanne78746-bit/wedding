@@ -743,11 +743,13 @@
     padding-left: 0;
     padding-right: 0;
   }
+  .gallery-wrapper {
+    overflow: hidden;
+    padding: 2rem 0 1rem;
+  }
   .gallery-track {
     display: flex;
     gap: 0.4rem;
-    padding: 2rem 0 1rem;
-    overflow: hidden;
     position: relative;
   }
   .gallery-item {
@@ -1951,6 +1953,7 @@
   <div class="section-title">Our Story</div>
   <p class="section-text" style="margin: 0 auto;">Two lives, one journey — from the very beginning to forever.</p>
 
+  <div class="gallery-wrapper">
   <div class="gallery-track" id="galleryTrack">
     <div class="gallery-item">
       <img src="https://placehold.co/280x400/FAF5EE/E8E0D0?text=+" alt="Photo 1">
@@ -2032,6 +2035,7 @@
       <img src="https://placehold.co/280x400/FAF5EE/E8E0D0?text=+" alt="Photo 20">
       <div class="gallery-caption">Forever begins</div>
     </div>
+  </div>
   </div>
 
   <div class="gallery-nav">
