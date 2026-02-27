@@ -28,7 +28,7 @@
     --shadow: rgba(58,53,50,0.06);
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   html { scroll-behavior: smooth; font-size: 18px; }
 
@@ -47,10 +47,10 @@
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: transparent;
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    border-bottom: 1px solid transparent;
+    background: rgba(58,53,50,0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
     transition: all 0.4s ease;
   }
   nav.scrolled {
@@ -102,6 +102,62 @@
   }
   .nav-links a:hover { color: #D8C9A0; }
   .nav-links a:hover::after { width: 100%; }
+
+  /* ─── CONTACT DROPDOWN ─── */
+  .nav-contact {
+    position: relative;
+  }
+  .nav-contact > a {
+    cursor: pointer;
+  }
+  .contact-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: rgba(58,53,50,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(216,201,160,0.15);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    min-width: 220px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    z-index: 1001;
+  }
+  .contact-dropdown.show {
+    display: block;
+  }
+  .contact-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.3rem;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    letter-spacing: 0.03em;
+    transition: color 0.3s;
+    border-bottom: 1px solid rgba(216,201,160,0.1);
+    text-transform: none;
+  }
+  .contact-dropdown a:last-child {
+    border-bottom: none;
+  }
+  .contact-dropdown a:hover {
+    color: #D8C9A0;
+  }
+  .contact-dropdown a::after {
+    display: none;
+  }
+  .contact-dropdown-icon {
+    font-size: 1rem;
+    width: 1.2rem;
+    text-align: center;
+    font-style: normal;
+  }
 
   .hamburger {
     display: none;
@@ -175,11 +231,11 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100vh;
-    height: 100vw;
+    width: calc(100vh + 40px);
+    height: calc(100vw + 40px);
     transform: translate(-50%, -50%) rotate(90deg);
     background: url('Wedding Villa watercolor.svg') center center / cover no-repeat;
-    opacity: 0.45;
+    opacity: 0.60;
     pointer-events: none;
   }
 
@@ -195,7 +251,7 @@
     justify-content: center;
     padding: 4rem 4rem 4rem 8rem;
     padding-top: 16rem;
-    background: linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.6) 55%, transparent 100%);
+    background: linear-gradient(to right, rgba(58,53,50,0.85) 0%, rgba(58,53,50,0.6) 50%, transparent 100%);
   }
 
   /* ─── ENGAGEMENT PHOTO ─── */
@@ -230,8 +286,8 @@
   /* ─── SAVE THE DATE TEXT ─── */
   .hero-save-the-date {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 300;
+    font-size: 2.02rem;
+    font-weight: 400;
     font-style: italic;
     letter-spacing: 0.12em;
     color: #D8C9A0;
@@ -240,9 +296,9 @@
     animation: fadeUp 1s 0.5s forwards;
   }
   .hero-names {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    font-weight: 600;
+    font-family: 'Italianno', cursive;
+    font-size: clamp(3.22rem, 6.4vw, 4.72rem);
+    font-weight: 400;
     line-height: 1.2;
     color: var(--white);
     margin-bottom: 0.5rem;
@@ -254,10 +310,21 @@
     display: inline;
     margin: 0 0.05em;
   }
+  .hero-married {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.62rem;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
   .hero-date {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
+    font-size: 1.82rem;
+    font-weight: 500;
     letter-spacing: 0.15em;
     color: rgba(255,255,255,0.9);
     margin-top: 1.8rem;
@@ -266,8 +333,8 @@
   }
   .hero-subtitle {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 400;
+    font-size: 2.22rem;
+    font-weight: 500;
     font-style: italic;
     color: rgba(255,255,255,0.85);
     margin-top: 0.6rem;
@@ -284,24 +351,24 @@
     animation: fadeUp 1s 1s forwards;
   }
   .hero-location {
-    font-size: 1.2rem;
+    font-size: 1.42rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.7);
-    font-weight: 400;
+    font-weight: 500;
     opacity: 0;
     animation: fadeUp 1s 1.1s forwards;
   }
   .hero-cd-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 300;
+    font-size: 2.02rem;
+    font-weight: 400;
     color: #D8C9A0;
     line-height: 1;
   }
   .hero-cd-label {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.6rem;
+    font-size: 0.82rem;
     font-style: italic;
     letter-spacing: 0.15em;
     color: rgba(255,255,255,0.5);
@@ -341,15 +408,187 @@
   }
 
   @media (max-width: 768px) {
+    .hero { min-height: 100vh; }
     .hero-content {
       width: 100%;
-      padding: 2rem 1.5rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+      padding: 2rem 1.5rem 3rem;
+      padding-top: 6rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 75%, transparent 100%);
       justify-content: flex-end;
       text-align: center;
     }
     .hero-photo { height: 100vh; }
-    .hero-date-line { margin: 1rem auto; }
+    .hero-photo img {
+      transform: none;
+      object-position: 60% 30%;
+    }
+    .hero-save-the-date { font-size: 1.4rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+    .hero-names { font-size: 1.8rem; line-height: 1.3; }
+    .hero-date-line { margin: 0.8rem auto; }
+    .hero-countdown div { gap: 1rem !important; justify-content: center; }
+    .hero-cd-num { font-size: 1.4rem; }
+    .hero-cd-label { font-size: 0.5rem; }
+    .hero-scroll { display: none; }
+
+    .countdown-section { padding: 2rem 1.2rem; }
+    .countdown-details { flex-direction: column; gap: 1.2rem; align-items: center; text-align: center; }
+    .countdown-detail-item { text-align: center; width: 100%; }
+    .countdown-detail-divider { width: 30px; height: 1px; background: linear-gradient(to right, transparent, var(--gold-light), transparent); }
+  }
+
+  /* ─── SAVE THE DATE ─── */
+  .save-the-date {
+    padding: 4rem 2rem;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .std-frame {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    width: 100%;
+    min-height: 400px;
+  }
+  .std-art-top {
+    position: absolute;
+    top: -240px;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    width: 260px;
+    height: auto;
+    z-index: 4;
+  }
+  .std-art-bottom {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: auto;
+    z-index: 2;
+  }
+  .std-art-left {
+    position: absolute;
+    left: -100px;
+    top: 60%;
+    transform: translateY(-50%);
+    height: 90%;
+    width: auto;
+    z-index: 1;
+  }
+  .std-art-right {
+    position: absolute;
+    right: -100px;
+    top: 60%;
+    transform: translateY(-50%) scaleX(-1);
+    height: 90%;
+    width: auto;
+    z-index: 1;
+  }
+  .std-content {
+    text-align: center;
+    z-index: 3;
+    padding: 15rem 12rem 5rem;
+  }
+  .std-label {
+    font-family: 'Italianno', cursive;
+    font-size: 3.72rem;
+    color: var(--gold);
+    line-height: 1.1;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  .std-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.42rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.1rem;
+  }
+  .std-ampersand {
+    font-family: 'Italianno', cursive;
+    font-size: 3.02rem;
+    color: var(--gold);
+    display: inline;
+    line-height: 1;
+    margin-right: 0.15em;
+  }
+  .std-date {
+    font-family: 'Italianno', cursive;
+    font-size: 2.62rem;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .std-location {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.22rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin-bottom: 0.8rem;
+  }
+  .std-venue {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.82rem;
+    font-style: italic;
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+  .std-divider {
+    width: 50px;
+    height: 1px;
+    background: var(--gold);
+    margin: 1rem auto;
+  }
+  .std-note {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.92rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--light-gray);
+    margin-top: 1rem;
+  }
+  .std-invitation-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.27rem;
+    font-style: italic;
+    color: #4a6a8a;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+    margin-top: 2rem;
+    display: inline-block;
+  }
+  .std-invitation-link:hover { color: #2c4a6e; }
+  .inv-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; justify-content:center; align-items:center; flex-direction:column; gap:1.5rem; }
+  .inv-modal.active { display:flex; }
+  .inv-modal img { max-height:80vh; max-width:90vw; border-radius:8px; box-shadow:0 10px 50px rgba(0,0,0,0.5); }
+  .inv-modal-close { position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; color:rgba(255,255,255,0.7); font-size:2rem; cursor:pointer; }
+  .inv-modal-close:hover { color:white; }
+  .inv-dl-btn { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; color:white; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:30px; padding:0.6rem 1.8rem; cursor:pointer; text-decoration:none; transition:all 0.3s; }
+  .inv-dl-btn:hover { background:rgba(255,255,255,0.25); }
+
+  @media (max-width: 768px) {
+    .save-the-date { padding: 3rem 1rem; overflow: hidden; }
+    .std-frame { min-height: 300px; }
+    .std-art-top { width: 150px; top: -10px; }
+    .std-art-bottom { width: 110px; bottom: -5px; }
+    .std-art-left { display: none; }
+    .std-art-right { display: none; }
+    .std-content { padding: 6rem 1.5rem 3rem; }
+    .std-content div { font-size: 1rem !important; }
+    .std-content div:nth-child(2), .std-content div:nth-child(3) { font-size: 2.2rem !important; }
+    .std-label { font-size: 2.6rem; margin-top: 3rem; }
+    .std-names { font-size: 1.6rem; }
+    .std-ampersand { font-size: 2rem; }
+    .std-date { font-size: 1.8rem; }
   }
 
   /* ─── SECTIONS ─── */
@@ -359,24 +598,24 @@
     padding: 5rem max(2rem, calc((100% - 900px) / 2));
   }
   .section-label {
-    font-size: 0.7rem;
+    font-size: 0.92rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold-dark);
-    font-weight: 400;
+    font-weight: 500;
     margin-bottom: 0.8rem;
   }
   .section-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 300;
+    font-size: clamp(2.22rem, 5.2vw, 3.42rem);
+    font-weight: 400;
     color: var(--charcoal);
     margin-bottom: 1.5rem;
     line-height: 1.2;
   }
   .section-text {
     color: var(--warm-gray);
-    font-size: 0.95rem;
+    font-size: 1.17rem;
     max-width: 600px;
     line-height: 1.9;
   }
@@ -414,27 +653,27 @@
   }
   .countdown-detail-label {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.82rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold-dark);
     margin-bottom: 0.4rem;
-    font-weight: 400;
+    font-weight: 500;
   }
   .countdown-detail-value {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    font-weight: 400;
+    font-size: 1.37rem;
+    font-weight: 500;
     color: var(--charcoal);
     letter-spacing: 0.03em;
   }
   .countdown-detail-sub {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.92rem;
     color: var(--warm-gray);
     margin-top: 0.2rem;
     letter-spacing: 0.05em;
-    font-weight: 300;
+    font-weight: 400;
   }
   .countdown-detail-divider {
     width: 1px;
@@ -442,6 +681,117 @@
     background: linear-gradient(to bottom, transparent, var(--gold-light), transparent);
     align-self: center;
   }
+
+  /* ─── PHOTO GALLERY ─── */
+  .gallery-section {
+    background: var(--cream);
+    text-align: center;
+    overflow: hidden;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+    padding: 2rem 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .gallery-item {
+    text-align: center;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(201,169,110,0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .gallery-item img:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(58,53,50,0.1);
+  }
+  .gallery-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--warm-gray);
+    margin-top: 0.4rem;
+  }
+
+  /* ─── THINGS TO DO ─── */
+  .things-section {
+    background: var(--cream);
+    text-align: center;
+  }
+  .things-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2rem;
+    text-align: left;
+  }
+  @media (min-width: 769px) {
+    .things-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .thing-card {
+    background: var(--white);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+  .thing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(58,53,50,0.12);
+  }
+  .thing-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .thing-card:hover .thing-img {
+    transform: scale(1.05);
+  }
+  .thing-card-body {
+    padding: 1.2rem 1.4rem 1.4rem;
+  }
+  .thing-category {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+  }
+  .thing-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .thing-desc {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+  .thing-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--dusty-blue);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(107,135,168,0.3);
+    transition: border-color 0.3s;
+  }
+  .thing-link:hover { border-color: var(--dusty-blue); }
 
   /* ─── SCHEDULE ─── */
   .timeline {
@@ -475,24 +825,24 @@
     border: 2px solid var(--cream);
   }
   .timeline-time {
-    font-size: 0.7rem;
+    font-size: 0.92rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold-dark);
-    font-weight: 400;
+    font-weight: 500;
   }
   .timeline-event {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 400;
+    font-size: 1.62rem;
+    font-weight: 500;
     margin: 0.3rem 0;
   }
   .timeline-detail {
-    font-size: 0.85rem;
+    font-size: 1.07rem;
     color: var(--warm-gray);
   }
   .timeline-venue-note {
-    font-size: 0.8rem;
+    font-size: 1.02rem;
     color: var(--dusty-blue-light);
     font-style: italic;
     margin-top: 0.2rem;
@@ -503,12 +853,13 @@
     position: relative;
     z-index: 1;
     color: var(--gold-dark);
+    font-size: 1.02rem;
   }
   #venue .section-title {
     position: relative;
     z-index: 1;
     color: var(--charcoal);
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(3.22rem, 7.2vw, 4.72rem);
     margin-bottom: 0.5rem;
   }
   #venue .section-text {
@@ -516,12 +867,23 @@
     z-index: 1;
     max-width: 650px;
     margin: 0 auto 3rem;
-    font-size: 1.1rem;
+    font-size: 1.72rem;
     text-align: center;
-    color: var(--warm-gray);
+    color: #1a1715;
+    text-shadow:
+      0 0 4px white, 0 0 4px white, 0 0 4px white,
+      0 0 8px white, 0 0 8px white,
+      0 0 15px white, 0 0 25px white,
+      0 0 40px rgba(255,255,255,0.8);
   }
   #venue .venue-address {
-    font-size: 1.1rem;
+    font-size: 1.57rem;
+    color: #1a1715;
+    text-shadow:
+      0 0 4px white, 0 0 4px white, 0 0 4px white,
+      0 0 8px white, 0 0 8px white,
+      0 0 15px white, 0 0 25px white,
+      0 0 40px rgba(255,255,255,0.8);
   }
   .venue-details {
     position: relative;
@@ -534,8 +896,8 @@
   }
   .venue-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 400;
+    font-size: 2.02rem;
+    font-weight: 500;
     color: var(--charcoal);
     letter-spacing: 0.02em;
   }
@@ -546,10 +908,14 @@
   }
   .venue-address {
     font-family: 'Josefin Sans', sans-serif;
-    color: var(--warm-gray);
-    font-size: 1rem;
+    color: #3A3532;
+    font-size: 1.22rem;
     line-height: 1.8;
     letter-spacing: 0.05em;
+    text-shadow:
+      0 0 6px rgba(255,255,255,0.9),
+      0 0 12px rgba(255,255,255,0.7),
+      0 0 24px rgba(255,255,255,0.5);
   }
   .venue-buttons {
     display: flex;
@@ -560,10 +926,10 @@
   }
   .venue-btn {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
+    font-size: 1.27rem;
     font-style: italic;
     letter-spacing: 0.05em;
-    color: var(--gold-dark);
+    color: #7a6840;
     background: rgba(255,255,255,0.55);
     backdrop-filter: blur(4px);
     border: 1px solid var(--gold-light);
@@ -614,59 +980,155 @@
   .hotels-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1.2rem;
     margin-top: 2rem;
   }
   .hotel-card {
-    background: transparent;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid rgba(201,169,110,0.2);
-    transition: all 0.3s;
+    background: var(--white);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
   }
-  .hotel-card:last-child { border-bottom: none; }
   .hotel-card:hover {
-    transform: none;
-    box-shadow: none;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(58,53,50,0.12);
+  }
+  .hotel-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .hotel-card:hover .hotel-img {
+    transform: scale(1.05);
+  }
+  .hotel-summary {
+    padding: 1.2rem 1.4rem 0;
+    text-align: center;
   }
   .hotel-type {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold-dark);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    color: var(--gold);
     font-weight: 400;
+    margin-bottom: 0.2rem;
   }
   .hotel-name {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
     font-weight: 400;
-    margin: 0.4rem 0;
+    color: var(--charcoal);
   }
-  .hotel-detail {
-    font-size: 0.82rem;
+  .hotel-price-brief {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.88rem;
     color: var(--warm-gray);
-    margin-bottom: 0.3rem;
+    font-weight: 300;
+    margin-top: 0.2rem;
+    margin-bottom: 0.8rem;
   }
-  .hotel-price {
-    font-size: 0.85rem;
+  .hotel-toggle { display: none; }
+  .hotel-expanded {
+    border-top: 1px solid rgba(201,169,110,0.12);
+    padding: 0.8rem 1.4rem 1.2rem;
+  }
+  .hotel-expanded-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    text-align: center;
+  }
+  .hotel-detail-row {
+    display: flex;
+    flex-direction: column;
+  }
+  .hotel-detail-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     color: var(--gold-dark);
-    font-weight: 500;
-    margin-top: 0.5rem;
+    font-weight: 400;
+    margin-bottom: 0.05rem;
   }
+  .hotel-detail-value {
+    font-size: 0.9rem;
+    color: var(--warm-gray);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .hotel-detail-value a {
+    color: var(--dusty-blue);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(107,135,168,0.3);
+    transition: border-color 0.3s;
+  }
+  .hotel-detail-value a:hover { border-color: var(--dusty-blue); }
   .hotel-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    margin-top: 0.8rem;
+    margin-top: 0.6rem;
+    grid-column: 1 / -1;
+    justify-content: center;
   }
   .hotel-tag {
-    font-size: 0.68rem;
-    padding: 0.25rem 0.6rem;
-    background: var(--cream-warm);
-    border-radius: 12px;
-    color: var(--warm-gray);
-    border: 1px solid rgba(201,169,110,0.15);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(201,169,110,0.08);
+    border-radius: 20px;
+    color: var(--gold-dark);
+    border: 1px solid rgba(201,169,110,0.2);
+    font-weight: 400;
   }
-  .hotel-tag.green { background: rgba(139,168,122,0.1); color: var(--vine-green); border-color: rgba(139,168,122,0.2); }
+
+  /* ─── LOCATION TOGGLE TABS ─── */
+  .location-tabs {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
+  .location-tab {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.32rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    padding: 0.8rem 2.2rem;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--gold-light);
+    border-radius: 6px;
+    color: #7a6840;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .location-tab:hover {
+    background: rgba(255,255,255,0.75);
+    color: var(--gold-dark);
+    border-color: var(--gold);
+  }
+  .location-tab.active {
+    color: var(--white);
+    background: var(--gold);
+    border-color: var(--gold);
+    box-shadow: 0 4px 16px rgba(198,177,133,0.25);
+  }
+  .location-panel {
+    display: none;
+    text-align: center;
+  }
+  .location-panel.active {
+    display: block;
+  }
+  .location-panel .section-text {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   .travel-tips {
     background: transparent;
@@ -678,14 +1140,14 @@
   }
   .travel-tips h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 300;
+    font-size: 1.52rem;
+    font-weight: 400;
     font-style: italic;
     margin-bottom: 1rem;
     color: var(--charcoal);
   }
   .travel-tips p, .travel-tips li {
-    font-size: 0.88rem;
+    font-size: 1.1rem;
     color: var(--warm-gray);
     margin-bottom: 0.4rem;
   }
@@ -701,53 +1163,54 @@
 
   /* ─── RSVP FORM ─── */
   .rsvp-section {
-    background: var(--charcoal);
-    color: var(--white);
+    background: var(--cream);
+    color: var(--charcoal);
   }
-  .rsvp-section .section-label { color: #D8C9A0; }
-  .rsvp-section .section-title { color: var(--white); }
-  .rsvp-section .section-text { color: rgba(255,255,255,0.7); }
+  .rsvp-section .section-label { color: var(--gold-dark); }
+  .rsvp-section .section-title { color: var(--charcoal); }
+  .rsvp-section .section-text { color: var(--warm-gray); }
   .form-container {
-    background: rgba(255,255,255,0.04);
-    border-radius: 16px;
-    padding: 2.5rem 1.8rem;
-    border: 1px solid rgba(232,200,122,0.15);
-    margin-top: 2rem;
-    max-width: 700px;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.6rem 1.4rem;
+    border: 1px solid rgba(201,169,110,0.2);
+    margin-top: 1.5rem;
+    max-width: 540px;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0 4px 30px rgba(58,53,50,0.06);
   }
   .form-section-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: #D8C9A0;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(232,200,122,0.15);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--dusty-blue);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(201,169,110,0.15);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   .form-section-icon {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
   .form-group {
-    margin-bottom: 1.3rem;
+    margin-bottom: 0.9rem;
   }
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 0.8rem;
   }
   label {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 0.5rem;
-    font-weight: 400;
+    color: var(--gold-dark);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
   }
   input[type="text"],
   input[type="email"],
@@ -756,22 +1219,22 @@
   select,
   textarea {
     width: 100%;
-    padding: 0.85rem 1rem;
-    border: 1px solid rgba(232,200,122,0.15);
-    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 8px;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 0.9rem;
     font-weight: 300;
-    color: var(--white);
-    background: rgba(255,255,255,0.06);
+    color: var(--charcoal);
+    background: var(--cream-warm);
     transition: all 0.3s;
     outline: none;
     -webkit-appearance: none;
   }
   input:focus, select:focus, textarea:focus {
-    border-color: #D8C9A0;
-    box-shadow: 0 0 0 3px rgba(232,200,122,0.1);
-    background: rgba(255,255,255,0.1);
+    border-color: var(--dusty-blue);
+    box-shadow: 0 0 0 3px rgba(107,135,168,0.1);
+    background: var(--white);
   }
   textarea { resize: vertical; min-height: 80px; }
   select {
@@ -791,31 +1254,31 @@
   .checkbox-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
-    background: rgba(255,255,255,0.04);
-    border-radius: 8px;
+    gap: 0.4rem;
+    padding: 0.35rem 0.7rem;
+    background: var(--cream-warm);
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     text-transform: none;
     letter-spacing: 0;
-    color: rgba(255,255,255,0.8);
+    color: var(--charcoal);
     font-weight: 300;
     transition: all 0.2s;
-    border: 1px solid rgba(232,200,122,0.1);
+    border: 1px solid rgba(201,169,110,0.15);
   }
-  .checkbox-label:hover { border-color: rgba(232,200,122,0.4); }
+  .checkbox-label:hover { border-color: var(--dusty-blue); }
   .checkbox-label input { display: none; }
-  .checkbox-label input:checked + span { color: #D8C9A0; font-weight: 400; }
+  .checkbox-label input:checked + span { color: var(--dusty-blue); font-weight: 400; }
   .checkbox-label:has(input:checked) {
-    background: rgba(232,200,122,0.08);
-    border-color: #D8C9A0;
+    background: rgba(107,135,168,0.08);
+    border-color: var(--dusty-blue);
   }
   .checkmark {
     width: 18px;
     height: 18px;
     border-radius: 4px;
-    border: 1.5px solid rgba(255,255,255,0.3);
+    border: 1.5px solid rgba(201,169,110,0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -823,8 +1286,8 @@
     transition: all 0.2s;
   }
   .checkbox-label input:checked ~ .checkmark {
-    background: #D8C9A0;
-    border-color: #D8C9A0;
+    background: var(--dusty-blue);
+    border-color: var(--dusty-blue);
   }
   .checkbox-label input:checked ~ .checkmark::after {
     content: '✓';
@@ -841,55 +1304,55 @@
   .radio-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.1rem;
-    background: rgba(255,255,255,0.04);
-    border-radius: 8px;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--cream-warm);
+    border-radius: 6px;
     cursor: pointer;
     font-size: 0.85rem;
     text-transform: none;
     letter-spacing: 0;
-    color: rgba(255,255,255,0.8);
+    color: var(--charcoal);
     font-weight: 300;
     transition: all 0.2s;
-    border: 1px solid rgba(232,200,122,0.1);
+    border: 1px solid rgba(201,169,110,0.15);
   }
-  .radio-label:hover { border-color: rgba(232,200,122,0.4); }
+  .radio-label:hover { border-color: var(--dusty-blue); }
   .radio-label input { display: none; }
   .radio-label:has(input:checked) {
-    background: rgba(232,200,122,0.08);
-    border-color: #D8C9A0;
-    color: #D8C9A0;
+    background: rgba(107,135,168,0.08);
+    border-color: var(--dusty-blue);
+    color: var(--dusty-blue);
     font-weight: 400;
   }
 
   .guest-block {
-    background: rgba(255,255,255,0.04);
-    border-radius: 12px;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-    border: 1px solid rgba(232,200,122,0.15);
+    background: var(--cream-warm);
+    border-radius: 10px;
+    padding: 0.9rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid rgba(201,169,110,0.15);
   }
   .guest-block-header {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.1rem;
-    font-weight: 400;
-    margin-bottom: 0.8rem;
-    color: #D8C9A0;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--dusty-blue);
   }
 
   .add-guest-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.7rem 1.2rem;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
     border: 1.5px dashed rgba(232,200,122,0.4);
     background: transparent;
     color: #D8C9A0;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     letter-spacing: 0.05em;
     font-weight: 400;
     transition: all 0.3s;
@@ -912,30 +1375,30 @@
 
   .submit-btn {
     width: 100%;
-    padding: 1.1rem;
-    background: #D8C9A0;
-    color: var(--charcoal);
+    padding: 0.75rem;
+    background: var(--dusty-blue);
+    color: var(--white);
     border: none;
     border-radius: 30px;
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
   }
   .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(232,200,122,0.3);
-    background: #DFC08A;
+    box-shadow: 0 8px 25px rgba(107,135,168,0.3);
+    background: var(--dusty-blue-light);
   }
   .submit-btn:active { transform: translateY(0); }
 
   .form-note {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
+    font-size: 0.97rem;
+    color: var(--warm-gray);
     text-align: center;
     margin-top: 1rem;
     font-style: italic;
@@ -954,13 +1417,69 @@
   }
   .success-message h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: 2.22rem;
+    font-weight: 400;
     margin-bottom: 0.5rem;
   }
   .success-message p {
     color: var(--warm-gray);
-    font-size: 0.9rem;
+    font-size: 1.12rem;
+  }
+
+  /* ─── REGISTRY ─── */
+  .registry-section {
+    background: var(--cream-warm);
+    text-align: center;
+  }
+  .registry-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--warm-gray);
+    max-width: 550px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+  .registry-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .registry-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 160px;
+    padding: 1.2rem 1rem;
+    background: var(--white);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .registry-card:hover {
+    box-shadow: 0 6px 24px rgba(58,53,50,0.1);
+    transform: translateY(-3px);
+  }
+  .registry-card-icon {
+    font-size: 1.5rem;
+    color: var(--gold);
+  }
+  .registry-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--charcoal);
+  }
+  .registry-card-desc {
+    font-size: 0.78rem;
+    color: var(--warm-gray);
+    font-weight: 300;
   }
 
   /* ─── FAQ ─── */
@@ -970,8 +1489,8 @@
   }
   .faq-question {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    font-weight: 400;
+    font-size: 1.37rem;
+    font-weight: 500;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -992,7 +1511,7 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease, padding 0.4s ease;
-    font-size: 0.85rem;
+    font-size: 1.07rem;
     color: var(--warm-gray);
     line-height: 1.8;
   }
@@ -1001,57 +1520,135 @@
     padding-top: 0.8rem;
   }
 
+
   /* ─── FOOTER ─── */
   footer {
-    text-align: center;
-    padding: 4rem 1.5rem;
-    background: var(--charcoal);
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: right;
+    min-height: 50vh;
+    padding: 0;
     color: var(--white);
-    border-top: 1px solid rgba(232,200,122,0.1);
+    overflow: hidden;
+    background: var(--charcoal);
+  }
+  .footer-photo {
+    width: 100%;
+    height: 50vh;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 68%;
+    transform: scale(1.35);
+    filter: brightness(1.15) contrast(1.05);
+  }
+  .footer-photo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      linear-gradient(to left, rgba(58,53,50,0.95) 0%, rgba(58,53,50,0.8) 20%, rgba(58,53,50,0.4) 45%, transparent 60%),
+      linear-gradient(to right, rgba(58,53,50,0.5) 0%, rgba(58,53,50,0.2) 8%, transparent 18%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .footer-content {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 4rem 5rem 4rem 4rem;
   }
   .footer-names {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: 2.72rem;
+    font-weight: 400;
     color: var(--white);
   }
   .footer-date {
-    font-size: 0.75rem;
+    font-size: 1.17rem;
     letter-spacing: 0.2em;
-    color: #D8C9A0;
+    color: #f5e6c4;
     margin-top: 0.5rem;
   }
   .footer-note {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.5);
-    margin-top: 2rem;
+    font-size: 1.12rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 1.5rem;
   }
-  .footer-contact a {
-    color: #D8C9A0;
+  .footer-contact-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7rem 2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.5);
+    background: transparent;
     text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
-  .footer-contact a:hover { text-decoration: underline; }
+  .footer-contact-btn:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: var(--white);
+  }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
     .form-row { grid-template-columns: 1fr; }
-    .countdown-details { gap: 1.5rem; }
-    .countdown-detail-divider { width: 30px; height: 1px; background: linear-gradient(to right, transparent, var(--gold-light), transparent); }
-    .form-container { padding: 1.8rem 1.2rem; }
+    .form-container { padding: 1.2rem 1rem; }
     section { padding: 3.5rem 1.2rem; }
     .venue-features { max-width: 100%; }
-    .timeline { padding-left: 1.5rem; }
+    #schedule .section-label,
+    #schedule .section-title,
+    #schedule .section-text { text-align: center; }
+    #schedule .section-text { margin-left: auto; margin-right: auto; }
+    .timeline { padding-left: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto; }
     .timeline-item { padding-left: 1rem; }
     .timeline-item::before { left: -1.85rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .gallery-item img { height: 180px; }
     .radio-group, .checkbox-group { flex-direction: column; }
     .radio-label, .checkbox-label { width: 100%; }
+    footer { min-height: auto; }
+    .footer-photo { height: 50vh; }
+    .footer-content {
+      width: 100%;
+      position: relative;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      align-items: center;
+      background: var(--charcoal);
+    }
+    .footer-photo::after {
+      background: linear-gradient(to bottom, transparent 60%, rgba(58,53,50,0.8) 100%);
+    }
   }
   @media (min-width: 769px) {
     .hotels-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1060,11 +1657,21 @@
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">Natale Hill Wedding</a>
     <ul class="nav-links">
+      <li><a href="#gallery">Our Story</a></li>
       <li><a href="#schedule">Schedule</a></li>
       <li><a href="#venue">Venue</a></li>
       <li><a href="#travel">Travel</a></li>
+      <li><a href="#explore">Explore</a></li>
       <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#registry">Registry</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li class="nav-contact">
+        <a onclick="toggleContactDropdown(event)">Contact</a>
+        <div class="contact-dropdown" id="contactDropdown">
+          <a href="mailto:vnnatale@gmail.com?subject=Wedding%20Question"><span class="contact-dropdown-icon">&#9993;</span> Email Veronica</a>
+          <a href="sms:+14095339317"><span class="contact-dropdown-icon">&#9993;</span> Text Veronica</a>
+        </div>
+      </li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1074,18 +1681,24 @@
 
 <!-- ─── MOBILE MENU ─── -->
 <div class="mobile-menu" id="mobileMenu">
+  <a href="#gallery" onclick="closeMenu()">Our Story</a>
   <a href="#schedule" onclick="closeMenu()">Schedule</a>
   <a href="#venue" onclick="closeMenu()">Venue</a>
   <a href="#travel" onclick="closeMenu()">Travel</a>
+  <a href="#explore" onclick="closeMenu()">Explore</a>
   <a href="#rsvp" onclick="closeMenu()">RSVP</a>
+  <a href="#registry" onclick="closeMenu()">Registry</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="mailto:vnnatale@gmail.com?subject=Wedding%20Question" onclick="closeMenu()">Email Us</a>
+  <a href="sms:+14095339317" onclick="closeMenu()">Text Us</a>
 </div>
 
 <!-- ─── HERO ─── -->
 <section class="hero" id="hero">
   <div class="hero-content">
-    <div class="hero-save-the-date">May 29th &middot; Roma, Italy</div>
-    <h1 class="hero-names">Veronica Natale<br><span class="hero-ampersand">&amp;</span> Samuel Hill are getting married</h1>
+    <div class="hero-save-the-date">Roma, Italy</div>
+    <h1 class="hero-names">Veronica Natale<br><span class="hero-ampersand">&amp;</span> Samuel Hill</h1>
+    <div class="hero-married">Save the Date &middot; May 29th, 2027</div>
     <div class="hero-date-line"></div>
     <div class="hero-countdown" style="margin-top: 1.5rem; opacity: 0; animation: fadeUp 1s 1s forwards;">
       <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
@@ -1117,26 +1730,77 @@
   </div>
 </section>
 
-<!-- ─── SAVE THE DATE DETAILS ─── -->
-<div class="countdown-section">
-  <div class="countdown-details">
-    <div class="countdown-detail-item">
-      <div class="countdown-detail-label">Date</div>
-      <div class="countdown-detail-value">Saturday, May 29th, 2027</div>
-    </div>
-    <div class="countdown-detail-divider"></div>
-    <div class="countdown-detail-item">
-      <div class="countdown-detail-label">Ceremony</div>
-      <div class="countdown-detail-value">Five thirty in the evening</div>
-    </div>
-    <div class="countdown-detail-divider"></div>
-    <div class="countdown-detail-item">
-      <div class="countdown-detail-label">Venue</div>
-      <div class="countdown-detail-value">Villa Mondragone</div>
-      <div class="countdown-detail-sub">Roma, Italy</div>
+<!-- ─── SAVE THE DATE ─── -->
+<section class="save-the-date" id="savethedate">
+  <div class="std-frame">
+    <img src="art-top.png?v=2" alt="Decorative top" class="std-art-top">
+    <img src="art-border-right.png?v=2" alt="Decorative left border" class="std-art-left">
+    <img src="art-border-right.png?v=2" alt="Decorative right border" class="std-art-right">
+    <img src="art-bottom.png?v=2" alt="Decorative bottom" class="std-art-bottom">
+    <div class="std-content">
+      <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--warm-gray); line-height: 1.8; margin-bottom: 1.5rem;">Together with their families, the pleasure of your company is requested at the wedding of</div>
+      <div style="font-family: 'Italianno', cursive; font-size: 3.5rem; color: var(--gold); line-height: 1.1; margin-bottom: 0.2rem;">Veronica Natale</div>
+      <div style="font-family: 'Italianno', cursive; font-size: 3.5rem; color: var(--gold); line-height: 1.1; margin-bottom: 1rem;"><span style="font-size: 2.8rem; margin-right: 0.1em;">&amp;</span> Samuel Hill</div>
+      <div class="std-divider"></div>
+      <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; color: var(--warm-gray); margin-bottom: 0.3rem; letter-spacing: 0.05em;">Saturday May 29<sup>th</sup>, 2027</div>
+      <div style="font-family: 'Italianno', cursive; font-size: 1.725rem; color: var(--warm-gray); margin-bottom: 0.5rem;">five thirty in the evening</div>
+      <div style="font-family: 'Italianno', cursive; font-size: 2.5rem; color: var(--gold); margin-bottom: 0;">Villa Mondragone</div>
+      <div style="font-family: 'Italianno', cursive; font-size: 2.25rem; color: var(--gold); margin-top: -0.8rem;">Monte Porzio Catone, Roma, Italy</div>
     </div>
   </div>
+
+</section>
+
+<!-- ─── INVITATION MODAL ─── -->
+<div class="inv-modal" id="invModal" onclick="if(event.target===this)this.classList.remove('active')">
+  <button class="inv-modal-close" onclick="document.getElementById('invModal').classList.remove('active')">&times;</button>
+  <img src="Wedding Invitation.svg" alt="Wedding Invitation">
+  <a href="Wedding Invitation.svg" download="Veronica-Samuel-Wedding-Invitation.svg" class="inv-dl-btn">&#8681; Download Invitation</a>
 </div>
+
+<!-- ─── PHOTO GALLERY ─── -->
+<section class="gallery-section" id="gallery">
+  <div class="section-label">Through the Years</div>
+  <div class="section-title">Our Story</div>
+  <p class="section-text" style="margin: 0 auto;">Two lives, one journey — from the very beginning to forever.</p>
+
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=Veronica+age+3" alt="Veronica as a child">
+      <div class="gallery-caption">Little Veronica</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=Sam+age+4" alt="Sam as a child">
+      <div class="gallery-caption">Little Sam</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=Veronica+growing+up" alt="Veronica growing up">
+      <div class="gallery-caption">Growing up in Italy</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=Sam+growing+up" alt="Sam growing up">
+      <div class="gallery-caption">Growing up in Texas</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=First+photo+together" alt="First photo together">
+      <div class="gallery-caption">The day we met</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=Dating+years" alt="Dating">
+      <div class="gallery-caption">Our adventures</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=The+proposal" alt="The proposal">
+      <div class="gallery-caption">The proposal</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://placehold.co/280x340/FAF5EE/B5AFA8?text=Engagement" alt="Engagement">
+      <div class="gallery-caption">Forever begins</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
 
 <!-- ─── SCHEDULE ─── -->
 <section id="schedule">
@@ -1165,7 +1829,7 @@
     <div class="timeline-item">
       <div class="timeline-time">8:00 PM</div>
       <div class="timeline-event">Dinner &amp; Toasts</div>
-      <div class="timeline-detail">A multi-course Italian feast under the stars. All dietary needs accommodated — please specify in your RSVP.</div>
+      <div class="timeline-detail">A multi-course Italian feast under the stars. All dietary needs accommodated — please <a href="#rsvp" style="color: var(--dusty-blue); text-decoration: none; border-bottom: 1px solid rgba(107,135,168,0.3);">specify in your RSVP</a>.</div>
     </div>
     <div class="timeline-item">
       <div class="timeline-time">10:00 PM</div>
@@ -1236,115 +1900,452 @@
       </ul>
     </div>
 
-    <div class="section-title" style="font-size: 1.6rem; margin-top: 2.5rem;">Near the Venue</div>
-    <p class="section-text">Villa Mondragone is in the Castelli Romani hills, near the charming town of Frascati. Staying nearby means less travel on the wedding day and a chance to explore the beautiful hill towns.</p>
+    <div class="location-tabs">
+      <button class="location-tab active" onclick="switchLocationTab('near-venue', this)">Near the Venue</button>
+      <button class="location-tab" onclick="switchLocationTab('central-rome', this)">In Central Rome</button>
+    </div>
+
+    <div class="location-panel active" id="near-venue">
+    <p class="section-text">Villa Mondragone is in the Castelli Romani hills, near Frascati. Staying nearby means less travel on the wedding day and a chance to explore the beautiful hill towns.</p>
 
     <div class="hotels-grid">
       <div class="hotel-card">
-        <div class="hotel-type">Closest to Venue</div>
-        <div class="hotel-name"><a href="https://maps.google.com/?q=Hotel+Flora+Frascati" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px solid rgba(201,169,110,0.3);">Hotel Flora</a></div>
-        <div class="hotel-detail">Viale Vittorio Veneto, 8 — Frascati</div>
-        <div class="hotel-detail">~10 min to venue by car</div>
-        <div class="hotel-price">From €90/night · ~$100 USD</div>
-        <div class="hotel-tags">
-          <span class="hotel-tag">Pool</span>
-          <span class="hotel-tag">Restaurant</span>
-          <span class="hotel-tag">Parking</span>
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?w=600&h=280&fit=crop" alt="LH Hotel Villa Vecchia">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Walking Distance to Venue</div>
+            <div class="hotel-name">LH Hotel Villa Vecchia</div>
+            <div class="hotel-price-brief">From €90/night · ~$100 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Frascati 49, Monte Porzio Catone</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Distance</div>
+              <div class="hotel-detail-value">Next door — same street as the venue</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+390694340096">+39 06 9434 0096</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.villavecchia.it" target="_blank">villavecchia.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Pool</span>
+              <span class="hotel-tag">Restaurant</span>
+              <span class="hotel-tag">Panoramic Views</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="hotel-card">
-        <div class="hotel-type">Boutique · Near Venue</div>
-        <div class="hotel-name"><a href="https://maps.google.com/?q=Park+Hotel+Villa+Grazioli+Grottaferrata" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px solid rgba(201,169,110,0.3);">Park Hotel Villa Grazioli</a></div>
-        <div class="hotel-detail">Via Umberto Pavoni, 19 — Grottaferrata</div>
-        <div class="hotel-detail">~15 min to venue by car</div>
-        <div class="hotel-price">From €150/night · ~$165 USD</div>
-        <div class="hotel-tags">
-          <span class="hotel-tag green">♿ Accessible</span>
-          <span class="hotel-tag">Historic Villa</span>
-          <span class="hotel-tag">Gardens</span>
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=280&fit=crop" alt="Villa Tuscolana Park Hotel">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Historic Villa · Frascati</div>
+            <div class="hotel-name">Villa Tuscolana Park Hotel</div>
+            <div class="hotel-price-brief">From €89/night · ~$98 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via del Tuscolo Km 1.5, Frascati</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Distance</div>
+              <div class="hotel-detail-value">~5 min to venue by car</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+3906942900">+39 06 942 900</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.villatuscolana.com/en/home/" target="_blank">villatuscolana.com</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">16th-Century Villa</span>
+              <span class="hotel-tag">Restaurant</span>
+              <span class="hotel-tag">Free Parking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&h=280&fit=crop" alt="Hotel Colonna">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Central Frascati · Near Train</div>
+            <div class="hotel-name">Hotel Colonna</div>
+            <div class="hotel-price-brief">From €80/night · ~$88 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Piazza del Gesu 12, Frascati</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Distance</div>
+              <div class="hotel-detail-value">~5 min to venue by car</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+390694018088">+39 06 9401 8088</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hotelcolonna.it/en/" target="_blank">hotelcolonna.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">200m from Train</span>
+              <span class="hotel-tag">Historic</span>
+              <span class="hotel-tag">Great Value</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=280&fit=crop" alt="Park Hotel Villa Grazioli">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Luxury · Grottaferrata</div>
+            <div class="hotel-name">Park Hotel Villa Grazioli</div>
+            <div class="hotel-price-brief">From €100/night · ~$110 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Umberto Pavoni 19, Grottaferrata</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Distance</div>
+              <div class="hotel-detail-value">~10 min to venue by car</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+3906945400">+39 06 945 400</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.villa-grazioli.it/en/" target="_blank">villa-grazioli.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">1580 Villa</span>
+              <span class="hotel-tag">Frescoed Rooms</span>
+              <span class="hotel-tag">Panoramic Views</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=280&fit=crop" alt="Hotel Cacciani">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Family-Run · Frascati</div>
+            <div class="hotel-name">Hotel Cacciani</div>
+            <div class="hotel-price-brief">From €100/night · ~$110 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Armando Diaz 13, Frascati</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Distance</div>
+              <div class="hotel-detail-value">~5 min to venue by car</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+39069420378">+39 06 942 0378</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://cacciani.it/en/hotel/" target="_blank">cacciani.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Since 1922</span>
+              <span class="hotel-tag">Restaurant</span>
+              <span class="hotel-tag">Rooftop Terrace</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=280&fit=crop" alt="Park Hotel Villa Ferrata">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">4-Star · Grottaferrata</div>
+            <div class="hotel-name">Park Hotel Villa Ferrata</div>
+            <div class="hotel-price-brief">From €90/night · ~$100 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Tuscolana 287, Grottaferrata</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Distance</div>
+              <div class="hotel-detail-value">~10 min to venue by car</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+390694548049">+39 06 9454 8049</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://villaferrata.it/" target="_blank">villaferrata.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Pool</span>
+              <span class="hotel-tag">70 Rooms</span>
+              <span class="hotel-tag">Free Parking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=280&fit=crop" alt="B&amp;B Bee">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">B&amp;B · Views of Venue</div>
+            <div class="hotel-name">B&amp;B Bee</div>
+            <div class="hotel-price-brief">From €100/night · ~$110 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Vicinale San Marco 10, Frascati</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Distance</div>
+              <div class="hotel-detail-value">~5 min to venue — direct views of Villa Mondragone</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+393474849005">+39 347 484 9005</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.bebbee.it/en/" target="_blank">bebbee.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">3 Rooms</span>
+              <span class="hotel-tag">Breakfast</span>
+              <span class="hotel-tag">Intimate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&h=280&fit=crop" alt="Tenuta di Pietra Porzia">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Agriturismo · Vineyard Estate</div>
+            <div class="hotel-name">Tenuta di Pietra Porzia</div>
+            <div class="hotel-price-brief">From €100/night · ~$110 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via di Pietra Porzia 60, Frascati</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">About</div>
+              <div class="hotel-detail-value">117-acre vineyard estate, pool, wine cellar, panoramic views</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+390620766341">+39 06 2076 6341</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.tenutadipietraporzia.it/en/" target="_blank">tenutadipietraporzia.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Vineyard</span>
+              <span class="hotel-tag">Pool</span>
+              <span class="hotel-tag">Restaurant</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    </div>
 
-    <div class="section-title" style="font-size: 1.6rem; margin-top: 2.5rem;">In Central Rome</div>
-    <p class="section-text">For those who want to explore the city before or after the wedding. Shuttle service to the venue will be provided. Mention "Veronica &amp; Samuel Wedding" for group rates where available.</p>
+    <div class="location-panel" id="central-rome">
+    <p class="section-text">For those who want to explore the city before or after the wedding. ~30–40 min to venue by car or shuttle.</p>
 
     <div class="hotels-grid">
       <div class="hotel-card">
-        <div class="hotel-type">Luxury Hotel</div>
-        <div class="hotel-name"><a href="https://maps.google.com/?q=Hotel+de+Russie+Rome" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px solid rgba(201,169,110,0.3);">Hotel de Russie</a></div>
-        <div class="hotel-detail">Via del Babuino, 9 — Piazza del Popolo area</div>
-        <div class="hotel-detail">~40 min to venue by car</div>
-        <div class="hotel-price">From €380/night · ~$415 USD — Group rate available</div>
-        <div class="hotel-tags">
-          <span class="hotel-tag green">♿ Accessible</span>
-          <span class="hotel-tag">Spa</span>
-          <span class="hotel-tag">Garden</span>
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1529154036614-a60975f5c760?w=600&h=280&fit=crop" alt="Hotel Santa Maria">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Boutique · Trastevere</div>
+            <div class="hotel-name">Hotel Santa Maria</div>
+            <div class="hotel-price-brief">From €109/night · ~$120 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Vicolo del Piede 2, Trastevere, Roma</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">About</div>
+              <div class="hotel-detail-value">17th-century cloister, 19 rooms around an orange garden courtyard</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+39065894626">+39 06 589 4626</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hotelsantamariatrastevere.it/en/" target="_blank">hotelsantamariatrastevere.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Courtyard</span>
+              <span class="hotel-tag">Breakfast Included</span>
+              <span class="hotel-tag">Charming</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="hotel-card">
-        <div class="hotel-type">Boutique Hotel</div>
-        <div class="hotel-name"><a href="https://maps.google.com/?q=Hotel+Santa+Maria+Trastevere+Rome" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px solid rgba(201,169,110,0.3);">Hotel Santa Maria</a></div>
-        <div class="hotel-detail">Vicolo del Piede, 2 — Trastevere</div>
-        <div class="hotel-detail">~35 min to venue by car</div>
-        <div class="hotel-price">From €160/night · ~$175 USD</div>
-        <div class="hotel-tags">
-          <span class="hotel-tag green">♿ Ground Floor Rooms</span>
-          <span class="hotel-tag">Courtyard</span>
-          <span class="hotel-tag">Charming</span>
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=280&fit=crop" alt="Hotel Campo de' Fiori">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Boutique · Centro Storico</div>
+            <div class="hotel-name">Hotel Campo de' Fiori</div>
+            <div class="hotel-price-brief">From €130/night · ~$143 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via del Biscione 6, Roma</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">About</div>
+              <div class="hotel-detail-value">Steps from Campo de' Fiori piazza, rooftop terrace, near Pantheon</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+39066874886">+39 06 687 4886</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hotelcampodefiori.com/en/" target="_blank">hotelcampodefiori.com</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Rooftop Terrace</span>
+              <span class="hotel-tag">Central</span>
+              <span class="hotel-tag">Walkable</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="hotel-card">
-        <div class="hotel-type">Mid-Range Hotel</div>
-        <div class="hotel-name"><a href="https://maps.google.com/?q=Hotel+Trastevere+Rome" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px solid rgba(201,169,110,0.3);">Hotel Trastevere</a></div>
-        <div class="hotel-detail">Via Luciano Manara, 24a — Trastevere</div>
-        <div class="hotel-detail">~35 min to venue by car</div>
-        <div class="hotel-price">From €110/night · ~$120 USD</div>
-        <div class="hotel-tags">
-          <span class="hotel-tag">Central</span>
-          <span class="hotel-tag">Great Value</span>
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=280&fit=crop" alt="Hotel Ponte Sisto">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">4-Star · Near Trastevere</div>
+            <div class="hotel-name">Hotel Ponte Sisto</div>
+            <div class="hotel-price-brief">From €114/night · ~$125 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via dei Pettinari 64, Roma</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">About</div>
+              <div class="hotel-detail-value">Courtyard garden oasis between Trastevere and Centro Storico</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+39066863100">+39 06 686 3100</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hotelpontesisto.it/en/" target="_blank">hotelpontesisto.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Garden</span>
+              <span class="hotel-tag">Near Campo de' Fiori</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="hotel-card">
-        <div class="hotel-type">Budget Friendly</div>
-        <div class="hotel-name"><a href="https://maps.google.com/?q=Generator+Rome+Hostel" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px solid rgba(201,169,110,0.3);">Generator Rome</a></div>
-        <div class="hotel-detail">Via Principe Amedeo, 257 — Near Termini Station</div>
-        <div class="hotel-detail">~40 min to venue by car</div>
-        <div class="hotel-price">From €45/night · ~$50 USD (private rooms available)</div>
-        <div class="hotel-tags">
-          <span class="hotel-tag green">♿ Accessible</span>
-          <span class="hotel-tag">Social</span>
-          <span class="hotel-tag">Modern</span>
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&h=280&fit=crop" alt="Hotel Donna Camilla Savelli">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Luxury · Trastevere</div>
+            <div class="hotel-name">Hotel Donna Camilla Savelli</div>
+            <div class="hotel-price-brief">From €230/night · ~$253 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Garibaldi 27, Trastevere, Roma</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">About</div>
+              <div class="hotel-detail-value">Borromini-designed 17th-century monastery, baroque architecture</div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+3906588861">+39 06 588 861</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.vretreats.com/en/donna-camilla-savelli/" target="_blank">vretreats.com</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Historic Monastery</span>
+              <span class="hotel-tag">Terrace</span>
+              <span class="hotel-tag">Luxury</span>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="hotel-card">
-        <div class="hotel-type">Airbnb Suggestion</div>
-        <div class="hotel-name">Frascati &amp; Castelli Romani</div>
-        <div class="hotel-detail">Search "Frascati" or "Castelli Romani" on Airbnb — charming hill town apartments near the venue</div>
-        <div class="hotel-price">From €60–150/night · ~$65–165 USD</div>
-        <div class="hotel-tags">
-          <span class="hotel-tag">Near Venue</span>
-          <span class="hotel-tag">Kitchen</span>
-          <span class="hotel-tag">Local Feel</span>
-        </div>
-      </div>
-
-      <div class="hotel-card">
-        <div class="hotel-type">Airbnb Suggestion</div>
-        <div class="hotel-name">Centro Storico Flats</div>
-        <div class="hotel-detail">Search "Rome Centro" on Airbnb — near Pantheon, Navona, Campo de' Fiori</div>
-        <div class="hotel-price">From €100–250/night · ~$110–275 USD</div>
-        <div class="hotel-tags">
-          <span class="hotel-tag">Sightseeing</span>
-          <span class="hotel-tag">Restaurants</span>
-          <span class="hotel-tag">Walkable</span>
-        </div>
-      </div>
+    </div>
     </div>
 
     <div class="travel-tips" style="margin-top: 2rem;">
@@ -1359,6 +2360,91 @@
   </div>
 </section>
 
+<!-- ─── THINGS TO DO ─── -->
+<section class="things-section" id="explore">
+  <div style="text-align: center;">
+    <div class="section-label">While You're Here</div>
+    <div class="section-title">Things to Do</div>
+    <p class="section-text" style="margin: 0 auto 0.5rem;">Rome and the Castelli Romani have so much to offer. Here are some of our favorite spots — we hope you'll explore!</p>
+  </div>
+
+  <div class="things-grid">
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=280&fit=crop" alt="The Colosseum" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Historic Site</div>
+        <div class="thing-name">The Colosseum & Roman Forum</div>
+        <div class="thing-desc">The heart of ancient Rome. Book skip-the-line tickets in advance — it's worth every minute.</div>
+        <a href="https://colosseo.it/en/" target="_blank" class="thing-link">Book tickets</a>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1529260830199-42c24126f198?w=600&h=280&fit=crop" alt="Trastevere" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Neighborhood</div>
+        <div class="thing-name">Trastevere</div>
+        <div class="thing-desc">Cobblestone streets, ivy-covered buildings, and the best trattorias in Rome. Perfect for an evening passeggiata.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&h=280&fit=crop" alt="Frascati wine tasting" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Food & Wine</div>
+        <div class="thing-name">Frascati Wine Tasting</div>
+        <div class="thing-desc">The Castelli Romani hills are famous for their white wines. Visit a local cantina near the venue for a tasting.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1541447271487-09612b3f49f7?w=600&h=280&fit=crop" alt="Vatican Museums" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Landmark</div>
+        <div class="thing-name">Vatican Museums & Sistine Chapel</div>
+        <div class="thing-desc">Raphael's rooms, Michelangelo's ceiling, and St. Peter's Basilica. Book early morning entry to avoid crowds.</div>
+        <a href="https://www.museivaticani.va/content/museivaticani/en.html" target="_blank" class="thing-link">Reserve entry</a>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=600&h=280&fit=crop" alt="Castel Gandolfo" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Day Trip</div>
+        <div class="thing-name">Castel Gandolfo & Lake Albano</div>
+        <div class="thing-desc">The Pope's summer residence, just minutes from the venue. Stunning lake views and a charming hilltop town.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=280&fit=crop" alt="Campo de' Fiori" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Food</div>
+        <div class="thing-name">Roscioli & Campo de' Fiori</div>
+        <div class="thing-desc">Rome's legendary deli and bakery, steps from the vibrant morning market. Try the carbonara and the supplì.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1525874684015-58379d421a52?w=600&h=280&fit=crop" alt="Piazza Navona" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Experience</div>
+        <div class="thing-name">Piazza Navona & Pantheon</div>
+        <div class="thing-desc">Baroque fountains, street artists, and one of the best-preserved ancient buildings in the world — all within a short walk.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=600&h=280&fit=crop" alt="Fatamorgana gelato" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Gelato</div>
+        <div class="thing-name">Fatamorgana</div>
+        <div class="thing-desc">The best gelato in Rome — all natural ingredients, creative flavors. Multiple locations across the city.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="divider"></div>
 
 <!-- ─── RSVP ─── -->
@@ -1367,6 +2453,7 @@
     <div class="section-label">Respond</div>
     <div class="section-title">RSVP</div>
     <p class="section-text" style="margin: 0 auto 0.5rem;">Please respond by <strong>January 15, 2027</strong> so we can finalize all the details for your comfort. This single form covers everything — your attendance, meal preferences, allergies, accessibility needs, and more.</p>
+    <a href="#" onclick="document.getElementById('invModal').classList.add('active'); return false;" class="std-invitation-link" style="margin-top: 1.5rem; margin-bottom: 1rem;">&#9993; View Wedding Invitation</a>
   </div>
 
   <!-- RSVP FORM -->
@@ -1627,6 +2714,33 @@
   </div>
 </section>
 
+<!-- ─── REGISTRY ─── -->
+<section class="registry-section" id="registry">
+  <div class="section-label">Gifts</div>
+  <div class="section-title">Registry</div>
+  <p class="registry-note">Your presence at our wedding is the greatest gift we could ask for. But if you'd like to honor us with a gift, we've registered at a few of our favorite places.</p>
+
+  <div class="registry-cards">
+    <a href="https://www.amazon.com/wedding/registry" target="_blank" class="registry-card">
+      <div class="registry-card-icon">&#9733;</div>
+      <div class="registry-card-name">Amazon</div>
+      <div class="registry-card-desc">Home & essentials</div>
+    </a>
+
+    <a href="https://www.zola.com" target="_blank" class="registry-card">
+      <div class="registry-card-icon">&#9829;</div>
+      <div class="registry-card-name">Zola</div>
+      <div class="registry-card-desc">Curated registry</div>
+    </a>
+
+    <a href="#" class="registry-card">
+      <div class="registry-card-icon">&#9788;</div>
+      <div class="registry-card-name">Honeymoon Fund</div>
+      <div class="registry-card-desc">Help us explore Italy</div>
+    </a>
+  </div>
+</section>
+
 <div class="divider"></div>
 
 <!-- ─── FAQ ─── -->
@@ -1707,18 +2821,32 @@
   </div>
 </section>
 
+<div class="divider"></div>
+
+<!-- ─── CONTACT ─── -->
+
 <!-- ─── FOOTER ─── -->
 <footer>
-  <div class="footer-names">Veronica &amp; Samuel</div>
-  <div class="footer-date">May 29, 2027 · Roma, Italia</div>
-  <p class="footer-note" style="margin-top: 2rem;">Questions? Reach out to us anytime.</p>
-  <p class="footer-contact" style="margin-top: 0.5rem;">
-    <a href="mailto:veronica.samuel.wedding@email.com">veronica.samuel.wedding@email.com</a>
-  </p>
-  <p class="footer-note" style="margin-top: 3rem; font-size: 0.68rem; opacity: 0.5;">Made with amore</p>
+  <div class="footer-photo">
+    <img src="DSC04655.jpg" alt="Veronica and Samuel">
+  </div>
+  <div class="footer-content">
+    <div class="footer-names">Veronica &amp; Samuel</div>
+    <div class="footer-date">May 29, 2027 · Roma, Italia</div>
+    <p class="footer-note" style="margin-top: 3rem; font-size: 0.95rem; opacity: 0.7;">Made with amore</p>
+  </div>
 </footer>
 
 <script>
+  // ─── EMAILJS CONFIGURATION ───
+  // Replace these with your actual EmailJS credentials (see README.md for setup instructions)
+  const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE';
+  const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE';
+  const EMAILJS_TEMPLATE_NOTIFY = 'YOUR_NOTIFY_TEMPLATE_ID';
+  const EMAILJS_TEMPLATE_CONFIRM = 'YOUR_CONFIRM_TEMPLATE_ID';
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
   // ─── NAVIGATION ───
   const nav = document.getElementById('mainNav');
   const hamburger = document.getElementById('hamburger');
@@ -1872,11 +3000,21 @@
     }
   }
 
-  // ─── FORM SUBMISSION ───
-  function handleSubmit(e) {
+  // ─── LOCATION TAB TOGGLE ───
+  function switchLocationTab(panelId, btn) {
+    document.querySelectorAll('.location-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.location-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+
+  // ─── FORM SUBMISSION (RSVP) ───
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const form = document.getElementById('weddingRSVP');
+    const submitBtn = document.getElementById('submitBtn');
     const formData = new FormData(form);
     const data = {};
 
@@ -1903,23 +3041,19 @@
     if (data.attending === 'yes') {
       emailBody += `MEAL PREFERENCE: ${data.mealPref || 'Not specified'}\n`;
 
-      // Allergies
       const allergies = formData.getAll('allergies');
       emailBody += `ALLERGIES: ${allergies.length > 0 ? allergies.join(', ') : 'None'}\n`;
       if (data.otherAllergies) emailBody += `OTHER DIETARY NOTES: ${data.otherAllergies}\n`;
       emailBody += `\n`;
 
-      // Accessibility
       const accessNeeds = formData.getAll('accessibility');
       emailBody += `ACCESSIBILITY NEEDS: ${accessNeeds.length > 0 ? accessNeeds.join(', ') : 'None'}\n`;
       if (data.accessibilityNotes) emailBody += `ACCESSIBILITY DETAILS: ${data.accessibilityNotes}\n`;
       emailBody += `\n`;
 
-      // Transport
       emailBody += `SHUTTLE NEEDED: ${data.shuttle || 'Not specified'}\n`;
       emailBody += `STAYING AT: ${data.hotel || 'Not specified'}\n\n`;
 
-      // Children
       if (data.children === 'yes') {
         emailBody += `CHILDREN: Yes\n`;
         emailBody += `NUMBER OF CHILDREN: ${data.childCount || 'Not specified'}\n`;
@@ -1927,7 +3061,6 @@
         emailBody += `CHILDREN'S NEEDS: ${data.childNeeds || 'None specified'}\n\n`;
       }
 
-      // Additional guests
       for (let i = 1; i <= guestCount; i++) {
         const gFirst = formData.get(`guest_${i}_first`);
         const gLast = formData.get(`guest_${i}_last`);
@@ -1939,26 +3072,59 @@
         }
       }
 
-      // Notes
       if (data.notes) emailBody += `MESSAGE: ${data.notes}\n`;
     }
 
-    // Construct mailto link
-    const subject = encodeURIComponent(`Wedding RSVP: ${data.firstName} ${data.lastName} — ${attending}`);
-    const body = encodeURIComponent(emailBody);
-    const brideEmail = 'veronica.samuel.wedding@email.com'; // ← REPLACE WITH BRIDE'S REAL EMAIL
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.style.opacity = '0.7';
 
-    // Open email client
-    window.location.href = `mailto:${brideEmail}?subject=${subject}&body=${body}`;
+    // Prepare template parameters
+    const templateParams = {
+      form_type: 'rsvp',
+      sender_name: `${data.firstName} ${data.lastName}`,
+      sender_email: data.email,
+      subject: `Wedding RSVP: ${data.firstName} ${data.lastName} — ${attending}`,
+      message_body: emailBody,
+      confirm_subject: 'Your RSVP Confirmation — Veronica & Samuel Wedding',
+      confirm_body: `Dear ${data.firstName},\n\nThank you for your RSVP! Here is a copy of what you submitted:\n\n${emailBody}\n\nIf you need to make any changes, please email vnnatale@gmail.com.\n\nWith love,\nVeronica & Samuel`
+    };
 
-    // Show success after brief delay
-    setTimeout(() => {
+    try {
+      // Send notification to Veronica
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_NOTIFY, templateParams);
+
+      // Send confirmation receipt to guest
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CONFIRM, templateParams);
+
+      // Show success
       form.style.display = 'none';
       document.getElementById('successMessage').classList.add('show');
-      // Scroll to success
       document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 500);
+
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send RSVP';
+      submitBtn.style.opacity = '1';
+      alert('Something went wrong sending your RSVP. Please try again, or email vnnatale@gmail.com directly.');
+    }
   }
+
+  // ─── FORM SUBMISSION (CONTACT) ───
+  // ─── CONTACT DROPDOWN ───
+  function toggleContactDropdown(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    document.getElementById('contactDropdown').classList.toggle('show');
+  }
+  document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('contactDropdown');
+    if (dropdown && !e.target.closest('.nav-contact')) {
+      dropdown.classList.remove('show');
+    }
+  });
 
   // ─── SCROLL ANIMATIONS ───
   const observer = new IntersectionObserver((entries) => {
@@ -1980,3 +3146,12 @@
 
 </body>
 </html>
+
+</html>
+>
+>
+
+</html>
+>
+l>
+>
