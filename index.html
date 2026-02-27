@@ -411,21 +411,22 @@
     .hero { min-height: 100vh; }
     .hero-content {
       width: 100%;
-      padding: 2rem 1.5rem 3rem;
-      padding-top: 6rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 75%, transparent 100%);
+      padding: 0 1.2rem 3.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 35%, transparent 55%);
       justify-content: flex-end;
       text-align: center;
     }
     .hero-photo { height: 100vh; }
     .hero-photo img {
       transform: none;
-      object-position: 60% 30%;
+      object-position: 50% 5%;
     }
-    .hero-save-the-date { font-size: 1.4rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
-    .hero-names { font-size: 1.8rem; line-height: 1.3; }
-    .hero-date-line { margin: 0.8rem auto; }
-    .hero-countdown div { gap: 1rem !important; justify-content: center; }
+    .hero-save-the-date { font-size: 1.1rem; margin-bottom: 0.5rem; letter-spacing: 0.12em; }
+    .hero-names { font-size: 2rem; line-height: 1.2; margin-bottom: 0; }
+    .hero-married { font-size: 0.95rem; margin-top: 0.3rem; }
+    .hero-date-line { margin: 0.4rem auto; height: 20px; }
+    .hero-countdown { margin-top: 0.6rem !important; }
+    .hero-countdown div { gap: 0.8rem !important; justify-content: center; }
     .hero-cd-num { font-size: 1.4rem; }
     .hero-cd-label { font-size: 0.5rem; }
     .hero-scroll { display: none; }
@@ -495,6 +496,47 @@
     text-align: center;
     z-index: 3;
     padding: 15rem 12rem 5rem;
+  }
+  .std-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--warm-gray);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .std-bride, .std-groom {
+    font-family: 'Italianno', cursive;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1.1;
+  }
+  .std-bride { margin-bottom: 0.2rem; }
+  .std-groom { margin-bottom: 1rem; }
+  .std-date-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--warm-gray);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+  .std-time {
+    font-family: 'Italianno', cursive;
+    font-size: 1.725rem;
+    color: var(--warm-gray);
+    margin-bottom: 0.5rem;
+  }
+  .std-venue-name {
+    font-family: 'Italianno', cursive;
+    font-size: 2.5rem;
+    color: var(--gold);
+  }
+  .std-venue-loc {
+    font-family: 'Italianno', cursive;
+    font-size: 2.25rem;
+    color: var(--gold);
+    margin-top: -0.8rem;
   }
   .std-label {
     font-family: 'Italianno', cursive;
@@ -576,19 +618,30 @@
   .inv-dl-btn:hover { background:rgba(255,255,255,0.25); }
 
   @media (max-width: 768px) {
-    .save-the-date { padding: 3rem 1rem; overflow: hidden; }
-    .std-frame { min-height: 300px; }
-    .std-art-top { width: 150px; top: -10px; }
-    .std-art-bottom { width: 110px; bottom: -5px; }
+    .save-the-date { padding: 1rem 0.5rem; overflow: hidden; }
+    .std-frame { min-height: auto; max-width: 100%; }
+    .std-art-top { width: 60px; top: -8px; transform: translateX(-50%) rotate(90deg); }
+    .std-art-bottom { width: 50px; bottom: -5px; }
     .std-art-left { display: none; }
     .std-art-right { display: none; }
-    .std-content { padding: 6rem 1.5rem 3rem; }
-    .std-content div { font-size: 1rem !important; }
-    .std-content div:nth-child(2), .std-content div:nth-child(3) { font-size: 2.2rem !important; }
-    .std-label { font-size: 2.6rem; margin-top: 3rem; }
-    .std-names { font-size: 1.6rem; }
-    .std-ampersand { font-size: 2rem; }
-    .std-date { font-size: 1.8rem; }
+    .std-content { padding: 2rem 1.5rem 1.5rem; }
+    .std-intro { font-size: 0.82rem; line-height: 1.5; margin-bottom: 0.6rem; }
+    .std-bride, .std-groom { font-size: 2rem; }
+    .std-bride { margin-bottom: 0; }
+    .std-groom { margin-bottom: 0.4rem; }
+    .std-ampersand { font-size: 1.6rem; }
+    .std-divider { margin: 0.4rem auto; width: 30px; }
+    .std-date-line { font-size: 0.95rem; }
+    .std-time { font-size: 1rem; }
+    .std-venue-name { font-size: 1.4rem; }
+    .std-venue-loc { font-size: 1.2rem; margin-top: -0.3rem; }
+    .std-label { font-size: 2rem; margin-top: 0; margin-bottom: 0.4rem; }
+    .std-names { font-size: 1.3rem; }
+    .std-date { font-size: 1.4rem; }
+    .std-location { font-size: 0.75rem; letter-spacing: 0.1em; }
+    .std-venue { font-size: 1.1rem; }
+    .std-note { font-size: 0.65rem; }
+    .std-invitation-link { font-size: 0.9rem; margin-top: 0.6rem; }
   }
 
   /* ─── SECTIONS ─── */
@@ -1664,10 +1717,41 @@
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
-    .form-row { grid-template-columns: 1fr; }
-    .form-container { padding: 1.2rem 1rem; }
-    section { padding: 3.5rem 1.2rem; }
-    .venue-features { max-width: 100%; }
+    section { padding: 2.5rem 1rem; }
+
+    .section-label { font-size: 0.78rem; }
+    .section-title { font-size: 1.8rem; }
+    .section-text { font-size: 1rem; }
+
+    /* Gallery */
+    .gallery-section { padding-left: 0; padding-right: 0; }
+    .gallery-track { gap: 0.3rem; }
+    .gallery-item { flex: 0 0 calc((100% - 0.9rem) / 3); }
+    .gallery-item img { height: 160px; border-radius: 4px; }
+    .gallery-caption { font-size: 0.7rem; }
+
+    /* Things to Do */
+    .things-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .thing-img { height: 140px; }
+    .thing-card-body { padding: 0.8rem 1rem 1rem; }
+    .thing-card-body h3 { font-size: 1.1rem; }
+    .thing-card-body p { font-size: 0.82rem; }
+
+    /* Hotels */
+    .hotels-grid { grid-template-columns: 1fr; }
+    .hotel-img { height: 140px; }
+    .hotel-summary { padding: 0.8rem 1rem 0; }
+    .hotel-name { font-size: 1.1rem; }
+    .hotel-type { font-size: 0.72rem; }
+    .hotel-price-brief { font-size: 0.78rem; }
+    .hotel-expanded-inner { padding: 0.6rem 1rem 1rem; }
+    .hotel-detail-label { font-size: 0.6rem; }
+    .hotel-detail-value { font-size: 0.8rem; }
+    .hotel-tag { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
+    .location-tabs { gap: 0.5rem; }
+    .location-tab { font-size: 0.82rem; padding: 0.5rem 1rem; }
+
+    /* Schedule */
     #schedule .section-label,
     #schedule .section-title,
     #schedule .section-text { text-align: center; }
@@ -1675,21 +1759,46 @@
     .timeline { padding-left: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto; }
     .timeline-item { padding-left: 1rem; }
     .timeline-item::before { left: -1.85rem; }
-    .gallery-track { gap: 0.5rem; }
-    .gallery-item { flex: 0 0 calc((100% - 1rem) / 3); }
-    .gallery-item img { height: 200px; }
+    .timeline-time { font-size: 0.85rem; }
+    .timeline-event { font-size: 1rem; }
+    .timeline-detail { font-size: 0.82rem; }
+
+    /* Venue */
+    .venue-features { max-width: 100%; }
+    .venue-name { font-size: 1.4rem; }
+    .venue-address { font-size: 0.85rem; line-height: 1.5; }
+    .venue-buttons { gap: 0.4rem; justify-content: center; }
+    .venue-btn { font-size: 0.7rem; padding: 0.4rem 0.7rem; border-radius: 20px; }
+    .venue-info-panel { max-width: 100%; }
+    .venue-info-panel.open { padding: 1rem; }
+    .venue-info-panel p { font-size: 0.78rem; line-height: 1.5; }
+
+    /* RSVP */
+    .form-row { grid-template-columns: 1fr; }
+    .form-container { padding: 1.2rem 1rem; max-width: 100%; }
     .radio-group, .checkbox-group { flex-direction: column; }
     .radio-label, .checkbox-label { width: 100%; }
+
+    /* Registry */
+    .registry-cards { gap: 0.8rem; }
+    .registry-card { width: 140px; padding: 1rem 0.8rem; }
+    .registry-card-icon { font-size: 1.2rem; }
+    .registry-card-name { font-size: 0.9rem; }
+    .registry-card-desc { font-size: 0.7rem; }
+
+    /* Footer */
     footer { min-height: auto; }
-    .footer-photo { height: 50vh; }
+    .footer-photo { height: 40vh; }
     .footer-content {
       width: 100%;
       position: relative;
-      padding: 2.5rem 1.5rem;
+      padding: 2rem 1.2rem;
       text-align: center;
       align-items: center;
       background: var(--charcoal);
     }
+    .footer-names { font-size: 1.8rem; }
+    .footer-date { font-size: 0.9rem; }
     .footer-photo::after {
       background: linear-gradient(to bottom, transparent 60%, rgba(58,53,50,0.8) 100%);
     }
@@ -1788,14 +1897,14 @@
     <img src="art-border-right.png?v=2" alt="Decorative right border" class="std-art-right">
     <img src="art-bottom.png?v=2" alt="Decorative bottom" class="std-art-bottom">
     <div class="std-content">
-      <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--warm-gray); line-height: 1.8; margin-bottom: 1.5rem;">Together with their families, the pleasure of your company is requested at the wedding of</div>
-      <div style="font-family: 'Italianno', cursive; font-size: 3.5rem; color: var(--gold); line-height: 1.1; margin-bottom: 0.2rem;">Veronica Natale</div>
-      <div style="font-family: 'Italianno', cursive; font-size: 3.5rem; color: var(--gold); line-height: 1.1; margin-bottom: 1rem;"><span style="font-size: 2.8rem; margin-right: 0.1em;">&amp;</span> Samuel Hill</div>
+      <div class="std-intro">Together with their families, the pleasure of your company is requested at the wedding of</div>
+      <div class="std-bride">Veronica Natale</div>
+      <div class="std-groom"><span class="std-ampersand">&amp;</span> Samuel Hill</div>
       <div class="std-divider"></div>
-      <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; color: var(--warm-gray); margin-bottom: 0.3rem; letter-spacing: 0.05em;">Saturday May 29<sup>th</sup>, 2027</div>
-      <div style="font-family: 'Italianno', cursive; font-size: 1.725rem; color: var(--warm-gray); margin-bottom: 0.5rem;">five thirty in the evening</div>
-      <div style="font-family: 'Italianno', cursive; font-size: 2.5rem; color: var(--gold); margin-bottom: 0;">Villa Mondragone</div>
-      <div style="font-family: 'Italianno', cursive; font-size: 2.25rem; color: var(--gold); margin-top: -0.8rem;">Monte Porzio Catone, Roma, Italy</div>
+      <div class="std-date-line">Saturday May 29<sup>th</sup>, 2027</div>
+      <div class="std-time">five thirty in the evening</div>
+      <div class="std-venue-name">Villa Mondragone</div>
+      <div class="std-venue-loc">Monte Porzio Catone, Roma, Italy</div>
     </div>
   </div>
 
@@ -3186,36 +3295,53 @@
   const galleryTrack = document.getElementById('galleryTrack');
   const galleryItems = galleryTrack.querySelectorAll('.gallery-item');
   const dotsContainer = document.getElementById('galleryDots');
-  let galleryIndex = 0;
-  const visibleCount = window.innerWidth <= 768 ? 3 : 5;
-  const totalPages = Math.ceil(galleryItems.length / visibleCount);
+  let galleryPos = 0;
 
-  // Build dots
-  for (let i = 0; i < totalPages; i++) {
-    const dot = document.createElement('button');
-    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-    dot.onclick = () => goToGalleryPage(i);
-    dotsContainer.appendChild(dot);
+  function getVisibleCount() {
+    return window.innerWidth <= 768 ? 3 : 5;
   }
 
-  function goToGalleryPage(page) {
-    galleryIndex = page;
+  function getMaxPos() {
+    return Math.max(0, galleryItems.length - getVisibleCount());
+  }
+
+  function buildDots() {
+    dotsContainer.innerHTML = '';
+    const maxPos = getMaxPos();
+    const vis = getVisibleCount();
+    const totalDots = Math.ceil(galleryItems.length / vis);
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => {
+        galleryPos = Math.min(i * vis, maxPos);
+        updateGallery();
+      };
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateGallery() {
     const itemWidth = galleryItems[0].offsetWidth;
     const gap = parseFloat(getComputedStyle(galleryTrack).gap) || 0;
-    const offset = page * visibleCount * (itemWidth + gap);
+    const offset = galleryPos * (itemWidth + gap);
     galleryTrack.style.transition = 'transform 0.5s ease';
     galleryTrack.style.transform = `translateX(-${offset}px)`;
+    const vis = getVisibleCount();
+    const activeDot = Math.min(Math.floor(galleryPos / vis), dotsContainer.children.length - 1);
     dotsContainer.querySelectorAll('.gallery-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === page);
+      d.classList.toggle('active', i === activeDot);
     });
   }
 
   function slideGallery(dir) {
-    const newIndex = galleryIndex + dir;
-    if (newIndex >= 0 && newIndex < totalPages) {
-      goToGalleryPage(newIndex);
-    }
+    const vis = getVisibleCount();
+    const newPos = galleryPos + (dir * vis);
+    galleryPos = Math.max(0, Math.min(newPos, getMaxPos()));
+    updateGallery();
   }
+
+  buildDots();
 
   // ─── SCROLL ANIMATIONS ───
   const observer = new IntersectionObserver((entries) => {
