@@ -1547,25 +1547,62 @@
   .party-members {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.6rem;
     margin-bottom: 1.5rem;
   }
-  .party-member {
+  .party-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.1rem;
     background: var(--white);
     border: 1px solid rgba(201,169,110,0.3);
     border-radius: 10px;
-    padding: 1rem 1.2rem;
-  }
-  .party-member-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
     color: var(--charcoal);
-    margin-bottom: 0.7rem;
   }
-  .party-member-choices {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
+  .party-checkbox:hover {
+    border-color: var(--gold);
+    background: var(--cream-warm);
+  }
+  .party-checkbox input[type="checkbox"] {
+    display: none;
+  }
+  .party-check-box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid rgba(201,169,110,0.6);
+    border-radius: 3px;
+    background: var(--white);
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .party-checkbox input:checked ~ .party-check-box {
+    background: #7BA67B;
+    border-color: #7BA67B;
+  }
+  .party-checkbox input:checked ~ .party-check-box::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid var(--white);
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+  }
+  .party-check-label {
+    flex: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+  }
+  .party-checkbox input:checked ~ .party-check-label {
+    color: var(--charcoal);
+    font-weight: 500;
   }
   .party-choice {
     display: flex;
@@ -2886,10 +2923,25 @@
 
       <!-- YOUR PARTY -->
       <div class="form-section-title"><span class="form-section-icon">💌</span> Your Party</div>
-      <p style="font-size: 0.82rem; color: var(--warm-gray); margin-bottom: 1rem;">After entering your name above, the people on your invitation will appear below. Please mark each one as joyfully accepting or regretfully declining.</p>
+      <p id="partyHelpText" style="font-size: 0.82rem; color: var(--warm-gray); margin-bottom: 1rem;">After entering your name above, the family members on your invitation will appear below. Check the box next to anyone who will be joyfully accepting with you. Leave unchecked anyone who's regretfully declining.</p>
 
       <div id="partyLookupMessage" class="party-lookup-message" style="display:none;"></div>
       <div id="partyMembers" class="party-members"></div>
+
+      <!-- YOUR RSVP -->
+      <div class="form-group" id="selfRsvpBlock" style="display:none;">
+        <label>Your RSVP *</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="selfResponse" value="accept" onchange="updateAttendingFields()">
+            <span>Joyfully Accept</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="selfResponse" value="decline" onchange="updateAttendingFields()">
+            <span>Regretfully Decline</span>
+          </label>
+        </div>
+      </div>
 
       <!-- GENTLE NOTE ON +1s AND CHILDREN -->
       <div class="rsvp-note">
@@ -3237,6 +3289,7 @@
       msg.textContent = "We can't find that name on our guest list. Please double-check the spelling, or contact Veronica if you think this is a mistake.";
       container.innerHTML = '';
       currentParty = null;
+      document.getElementById('selfRsvpBlock').style.display = 'none';
       updateAttendingFields();
       return;
     }
@@ -3244,35 +3297,35 @@
     currentParty = match;
     msg.style.display = 'none';
     renderParty(match);
+    document.getElementById('selfRsvpBlock').style.display = '';
   }
 
   function renderParty(party) {
     const container = document.getElementById('partyMembers');
-    container.innerHTML = party.members.map((m, i) => {
-      const safeId = `party-${i}`;
-      return `
-        <div class="party-member">
-          <div class="party-member-name">${m.firstName} ${m.lastName}</div>
-          <div class="party-member-choices">
-            <label class="party-choice accept">
-              <input type="radio" name="${safeId}_response" value="accept" onchange="updateAttendingFields()">
-              <span class="party-check"></span>
-              <span class="party-choice-label">Joyfully Accept</span>
-            </label>
-            <label class="party-choice decline">
-              <input type="radio" name="${safeId}_response" value="decline" onchange="updateAttendingFields()">
-              <span class="party-check"></span>
-              <span class="party-choice-label">Regretfully Decline</span>
-            </label>
-          </div>
-        </div>
-      `;
-    }).join('');
+    const selfFirst = normalizeName(document.getElementById('firstName').value);
+    const selfLast = normalizeName(document.getElementById('lastName').value);
+
+    const others = party.members.filter(m =>
+      !(normalizeName(m.firstName) === selfFirst && normalizeName(m.lastName) === selfLast)
+    );
+
+    if (others.length === 0) {
+      container.innerHTML = `<p style="font-size: 0.85rem; color: var(--warm-gray); font-style: italic;">You're the only person on your invitation — just fill in your RSVP below.</p>`;
+      return;
+    }
+
+    container.innerHTML = others.map((m, i) => `
+      <label class="party-checkbox">
+        <input type="checkbox" name="partyMember_${i}" value="${m.firstName} ${m.lastName}" data-fn="${m.firstName}" data-ln="${m.lastName}">
+        <span class="party-check-box"></span>
+        <span class="party-check-label">${m.firstName} ${m.lastName} — Joyfully Accepting</span>
+      </label>
+    `).join('');
   }
 
   function updateAttendingFields() {
-    const anyAccept = document.querySelectorAll('input[value="accept"]:checked').length > 0;
-    document.getElementById('attendingFields').style.display = anyAccept ? 'block' : 'none';
+    const selfAccept = document.querySelector('input[name="selfResponse"]:checked')?.value === 'accept';
+    document.getElementById('attendingFields').style.display = selfAccept ? 'block' : 'none';
   }
 
   (function attachLookupListeners() {
@@ -3338,12 +3391,19 @@
       }
     }
 
-    // Build party responses
-    const partyResponses = (currentParty?.members || []).map((m, i) => ({
-      name: `${m.firstName} ${m.lastName}`,
-      response: formData.get(`party-${i}_response`) || 'no-response'
-    }));
-    const anyAccept = partyResponses.some(r => r.response === 'accept');
+    // Self response
+    const selfResponse = data.selfResponse === 'accept' ? 'Joyfully Accepts' : 'Regretfully Declines';
+
+    // Other party members: checked checkboxes = accepting
+    const selfFirst = (data.firstName || '').trim().toLowerCase();
+    const selfLast = (data.lastName || '').trim().toLowerCase();
+    const others = (currentParty?.members || []).filter(m =>
+      !(m.firstName.trim().toLowerCase() === selfFirst && m.lastName.trim().toLowerCase() === selfLast)
+    );
+    const checkedNames = formData.getAll('partyMember_0').concat(
+      Array.from({length: others.length}, (_, i) => formData.get(`partyMember_${i}`)).filter(v => v)
+    );
+    const uniqueChecked = [...new Set(checkedNames)];
 
     // Build email body
     let emailBody = `RSVP RESPONSE — Veronica & Samuel Wedding\n`;
@@ -3354,18 +3414,15 @@
 
     emailBody += `PARTY RESPONSES\n`;
     emailBody += `${'─'.repeat(45)}\n`;
-    if (partyResponses.length === 0) {
-      emailBody += `(No party found for this name — please verify.)\n`;
-    } else {
-      partyResponses.forEach(r => {
-        const label = r.response === 'accept' ? 'Joyfully Accepts' :
-                      r.response === 'decline' ? 'Regretfully Declines' :
-                      'No response';
-        emailBody += `  • ${r.name} — ${label}\n`;
-      });
-    }
+    emailBody += `  • ${data.firstName} ${data.lastName} — ${selfResponse}\n`;
+    others.forEach(m => {
+      const fullName = `${m.firstName} ${m.lastName}`;
+      const accepted = uniqueChecked.includes(fullName);
+      emailBody += `  • ${fullName} — ${accepted ? 'Joyfully Accepts' : 'Regretfully Declines'}\n`;
+    });
     emailBody += `\n`;
 
+    const anyAccept = data.selfResponse === 'accept' || uniqueChecked.length > 0;
     if (anyAccept) {
       emailBody += `DIETARY PREFERENCE: ${data.mealPref || 'No restrictions'}\n`;
       if (data.otherAllergies) emailBody += `DIETARY NOTES: ${data.otherAllergies}\n`;
