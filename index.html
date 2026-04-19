@@ -3275,14 +3275,21 @@
     document.getElementById('attendingFields').style.display = anyAccept ? 'block' : 'none';
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  (function attachLookupListeners() {
     const first = document.getElementById('firstName');
     const last = document.getElementById('lastName');
     if (first && last) {
+      let timer = null;
+      const debounced = () => {
+        clearTimeout(timer);
+        timer = setTimeout(lookupParty, 250);
+      };
       first.addEventListener('blur', lookupParty);
       last.addEventListener('blur', lookupParty);
+      first.addEventListener('input', debounced);
+      last.addEventListener('input', debounced);
     }
-  });
+  })();
 
   // ─── FAQ ───
   function toggleFaq(el) {
