@@ -1570,18 +1570,21 @@
   .party-choice {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
-    padding: 0.5rem 0.9rem;
-    border: 1px solid rgba(201,169,110,0.4);
-    border-radius: 20px;
+    gap: 0.6rem;
+    padding: 0.7rem 1.1rem;
+    border: 1.5px solid rgba(201,169,110,0.45);
+    border-radius: 22px;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 0.85rem;
-    color: var(--warm-gray);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--charcoal);
     background: var(--cream);
   }
   .party-choice:hover {
     border-color: var(--gold);
+    background: var(--white);
   }
   .party-choice input[type="radio"] {
     display: none;
@@ -2896,50 +2899,23 @@
       <!-- ATTENDING FIELDS (hidden until at least one "accept") -->
       <div id="attendingFields" style="display:none;">
 
-        <!-- DIETARY / ALLERGIES -->
+        <!-- DIETARY -->
         <div class="form-section-title" style="margin-top: 2rem;"><span class="form-section-icon">🍽️</span> Dining &amp; Dietary</div>
-        <p style="font-size: 0.82rem; color: var(--warm-gray); margin-bottom: 1rem;">Our chef will prepare a multi-course Italian menu. Please let us know about any dietary requirements so we can ensure every guest is delighted.</p>
+        <p style="font-size: 0.82rem; color: var(--warm-gray); margin-bottom: 1rem;">Our chef will prepare a multi-course Italian menu. Please share any dietary needs below.</p>
 
         <div class="form-group">
-          <label for="mealPref">Meal Preference *</label>
-          <select id="mealPref" name="mealPref" required>
-            <option value="">Select preference</option>
-            <option value="omnivore">Everything (no restrictions)</option>
+          <label for="mealPref">Dietary Preference</label>
+          <select id="mealPref" name="mealPref">
+            <option value="">No restrictions</option>
             <option value="vegetarian">Vegetarian</option>
-            <option value="vegan">Vegan</option>
             <option value="pescatarian">Pescatarian</option>
-            <option value="halal">Halal</option>
-            <option value="kosher">Kosher</option>
+            <option value="gluten-free">Gluten-free</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Food Allergies (select all that apply)</label>
-          <div class="checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" name="allergies" value="nuts"><span>Nuts</span><div class="checkmark"></div>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="allergies" value="dairy"><span>Dairy</span><div class="checkmark"></div>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="allergies" value="gluten"><span>Gluten</span><div class="checkmark"></div>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="allergies" value="shellfish"><span>Shellfish</span><div class="checkmark"></div>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="allergies" value="eggs"><span>Eggs</span><div class="checkmark"></div>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="allergies" value="soy"><span>Soy</span><div class="checkmark"></div>
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="otherAllergies">Other Allergies or Dietary Notes</label>
-          <input type="text" id="otherAllergies" name="otherAllergies" placeholder="e.g., severe peanut allergy, low sodium diet...">
+          <label for="otherAllergies">Allergies or Other Dietary Notes</label>
+          <input type="text" id="otherAllergies" name="otherAllergies" placeholder="e.g., severe peanut allergy, dairy-free...">
         </div>
 
         <!-- ACCESSIBILITY -->
@@ -3297,9 +3273,6 @@
   function updateAttendingFields() {
     const anyAccept = document.querySelectorAll('input[value="accept"]:checked').length > 0;
     document.getElementById('attendingFields').style.display = anyAccept ? 'block' : 'none';
-    const mealPref = document.getElementById('mealPref');
-    if (anyAccept) mealPref.setAttribute('required', '');
-    else mealPref.removeAttribute('required');
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -3387,11 +3360,8 @@
     emailBody += `\n`;
 
     if (anyAccept) {
-      emailBody += `MEAL PREFERENCE: ${data.mealPref || 'Not specified'}\n`;
-
-      const allergies = formData.getAll('allergies');
-      emailBody += `ALLERGIES: ${allergies.length > 0 ? allergies.join(', ') : 'None'}\n`;
-      if (data.otherAllergies) emailBody += `OTHER DIETARY NOTES: ${data.otherAllergies}\n`;
+      emailBody += `DIETARY PREFERENCE: ${data.mealPref || 'No restrictions'}\n`;
+      if (data.otherAllergies) emailBody += `DIETARY NOTES: ${data.otherAllergies}\n`;
       emailBody += `\n`;
 
       const accessNeeds = formData.getAll('accessibility');
