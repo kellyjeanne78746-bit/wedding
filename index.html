@@ -1551,17 +1551,28 @@
     margin-bottom: 1.5rem;
   }
   .party-row {
-    padding: 0.2rem 0;
+    padding: 0.9rem 1.1rem;
+    background: var(--white);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 10px;
   }
   .party-row-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
+    font-weight: 500;
     color: var(--charcoal);
-    margin-bottom: 0.55rem;
+    margin-bottom: 0.8rem;
+  }
+  .party-row-rsvp-label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.3rem;
   }
   .party-row-choices {
     margin-top: 0;
-    margin-bottom: 0.6rem;
   }
   .party-choice {
     display: flex;
@@ -3181,6 +3192,7 @@
       return `
         <div class="party-row">
           <div class="party-row-name">${m.firstName} ${m.lastName}</div>
+          <label class="party-row-rsvp-label">Your RSVP *</label>
           <div class="radio-group party-row-choices">
             <label class="radio-label">
               <input type="radio" name="${rowId}_response" value="accept" onchange="updateAttendingFields()">
