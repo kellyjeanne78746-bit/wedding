@@ -1,0 +1,26 @@
+{
+  "_instructions": "Each entry under 'parties' is one household/family unit. The person who RSVPs can respond on behalf of every member of their party. Replace these placeholder entries with the real guest list — first/last name lookup is case-insensitive.",
+  "parties": [
+    {
+      "id": "natale-family",
+      "members": [
+        { "firstName": "Veronica", "lastName": "Natale" }
+      ]
+    },
+    {
+      "id": "hill-family",
+      "members": [
+        { "firstName": "Kelly", "lastName": "Hill" },
+        { "firstName": "Sam", "lastName": "Hill" }
+      ]
+    },
+    {
+      "id": "smith-family",
+      "members": [
+        { "firstName": "John", "lastName": "Smith" },
+        { "firstName": "Jane", "lastName": "Smith" },
+        { "firstName": "Emma", "lastName": "Smith" }
+      ]
+    }
+  ]
+}
