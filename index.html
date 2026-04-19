@@ -1532,17 +1532,20 @@
 
   /* ─── REGISTRY ─── */
   .registry-section {
-    background: var(--charcoal);
+    background-image: url('images/colosseo-forehead-kiss.jpeg?v=4');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
     text-align: center;
-    color: var(--white);
+    color: var(--warm-gray);
   }
-  .registry-section .section-label { color: var(--gold); }
-  .registry-section .section-title { color: var(--white); }
+  .registry-section .section-label { color: var(--gold-dark); }
+  .registry-section .section-title { color: var(--warm-gray); }
   .registry-note {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
     font-style: italic;
-    color: rgba(255,255,255,0.7);
+    color: var(--warm-gray);
     max-width: 550px;
     margin: 0 auto 2.5rem;
     line-height: 1.7;
@@ -1563,17 +1566,17 @@
     gap: 0.8rem;
     width: 250px;
     padding: 2.5rem 1.5rem;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(201,169,110,0.25);
+    background: var(--white);
+    border: 1px solid rgba(201,169,110,0.3);
     border-radius: 12px;
     text-decoration: none;
     transition: all 0.4s ease;
-    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 12px rgba(201,169,110,0.08);
   }
   .registry-card:hover {
-    background: rgba(201,169,110,0.12);
+    background: var(--cream-warm);
     border-color: var(--gold);
-    box-shadow: 0 8px 30px rgba(201,169,110,0.15);
+    box-shadow: 0 8px 30px rgba(201,169,110,0.2);
     transform: translateY(-6px);
   }
   .registry-card-icon {
@@ -1588,12 +1591,12 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.4rem;
     font-weight: 500;
-    color: var(--white);
+    color: var(--warm-gray);
     letter-spacing: 0.03em;
   }
   .registry-card-desc {
     font-size: 0.85rem;
-    color: rgba(255,255,255,0.5);
+    color: var(--warm-gray);
     font-weight: 300;
   }
   .registry-card-btn {
@@ -1601,8 +1604,8 @@
     font-size: 0.7rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid rgba(201,169,110,0.4);
+    color: var(--gold-dark);
+    border: 1px solid rgba(201,169,110,0.5);
     border-radius: 20px;
     padding: 0.4rem 1.2rem;
     margin-top: 0.3rem;
@@ -1610,7 +1613,7 @@
   }
   .registry-card:hover .registry-card-btn {
     background: var(--gold);
-    color: var(--charcoal);
+    color: var(--white);
     border-color: var(--gold);
   }
 
