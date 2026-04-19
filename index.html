@@ -1532,15 +1532,12 @@
 
   /* ─── REGISTRY ─── */
   .registry-section {
-    background-image: url('images/colosseo-forehead-kiss.jpeg?v=4');
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: var(--cream);
     text-align: center;
-    color: var(--warm-gray);
+    color: var(--charcoal);
   }
   .registry-section .section-label { color: var(--gold-dark); }
-  .registry-section .section-title { color: var(--warm-gray); }
+  .registry-section .section-title { color: var(--charcoal); }
   .registry-note {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
@@ -1550,22 +1547,23 @@
     margin: 0 auto 2.5rem;
     line-height: 1.7;
   }
-  .registry-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
+  .registry-image {
+    display: block;
+    width: 100%;
     max-width: 900px;
-    margin: 0 auto;
+    height: auto;
+    margin: 0 auto 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 18px rgba(201,169,110,0.15);
   }
-  .registry-card {
+  .registry-card-horizontal {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    width: 250px;
-    padding: 2.5rem 1.5rem;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1.8rem 2.2rem;
     background: var(--white);
     border: 1px solid rgba(201,169,110,0.3);
     border-radius: 12px;
@@ -1573,45 +1571,52 @@
     transition: all 0.4s ease;
     box-shadow: 0 2px 12px rgba(201,169,110,0.08);
   }
-  .registry-card:hover {
+  .registry-card-horizontal:hover {
     background: var(--cream-warm);
     border-color: var(--gold);
     box-shadow: 0 8px 30px rgba(201,169,110,0.2);
-    transform: translateY(-6px);
+    transform: translateY(-4px);
   }
-  .registry-card-icon {
-    font-size: 2.5rem;
+  .registry-card-horizontal .card-left {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: left;
+  }
+  .registry-card-horizontal .card-icon {
+    font-size: 2.2rem;
     color: var(--gold);
     transition: transform 0.4s;
   }
-  .registry-card:hover .registry-card-icon {
+  .registry-card-horizontal:hover .card-icon {
     transform: scale(1.15);
   }
-  .registry-card-name {
+  .registry-card-horizontal .card-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 500;
-    color: var(--warm-gray);
+    color: var(--charcoal);
     letter-spacing: 0.03em;
+    margin-bottom: 0.15rem;
   }
-  .registry-card-desc {
+  .registry-card-horizontal .card-desc {
     font-size: 0.85rem;
     color: var(--warm-gray);
     font-weight: 300;
   }
-  .registry-card-btn {
+  .registry-card-horizontal .card-btn {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--gold-dark);
     border: 1px solid rgba(201,169,110,0.5);
     border-radius: 20px;
-    padding: 0.4rem 1.2rem;
-    margin-top: 0.3rem;
+    padding: 0.5rem 1.4rem;
     transition: all 0.3s;
+    white-space: nowrap;
   }
-  .registry-card:hover .registry-card-btn {
+  .registry-card-horizontal:hover .card-btn {
     background: var(--gold);
     color: var(--white);
     border-color: var(--gold);
@@ -1813,11 +1818,20 @@
     .radio-label, .checkbox-label { width: 100%; }
 
     /* Registry */
-    .registry-cards { gap: 1rem; }
-    .registry-card { width: 100%; max-width: 300px; padding: 1.8rem 1.2rem; }
-    .registry-card-icon { font-size: 2rem; }
-    .registry-card-name { font-size: 1.2rem; }
-    .registry-card-desc { font-size: 0.78rem; }
+    .registry-card-horizontal {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.6rem 1.2rem;
+      text-align: center;
+    }
+    .registry-card-horizontal .card-left {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.6rem;
+    }
+    .registry-card-horizontal .card-icon { font-size: 2rem; }
+    .registry-card-horizontal .card-name { font-size: 1.25rem; }
+    .registry-card-horizontal .card-desc { font-size: 0.8rem; }
 
     /* Footer */
     footer { min-height: auto; }
@@ -2968,28 +2982,18 @@
   <div class="section-title">Registry</div>
   <p class="registry-note">Your presence at our wedding is the greatest gift we could ask for. But if you'd like to honor us with a gift, we've registered at a few of our favorite places.</p>
 
-  <div class="registry-cards">
-    <a href="https://www.amazon.com/wedding/registry" target="_blank" class="registry-card">
-      <div class="registry-card-icon">&#10047;</div>
-      <div class="registry-card-name">Amazon</div>
-      <div class="registry-card-desc">Home essentials for our new chapter together</div>
-      <div class="registry-card-btn">Browse Registry</div>
-    </a>
+  <img src="images/colosseo-forehead-kiss.jpeg" alt="Veronica and Sam at the Colosseum" class="registry-image">
 
-    <a href="https://www.zola.com" target="_blank" class="registry-card">
-      <div class="registry-card-icon">&#9829;</div>
-      <div class="registry-card-name">Zola</div>
-      <div class="registry-card-desc">A curated collection of things we love</div>
-      <div class="registry-card-btn">View Wishlist</div>
-    </a>
-
-    <a href="#" class="registry-card">
-      <div class="registry-card-icon">&#9992;</div>
-      <div class="registry-card-name">Honeymoon Fund</div>
-      <div class="registry-card-desc">Help us explore the Amalfi Coast after the wedding</div>
-      <div class="registry-card-btn">Contribute</div>
-    </a>
-  </div>
+  <a href="#" class="registry-card-horizontal">
+    <div class="card-left">
+      <div class="card-icon">&#9992;</div>
+      <div>
+        <div class="card-name">Honeymoon Fund</div>
+        <div class="card-desc">Help us explore the Amalfi Coast after the wedding</div>
+      </div>
+    </div>
+    <div class="card-btn">Contribute</div>
+  </a>
 </section>
 
 <div class="divider"></div>
