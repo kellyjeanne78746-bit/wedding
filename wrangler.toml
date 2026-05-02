@@ -1,0 +1,35 @@
+name = "veronica-and-sam-wedding"
+compatibility_date = "2025-09-01"
+pages_build_output_dir = "./deploy/public"
+
+# ── KV: RSVPS ────────────────────────────────────────────────────────────────
+# Stores submitted RSVPs (one entry per partyId). Read/written by
+# functions/api/rsvp.js.
+[[kv_namespaces]]
+binding = "RSVPS"
+id = "1f3ebee6c0f4416999d882abd197f769"
+preview_id = "56cc1f6b7e3b457db6b1b68f1635a5a9"
+
+# ── KV: GUESTS ───────────────────────────────────────────────────────────────
+# Holds the canonical guest list (single key: "list"). Seeded from
+# functions/guests.json by `npm run sync-guests` (which runs automatically as
+# part of `npm run deploy`). Read by functions/api/lookup.js + rsvp.js.
+#
+# One-time setup — create the namespaces and paste the IDs below:
+#   npx wrangler kv namespace create GUESTS
+#   npx wrangler kv namespace create GUESTS --preview
+[[kv_namespaces]]
+binding = "GUESTS"
+id = "5df2873b69f849cf99af58d99f4ea879"
+preview_id = "b004095a853340c795502e2516aedbfb"
+
+# ── Secret: SITE_PASSCODE ────────────────────────────────────────────────────
+# The shared passcode for the site-wide gate (functions/_middleware.js).
+# NEVER commit the value to source. Set it via:
+#   npx wrangler pages secret put SITE_PASSCODE
+# (or in the Cloudflare dashboard: Pages → your project → Settings →
+# Environment variables → add a secret in Production AND Preview).
+# To rotate: re-run the same command — all existing cookies invalidate
+# automatically when the value changes.
+# For local development with `wrangler pages dev`, put it in .dev.vars instead
+# (file is gitignored — see .dev.vars.example).

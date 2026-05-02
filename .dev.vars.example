@@ -1,0 +1,4 @@
+# Copy this file to `.dev.vars` (no extension) for local development with
+# `wrangler pages dev`. The real .dev.vars file is gitignored so you can put
+# the real passcode there safely. Do NOT commit .dev.vars.
+SITE_PASSCODE=change-me-locally

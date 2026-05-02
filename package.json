@@ -1,0 +1,15 @@
+{
+  "name": "veronica-and-sam-wedding",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Wedding website for Veronica and Samuel — Cloudflare Pages.",
+  "scripts": {
+    "sync-guests": "wrangler kv key put --binding=GUESTS --preview false list --path=functions/guests.json",
+    "sync-guests:local": "wrangler kv key put --binding=GUESTS --preview false --local list --path=functions/guests.json",
+    "deploy": "npm run sync-guests && wrangler pages deploy ./deploy/public",
+    "dev": "wrangler pages dev ./deploy/public"
+  },
+  "devDependencies": {
+    "wrangler": "^3.95.0"
+  }
+}

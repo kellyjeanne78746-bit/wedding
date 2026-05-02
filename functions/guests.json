@@ -1,0 +1,980 @@
+{
+  "_README": "This file is the master guest list. Open in TextEdit, edit entries below, save, then run `npm run deploy` from the project folder. Each entry under 'parties' is one household — whoever RSVPs answers for everyone in their party. Keep the JSON structure exactly as shown (curly braces, square brackets, and commas all matter). Name matching is case-insensitive. The 'id' for each party can be anything unique.",
+  "parties": [
+    {
+      "id": "household-1",
+      "members": [
+        {
+          "firstName": "Andrea",
+          "lastName": "Natale",
+          "email": "dr.natale@gmail.com"
+        },
+        {
+          "firstName": "Marina",
+          "lastName": "Natale",
+          "email": "marinanatale@gmail.com"
+        },
+        {
+          "firstName": "Eleonora",
+          "lastName": "Natale",
+          "email": "ellenatale0@gmail.com"
+        }
+      ]
+    },
+    {
+      "id": "household-2",
+      "members": [
+        {
+          "firstName": "Kelly",
+          "lastName": "Hill",
+          "email": "kellyjeanne78746@gmail.com"
+        }
+      ]
+    },
+    {
+      "id": "household-3",
+      "members": [
+        {
+          "firstName": "Miles",
+          "lastName": "Ingram"
+        }
+      ]
+    },
+    {
+      "id": "household-4",
+      "members": [
+        {
+          "firstName": "Matthew",
+          "lastName": "Ingram",
+          "email": "mattingram.desertrose@gmail.com"
+        },
+        {
+          "firstName": "Kirby",
+          "lastName": "Kissinger"
+        }
+      ]
+    },
+    {
+      "id": "household-5",
+      "members": [
+        {
+          "firstName": "Nick",
+          "lastName": "Goetz",
+          "email": "nich9838@gmail.com"
+        },
+        {
+          "firstName": "Emily",
+          "lastName": "Goetz"
+        }
+      ]
+    },
+    {
+      "id": "household-6",
+      "members": [
+        {
+          "firstName": "Giovanni",
+          "lastName": "Caruso"
+        }
+      ]
+    },
+    {
+      "id": "household-7",
+      "members": [
+        {
+          "firstName": "Bruno",
+          "lastName": "Naglieri"
+        },
+        {
+          "firstName": "Alessia",
+          "lastName": "Naglieri"
+        },
+        {
+          "firstName": "Fulvio",
+          "lastName": "Naglieri"
+        }
+      ]
+    },
+    {
+      "id": "household-8",
+      "members": [
+        {
+          "firstName": "Jake",
+          "lastName": "Hill"
+        },
+        {
+          "firstName": "Jake's",
+          "lastName": "Wife"
+        }
+      ]
+    },
+    {
+      "id": "household-9",
+      "members": [
+        {
+          "firstName": "Samantha",
+          "lastName": "Hill"
+        },
+        {
+          "firstName": "Samantha's",
+          "lastName": "Spouse"
+        }
+      ]
+    },
+    {
+      "id": "household-10",
+      "members": [
+        {
+          "firstName": "Alex",
+          "lastName": "Hill"
+        },
+        {
+          "firstName": "Alex Hill",
+          "lastName": "Spouse"
+        }
+      ]
+    },
+    {
+      "id": "household-11",
+      "members": [
+        {
+          "firstName": "Sam",
+          "lastName": "Hill"
+        },
+        {
+          "firstName": "Pam",
+          "lastName": "Hill"
+        }
+      ]
+    },
+    {
+      "id": "household-12",
+      "members": [
+        {
+          "firstName": "Bridget",
+          "lastName": "Hill",
+          "email": "6479851974bridgethill1@hotmail.com"
+        }
+      ]
+    },
+    {
+      "id": "household-13",
+      "members": [
+        {
+          "firstName": "David",
+          "lastName": "Shoreman"
+        },
+        {
+          "firstName": "Karen",
+          "lastName": "Shoreman"
+        },
+        {
+          "firstName": "Ellie",
+          "lastName": "Shoreman"
+        }
+      ]
+    },
+    {
+      "id": "household-14",
+      "members": [
+        {
+          "firstName": "Kenny",
+          "lastName": "Cole"
+        },
+        {
+          "firstName": "Ashley",
+          "lastName": "Cole"
+        }
+      ]
+    },
+    {
+      "id": "household-15",
+      "members": [
+        {
+          "firstName": "Sonya",
+          "lastName": "Reed"
+        }
+      ]
+    },
+    {
+      "id": "household-16",
+      "members": [
+        {
+          "firstName": "Nadine",
+          "lastName": "Rather"
+        },
+        {
+          "firstName": "Ken",
+          "lastName": "Rather"
+        }
+      ]
+    },
+    {
+      "id": "household-17",
+      "members": [
+        {
+          "firstName": "Melissa",
+          "lastName": "Crosby",
+          "email": "melissajdyer93@gmail.com"
+        },
+        {
+          "firstName": "Michael",
+          "lastName": "Crosby"
+        }
+      ]
+    },
+    {
+      "id": "household-18",
+      "members": [
+        {
+          "firstName": "Stancil",
+          "lastName": "Barton"
+        },
+        {
+          "firstName": "Gwen",
+          "lastName": "Barton",
+          "email": "gwenbarton@rocketmail.com"
+        }
+      ]
+    },
+    {
+      "id": "household-19",
+      "members": [
+        {
+          "firstName": "John",
+          "lastName": "Pagano"
+        },
+        {
+          "firstName": "Michelle",
+          "lastName": "Pagano"
+        }
+      ]
+    },
+    {
+      "id": "household-20",
+      "members": [
+        {
+          "firstName": "Stancil",
+          "lastName": "Barton",
+          "email": "stancilbarton@yahoo.com"
+        }
+      ]
+    },
+    {
+      "id": "household-21",
+      "members": [
+        {
+          "firstName": "Rick",
+          "lastName": "Dyer"
+        },
+        {
+          "firstName": "Holly",
+          "lastName": "Dyer"
+        }
+      ]
+    },
+    {
+      "id": "household-22",
+      "members": [
+        {
+          "firstName": "Grant",
+          "lastName": "Barton"
+        },
+        {
+          "firstName": "Foy",
+          "lastName": "Barton"
+        }
+      ]
+    },
+    {
+      "id": "household-23",
+      "members": [
+        {
+          "firstName": "Geeta",
+          "lastName": "Bajaj"
+        }
+      ]
+    },
+    {
+      "id": "household-24",
+      "members": [
+        {
+          "firstName": "Kyle",
+          "lastName": "Compton",
+          "email": "comptonkyle1@yahoo.com"
+        },
+        {
+          "firstName": "Gloria",
+          "lastName": "Sortos"
+        }
+      ]
+    },
+    {
+      "id": "household-25",
+      "members": [
+        {
+          "firstName": "Julian",
+          "lastName": "Denman",
+          "email": "jdenman43@hotmail.com"
+        }
+      ]
+    },
+    {
+      "id": "household-26",
+      "members": [
+        {
+          "firstName": "Auston",
+          "lastName": "Litton",
+          "email": "austonlitton@gmail.com"
+        },
+        {
+          "firstName": "Candelaria",
+          "lastName": "Diaz"
+        }
+      ]
+    },
+    {
+      "id": "household-27",
+      "members": [
+        {
+          "firstName": "Chris Van",
+          "lastName": "Datta",
+          "email": "cvandatta1@gmail.com"
+        },
+        {
+          "firstName": "Julianne Van",
+          "lastName": "Datta"
+        }
+      ]
+    },
+    {
+      "id": "household-28",
+      "members": [
+        {
+          "firstName": "John",
+          "lastName": "Kinzell"
+        },
+        {
+          "firstName": "Ann",
+          "lastName": "Kinzell"
+        }
+      ]
+    },
+    {
+      "id": "household-29",
+      "members": [
+        {
+          "firstName": "Giovanni",
+          "lastName": "Caruso"
+        }
+      ]
+    },
+    {
+      "id": "household-30",
+      "members": [
+        {
+          "firstName": "Marita",
+          "lastName": "Landaveri"
+        }
+      ]
+    },
+    {
+      "id": "household-31",
+      "members": [
+        {
+          "firstName": "Alessandro",
+          "lastName": "Natale"
+        },
+        {
+          "firstName": "Maria Pia",
+          "lastName": "Natale"
+        },
+        {
+          "firstName": "Chiara",
+          "lastName": "Natale"
+        }
+      ]
+    },
+    {
+      "id": "household-32",
+      "members": [
+        {
+          "firstName": "Antonio",
+          "lastName": "Natale"
+        },
+        {
+          "firstName": "Anna Maria",
+          "lastName": "Natale"
+        }
+      ]
+    },
+    {
+      "id": "household-33",
+      "members": [
+        {
+          "firstName": "Alex",
+          "lastName": "Natale"
+        },
+        {
+          "firstName": "Maria Frida",
+          "lastName": "Natale"
+        }
+      ]
+    },
+    {
+      "id": "household-34",
+      "members": [
+        {
+          "firstName": "Monsignore Gennaro",
+          "lastName": "Vitiello"
+        }
+      ]
+    },
+    {
+      "id": "household-35",
+      "members": [
+        {
+          "firstName": "Padre",
+          "lastName": "Gianmaria"
+        }
+      ]
+    },
+    {
+      "id": "household-36",
+      "members": [
+        {
+          "firstName": "Fiametta",
+          "lastName": "Natale"
+        },
+        {
+          "firstName": "Valentina",
+          "lastName": "Natale"
+        },
+        {
+          "firstName": "Adelaide",
+          "lastName": "Natale"
+        }
+      ]
+    },
+    {
+      "id": "household-37",
+      "members": [
+        {
+          "firstName": "Antonio",
+          "lastName": "Ciniglio"
+        },
+        {
+          "firstName": "Antonio Ciniglio +",
+          "lastName": "Wife?"
+        }
+      ]
+    },
+    {
+      "id": "household-38",
+      "members": [
+        {
+          "firstName": "Giovanna Caruso",
+          "lastName": "(milano)"
+        }
+      ]
+    },
+    {
+      "id": "household-39",
+      "members": [
+        {
+          "firstName": "Luigi Di",
+          "lastName": "Biase"
+        },
+        {
+          "firstName": "Aixa Di",
+          "lastName": "Biase"
+        }
+      ]
+    },
+    {
+      "id": "household-40",
+      "members": [
+        {
+          "firstName": "Domenico Della",
+          "lastName": "Rocca"
+        },
+        {
+          "firstName": "Domenico",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-41",
+      "members": [
+        {
+          "firstName": "Nino",
+          "lastName": "Santangeli"
+        },
+        {
+          "firstName": "Nino",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-42",
+      "members": [
+        {
+          "firstName": "Marianna",
+          "lastName": "Cesareo"
+        },
+        {
+          "firstName": "Marianna",
+          "lastName": "husbnd"
+        }
+      ]
+    },
+    {
+      "id": "household-43",
+      "members": [
+        {
+          "firstName": "Filomena",
+          "lastName": "Cesareo"
+        },
+        {
+          "firstName": "Francesco",
+          "lastName": "Cesareo"
+        }
+      ]
+    },
+    {
+      "id": "household-44",
+      "members": [
+        {
+          "firstName": "Nicolletta Pireddu +",
+          "lastName": "family"
+        },
+        {
+          "firstName": "",
+          "lastName": "Pireddu"
+        },
+        {
+          "firstName": "",
+          "lastName": "Pireddu"
+        },
+        {
+          "firstName": "",
+          "lastName": "Pireddu"
+        }
+      ]
+    },
+    {
+      "id": "household-45",
+      "members": [
+        {
+          "firstName": "Sakis",
+          "lastName": "Themistoklacis"
+        },
+        {
+          "firstName": "Bernadetta",
+          "lastName": "Themistoklacis"
+        }
+      ]
+    },
+    {
+      "id": "household-46",
+      "members": [
+        {
+          "firstName": "Dean Manuel",
+          "lastName": "Justiz"
+        },
+        {
+          "firstName": "Dean",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-47",
+      "members": [
+        {
+          "firstName": "Mitra",
+          "lastName": "Husband"
+        },
+        {
+          "firstName": "Mitra",
+          "lastName": "Mohanty"
+        }
+      ]
+    },
+    {
+      "id": "household-48",
+      "members": [
+        {
+          "firstName": "Pierre",
+          "lastName": "Guerci"
+        }
+      ]
+    },
+    {
+      "id": "household-49",
+      "members": [
+        {
+          "firstName": "Raviele +",
+          "lastName": "wife"
+        },
+        {
+          "firstName": "Raviele",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-50",
+      "members": [
+        {
+          "firstName": "Ruggiero",
+          "lastName": "Mango"
+        },
+        {
+          "firstName": "Mango",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-51",
+      "members": [
+        {
+          "firstName": "Giovanni",
+          "lastName": "Forleo"
+        },
+        {
+          "firstName": "Forleo",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-52",
+      "members": [
+        {
+          "firstName": "Guisseppe Stiffano +",
+          "lastName": "Wife"
+        },
+        {
+          "firstName": "Guisseppe Stiffano",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-53",
+      "members": [
+        {
+          "firstName": "Lucia",
+          "lastName": "Collaro"
+        }
+      ]
+    },
+    {
+      "id": "household-54",
+      "members": [
+        {
+          "firstName": "Jeet Kemka +",
+          "lastName": "Husband"
+        },
+        {
+          "firstName": "Jeet",
+          "lastName": "Husband"
+        },
+        {
+          "firstName": "Uday",
+          "lastName": "Kemka"
+        },
+        {
+          "firstName": "Uday",
+          "lastName": "Wife"
+        },
+        {
+          "firstName": "Shiv",
+          "lastName": "Kemka"
+        }
+      ]
+    },
+    {
+      "id": "household-55",
+      "members": [
+        {
+          "firstName": "Deborah",
+          "lastName": ""
+        },
+        {
+          "firstName": "Deborah",
+          "lastName": "husband"
+        }
+      ]
+    },
+    {
+      "id": "household-56",
+      "members": [
+        {
+          "firstName": "Apoorva",
+          "lastName": "Pradhan"
+        }
+      ]
+    },
+    {
+      "id": "household-57",
+      "members": [
+        {
+          "firstName": "Michelle",
+          "lastName": "Shultiva"
+        }
+      ]
+    },
+    {
+      "id": "household-58",
+      "members": [
+        {
+          "firstName": "Ghyselle",
+          "lastName": "Perez"
+        },
+        {
+          "firstName": "Ghyselle",
+          "lastName": "husband"
+        }
+      ]
+    },
+    {
+      "id": "household-59",
+      "members": [
+        {
+          "firstName": "Alejandra",
+          "lastName": "Garcia"
+        },
+        {
+          "firstName": "Jose",
+          "lastName": "Garcia",
+          "email": "pepjag@comcast.net"
+        }
+      ]
+    },
+    {
+      "id": "household-60",
+      "members": [
+        {
+          "firstName": "Angela",
+          "lastName": "Green",
+          "email": "angela.green@jhmi.edu"
+        },
+        {
+          "firstName": "Angela",
+          "lastName": "Husband"
+        }
+      ]
+    },
+    {
+      "id": "household-61",
+      "members": [
+        {
+          "firstName": "Dr.Julia Kim and",
+          "lastName": "Husband",
+          "email": "jkim315@jhmi.edu"
+        },
+        {
+          "firstName": "Dr.Julia",
+          "lastName": "Husband"
+        }
+      ]
+    },
+    {
+      "id": "household-62",
+      "members": [
+        {
+          "firstName": "Mark",
+          "lastName": "Wathen"
+        },
+        {
+          "firstName": "Cheryl",
+          "lastName": "Wathen"
+        },
+        {
+          "firstName": "Stephen",
+          "lastName": "Wathen"
+        }
+      ]
+    },
+    {
+      "id": "household-63",
+      "members": [
+        {
+          "firstName": "Erin",
+          "lastName": "Brennan"
+        },
+        {
+          "firstName": "Blake",
+          "lastName": "Brennan"
+        }
+      ]
+    },
+    {
+      "id": "household-64",
+      "members": [
+        {
+          "firstName": "April",
+          "lastName": "Taylor",
+          "email": "ataylo97@jhmi.edu"
+        }
+      ]
+    },
+    {
+      "id": "household-65",
+      "members": [
+        {
+          "firstName": "Lauren",
+          "lastName": "Johnston",
+          "email": "lboboni1@jhmi.edu"
+        },
+        {
+          "firstName": "Lauren",
+          "lastName": "husband"
+        }
+      ]
+    },
+    {
+      "id": "household-66",
+      "members": [
+        {
+          "firstName": "Michael",
+          "lastName": "Dexter",
+          "email": "mdexter3@jhmi.edu"
+        },
+        {
+          "firstName": "Valerie",
+          "lastName": "Dexter"
+        }
+      ]
+    },
+    {
+      "id": "household-67",
+      "members": [
+        {
+          "firstName": "Dr. Ann",
+          "lastName": "Kane",
+          "email": "annkane@jhu.edu"
+        },
+        {
+          "firstName": "Ethan",
+          "lastName": "Kane"
+        }
+      ]
+    },
+    {
+      "id": "household-68",
+      "members": [
+        {
+          "firstName": "Dr. Rahul",
+          "lastName": "Koka",
+          "email": "rkoka1@jh.edu"
+        }
+      ]
+    },
+    {
+      "id": "household-69",
+      "members": [
+        {
+          "firstName": "Koka's",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-70",
+      "members": [
+        {
+          "firstName": "Dr. David",
+          "lastName": "Stockwell",
+          "email": "stockwell@jhu.edu"
+        },
+        {
+          "firstName": "Stockwell",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-71",
+      "members": [
+        {
+          "firstName": "Kate",
+          "lastName": "Brant",
+          "email": "kcass1@jhmi.edu"
+        },
+        {
+          "firstName": "Evan",
+          "lastName": "Brant"
+        }
+      ]
+    },
+    {
+      "id": "household-72",
+      "members": [
+        {
+          "firstName": "Kate",
+          "lastName": "Piazza",
+          "email": "kpiazza3@jh.edu"
+        },
+        {
+          "firstName": "Vito",
+          "lastName": "Piazza"
+        }
+      ]
+    },
+    {
+      "id": "household-73",
+      "members": [
+        {
+          "firstName": "Ron",
+          "lastName": "Adams",
+          "email": "ron@tier3.pro"
+        },
+        {
+          "firstName": "Ron's",
+          "lastName": "wife"
+        }
+      ]
+    },
+    {
+      "id": "household-74",
+      "members": [
+        {
+          "firstName": "Troy",
+          "lastName": "Smith",
+          "email": "troy@wakewealth.com"
+        },
+        {
+          "firstName": "Moana",
+          "lastName": "Smith"
+        }
+      ]
+    },
+    {
+      "id": "household-75",
+      "members": [
+        {
+          "firstName": "Kate",
+          "lastName": "Hill"
+        }
+      ]
+    },
+    {
+      "id": "household-76",
+      "members": [
+        {
+          "firstName": "Elizabeth",
+          "lastName": "Reed"
+        },
+        {
+          "firstName": "Bill",
+          "lastName": "Reed"
+        }
+      ]
+    }
+  ]
+}

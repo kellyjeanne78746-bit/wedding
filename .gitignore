@@ -1,0 +1,16 @@
+# Cloudflare Pages local secrets — never commit
+.dev.vars
+
+# Wrangler state
+.wrangler/
+
+# Node
+node_modules/
+
+# Raw guest-list source files (xlsx imports etc.) — contain personal contact
+# info, must never be committed or deployed.
+_source/
+
+# macOS
+.DS_Store
+**/.DS_Store
