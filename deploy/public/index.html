@@ -206,7 +206,7 @@
   }
   .monogram-banner img,
   .monogram-banner svg {
-    max-height: clamp(56px, 11vw, 280px);
+    max-height: 280px;
     width: auto;
     display: block;
   }
@@ -308,7 +308,6 @@
     width: 100%;
     height: auto;
     display: block;
-    filter: brightness(1.18) saturate(1.25) contrast(1.06);
   }
 
   /* ─── SAVE THE DATE TEXT ─── */
@@ -464,7 +463,10 @@
       transform: none;
       width: 100%;
       height: auto;
+      filter: brightness(1.18) saturate(1.25) contrast(1.06);
     }
+    .monogram-banner img,
+    .monogram-banner svg { max-height: clamp(56px, 11vw, 200px); }
     .hero-save-the-date { font-size: 1.35rem; margin-top: 0; margin-bottom: 0.5rem; letter-spacing: 0.12em; }
     .hero-names { font-size: 2.3rem; line-height: 1.2; margin-bottom: 0; }
     .hero-ampersand { transform: none; }
