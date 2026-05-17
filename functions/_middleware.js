@@ -41,124 +41,122 @@ function timingSafeEqual(a, b) {
   return r === 0;
 }
 
-function gatePage(errorMessage) {
+function gatePage(errorMessage, prefillEmail) {
   const errorHtml = errorMessage
     ? `<p class="gate-error">${errorMessage}</p>`
+    : "";
+  const emailValue = prefillEmail
+    ? ` value="${String(prefillEmail).replace(/"/g, "&quot;")}"`
     : "";
   const body = `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Veronica &amp; Samuel — Save the Date</title>
+  <title>Veronica &amp; Samuel &mdash; We are getting married in Italy!</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
   <style>
     html, body { margin: 0; padding: 0; min-height: 100vh; }
     body {
-      background: #FBF8F1;
-      color: #3a2e1f;
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      background: #EAE0D4;
+      color: #B17F5F;
+      font-family: 'EB Garamond', 'Times New Roman', serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 32px 24px;
       box-sizing: border-box;
     }
     .gate-card {
-      background: #ffffff;
-      border: 1px solid #E8C87A;
-      border-radius: 6px;
-      max-width: 440px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      max-width: 1240px;
       width: 100%;
-      padding: 48px 36px 40px;
-      box-shadow: 0 8px 32px rgba(60, 40, 10, 0.08);
+      padding: 0;
       text-align: center;
       box-sizing: border-box;
     }
-    .gate-ornament {
-      font-size: 22px;
-      letter-spacing: 0.6em;
-      color: #C9A961;
-      margin: 0 0 14px;
-    }
     .gate-title {
-      font-family: 'Italiana', 'Cormorant Garamond', serif;
-      font-size: 34px;
-      letter-spacing: 0.06em;
-      color: #8a6f3f;
-      margin: 0 0 4px;
+      font-family: 'Monsieur La Doulaise', 'EB Garamond', cursive;
+      font-size: clamp(1.4rem, 7.5vw, 6.5rem);
+      color: #B17F5F;
+      margin: 0 0 80px;
+      padding: 0.4em 0;
       font-weight: 400;
+      line-height: 1.7;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+      overflow: visible;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: geometricPrecision;
     }
-    .gate-sub {
-      font-size: 13px;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: #6b5a3a;
-      margin: 0 0 28px;
+    .field {
+      max-width: 440px;
+      margin: 0 auto 18px;
+      padding: 6px 0;
+      border-bottom: 1px solid #D6C4B0;
     }
-    .gate-msg {
-      font-size: 17px;
-      line-height: 1.5;
-      margin: 0 0 26px;
-      color: #4a3d28;
-    }
-    label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: #6b5a3a;
-      margin: 0 0 10px;
-      text-align: left;
-    }
-    input[type="password"] {
+    .field input {
       width: 100%;
-      padding: 14px 16px;
-      font-size: 18px;
-      font-family: inherit;
-      letter-spacing: 0.08em;
-      border: 1px solid #d8c8a3;
-      border-radius: 3px;
-      background: #fdfaf3;
-      box-sizing: border-box;
-      color: #3a2e1f;
-    }
-    input[type="password"]:focus { outline: none; border-color: #8a6f3f; box-shadow: 0 0 0 2px rgba(201,169,97,0.18); }
-    button {
-      margin-top: 22px;
-      width: 100%;
-      padding: 15px 18px;
-      font-size: 12px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      background: #8a6f3f;
-      color: #fff;
       border: 0;
-      border-radius: 3px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.18s ease;
+      background: transparent;
+      padding: 12px 4px;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+      color: #B17F5F;
+      text-align: center;
+      letter-spacing: 0.02em;
+      box-sizing: border-box;
     }
-    button:hover { background: #6b5a3a; }
+    .field input::placeholder { color: #B17F5F; opacity: 0.95; font-style: italic; }
+    .field input:focus { outline: none; }
+    .field:focus-within { border-bottom-color: #9C6A4D; }
+    button {
+      margin-top: 36px;
+      padding: 14px 56px;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      color: #FBF6EF;
+      background: linear-gradient(135deg, #B5805F 0%, #D9A175 50%, #B5805F 100%);
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(156, 106, 77, 0.22);
+      transition: filter 0.18s ease, transform 0.18s ease;
+    }
+    button:hover { filter: brightness(1.05); transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
     .gate-error {
-      color: #a23b3b;
-      font-size: 14px;
-      margin: -8px 0 18px;
+      max-width: 540px;
+      margin: 0 auto 24px;
+      color: #9C4F3A;
+      font-style: italic;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
   <form class="gate-card" method="POST" action="${GATE_LOGIN_PATH}">
-    <div class="gate-ornament">&#10086; &#10086; &#10086;</div>
-    <h1 class="gate-title">Veronica &amp; Samuel</h1>
-    <p class="gate-sub">Save the Date</p>
-    <p class="gate-msg">Please enter the passcode from your invitation to view our wedding website.</p>
+    <h1 class="gate-title">We are getting married!</h1>
     ${errorHtml}
-    <label for="passcode">Passcode</label>
-    <input id="passcode" name="passcode" type="password" autocomplete="off" autofocus required>
-    <button type="submit">Enter</button>
+    <!-- EMAIL FIELD TEMPORARILY DISABLED (kept here for easy re-enable when guest emails are collected).
+         To re-enable: remove the surrounding HTML comment around this <div class="field"> block. -->
+    <!--
+    <div class="field">
+      <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email address to access information" aria-label="Email address"${emailValue}>
+    </div>
+    -->
+    <div class="field">
+      <input id="passcode" name="passcode" type="password" autocomplete="off" placeholder="Please enter password to access site" aria-label="Password" required>
+    </div>
+    <button type="submit">Click to see details</button>
   </form>
 </body>
 </html>`;
@@ -188,14 +186,42 @@ export async function onRequest(context) {
     if (request.method !== "POST") {
       return new Response(null, { status: 303, headers: { location: "/" } });
     }
+    let email = "";
     let submitted = "";
     try {
       const form = await request.formData();
+      email = (form.get("email") || "").toString().trim().slice(0, 200);
       submitted = (form.get("passcode") || "").toString();
     } catch {
       return gatePage("Something went wrong. Please try again.");
     }
+
+    // Email is OPTIONAL for now — the email-gate flow isn't fully wired yet.
+    // If provided, validate the format loosely; if blank, just let it pass.
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      return gatePage("Please enter a valid email address (or leave it blank).", email);
+    }
+
     if (timingSafeEqual(submitted, env.SITE_PASSCODE)) {
+      // Best-effort log of the email (only if one was supplied) so the couple
+      // can see who's accessed the site. KV write must NOT block access if it
+      // fails — wrapped in try/catch.
+      if (email && env?.RSVPS) {
+        try {
+          const when = new Date().toISOString();
+          await env.RSVPS.put(
+            `gate:${when}:${email.slice(0, 80)}`,
+            JSON.stringify({
+              email,
+              when,
+              userAgent: (request.headers.get("user-agent") || "").slice(0, 300),
+            })
+          );
+        } catch (err) {
+          console.error("Gate email log failed:", err);
+        }
+      }
+
       const token = await expectedToken(env.SITE_PASSCODE);
       const secureFlag = url.protocol === "https:" ? " Secure;" : "";
       const cookie = `${COOKIE_NAME}=${token}; Path=/; Max-Age=${COOKIE_MAX_AGE}; HttpOnly;${secureFlag} SameSite=Lax`;
@@ -204,7 +230,7 @@ export async function onRequest(context) {
         headers: { location: "/", "set-cookie": cookie },
       });
     }
-    return gatePage("That passcode wasn't right. Please check your invitation and try again.");
+    return gatePage("That passcode wasn't right. Please check your invitation and try again.", email);
   }
 
   // Authed requests pass through to the static asset / route handler.

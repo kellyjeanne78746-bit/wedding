@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wedding Site — Wall Reference Chart</title>
+<style>
+  @page { size: letter portrait; margin: 0.4in; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #3A3532;
+    background: #FAF5EE;
+    padding: 0.4in;
+    font-size: 10.5pt;
+    line-height: 1.35;
+  }
+  @media print { body { padding: 0; background: #fff; } }
+
+  /* ─── Header ─── */
+  .top {
+    text-align: center;
+    border-bottom: 2px solid #C6B185;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+  .top h1 {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 22pt;
+    margin: 0;
+    letter-spacing: 0.04em;
+    color: #8a6f3f;
+    font-weight: 500;
+  }
+  .top .sub {
+    font-size: 9pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #7A7370;
+    margin-top: 4px;
+  }
+  .top .url {
+    font-size: 10pt;
+    color: #6B87A8;
+    margin-top: 2px;
+  }
+
+  /* ─── Section headings ─── */
+  h2 {
+    font-family: 'Georgia', serif;
+    font-size: 12pt;
+    color: #8a6f3f;
+    margin: 14px 0 6px;
+    border-bottom: 1px solid #D8C9A2;
+    padding-bottom: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── Troubleshooting table ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+  }
+  th, td {
+    text-align: left;
+    padding: 5px 7px;
+    vertical-align: top;
+    border-bottom: 1px solid #EADFC8;
+  }
+  th {
+    background: #F2E9D4;
+    color: #6b5a3a;
+    font-size: 9pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #C6B185;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.symptom { width: 42%; font-weight: 600; color: #3A3532; }
+  td.fix     { color: #4a3d28; }
+  td.fix code, td.fix .cmd {
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 9pt;
+    background: #FFF;
+    border: 1px solid #E8DFC8;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  /* ─── 2-col bottom blocks ─── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .panel {
+    background: #FFFCF5;
+    border: 1px solid #D8C9A2;
+    border-radius: 3px;
+    padding: 8px 10px;
+  }
+  .panel h3 {
+    font-family: 'Georgia', serif;
+    font-size: 10.5pt;
+    color: #8a6f3f;
+    margin: 0 0 6px;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid #EADFC8;
+    padding-bottom: 3px;
+  }
+  .panel ul { margin: 0; padding-left: 0; list-style: none; }
+  .panel li {
+    margin-bottom: 5px;
+    font-size: 9.5pt;
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    column-gap: 8px;
+  }
+  .panel li .k {
+    font-weight: 600;
+    color: #6B87A8;
+  }
+  .panel li .v {
+    color: #4a3d28;
+    word-break: break-word;
+  }
+
+  /* ─── Service cards (3 across) ─── */
+  .services {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .service {
+    background: #FFFCF5;
+    border: 1px solid #D8C9A2;
+    border-radius: 3px;
+    padding: 8px 9px;
+    font-size: 9pt;
+  }
+  .service .name {
+    font-family: 'Georgia', serif;
+    font-size: 11pt;
+    color: #8a6f3f;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin: 0 0 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #EADFC8;
+  }
+  .service .role {
+    font-style: italic;
+    color: #7A7370;
+    font-size: 8.5pt;
+    margin-bottom: 6px;
+  }
+  .service .row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    column-gap: 6px;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .service .row .lbl {
+    color: #6B87A8;
+    font-weight: 600;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .service .row .val { color: #3A3532; word-break: break-word; }
+  .service .row .val code,
+  .service .row .val .cmd {
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 8.5pt;
+    background: #F8F2E2;
+    padding: 1px 3px;
+    border-radius: 2px;
+    border: 1px solid #EADFC8;
+  }
+  .service .secret-loc {
+    display: block;
+    font-size: 8pt;
+    color: #6b5a3a;
+    font-style: italic;
+    margin-top: 1px;
+  }
+  .panel code {
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 9pt;
+    background: #F8F2E2;
+    padding: 1px 4px;
+    border-radius: 2px;
+    border: 1px solid #EADFC8;
+  }
+
+  /* ─── Emergency bar ─── */
+  .emergency {
+    margin-top: 12px;
+    background: #6B87A8;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 10pt;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .emergency strong { letter-spacing: 0.12em; text-transform: uppercase; font-size: 9pt; }
+
+  .footnote {
+    margin-top: 6px;
+    text-align: center;
+    font-size: 8.5pt;
+    color: #7A7370;
+    font-style: italic;
+  }
+
+  .note {
+    background: #FBF4E2;
+    border-left: 3px solid #C6B185;
+    padding: 6px 10px;
+    margin: 8px 0 0;
+    font-size: 9.5pt;
+    color: #4a3d28;
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>Wedding Site &mdash; Wall Reference</h1>
+  <div class="sub">Veronica &amp; Samuel &middot; May 29, 2027</div>
+  <div class="url">veronicaandsam2027.com</div>
+</div>
+
+<h2>If something looks wrong &mdash; start here</h2>
+<table>
+  <thead>
+    <tr><th>Symptom</th><th>First place to look &middot; how to fix</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="symptom">Whole site is down / won't load</td>
+      <td class="fix">Check <strong>status.cloudflare.com</strong>. If green, log in to <strong>Cloudflare &rarr; Pages</strong> and look at the latest deployment.</td>
+    </tr>
+    <tr>
+      <td class="symptom">"Site is not yet configured" message</td>
+      <td class="fix"><strong>Cloudflare</strong> &mdash; the <code>SITE_PASSCODE</code> secret isn't set. Run <span class="cmd">npx wrangler pages secret put SITE_PASSCODE</span></td>
+    </tr>
+    <tr>
+      <td class="symptom">Passcode page rejects the right passcode</td>
+      <td class="fix">You (or someone) rotated it. <strong>Cloudflare</strong> &rarr; Pages &rarr; Settings &rarr; reset, then tell guests the new one.</td>
+    </tr>
+    <tr>
+      <td class="symptom">"Guest list temporarily unavailable"</td>
+      <td class="fix">The <strong>GUESTS</strong> KV is empty. From Terminal: <span class="cmd">npm run deploy</span> (re-syncs <code>functions/guests.json</code>).</td>
+    </tr>
+    <tr>
+      <td class="symptom">"We couldn't find that on our guest list"</td>
+      <td class="fix">Check spelling in <strong>functions/guests.json</strong>. Lookup is case-insensitive but exact on spelling.</td>
+    </tr>
+    <tr>
+      <td class="symptom">RSVP submits OK but no confirmation email</td>
+      <td class="fix"><strong>Resend</strong> &mdash; either <code>RESEND_API_KEY</code> isn't set as a Pages secret, or the key was revoked. Check <strong>resend.com &rarr; API Keys</strong>.</td>
+    </tr>
+    <tr>
+      <td class="symptom">Emails arrive but land in spam</td>
+      <td class="fix"><strong>Domain DNS</strong> &mdash; SPF/DKIM/DMARC records for <code>veronicaandsam2027.com</code> haven't been verified at Resend. <strong>Resend &rarr; Domains</strong>.</td>
+    </tr>
+    <tr>
+      <td class="symptom">Image is broken / shows alt text</td>
+      <td class="fix">The file is missing from <code>deploy/public/</code> (or the filename has a typo). Check the spelling and re-deploy.</td>
+    </tr>
+    <tr>
+      <td class="symptom">Site shows old content after a change</td>
+      <td class="fix">Hard refresh (Cmd+Shift+R). If still wrong, re-run <span class="cmd">npm run deploy</span>.</td>
+    </tr>
+    <tr>
+      <td class="symptom">A section won't hide / hidden one won't show</td>
+      <td class="fix">Open <code>index.html</code>, search <strong>SECTION_VISIBILITY</strong>, flip <code>true</code> &harr; <code>false</code>, then deploy.</td>
+    </tr>
+    <tr>
+      <td class="symptom">RSVP form returns 401 Unauthorized</td>
+      <td class="fix">Visitor's gate cookie expired (30 days). Tell them to refresh and re-enter the passcode.</td>
+    </tr>
+    <tr>
+      <td class="symptom">Can't find a submitted RSVP</td>
+      <td class="fix">Terminal: <span class="cmd">npx wrangler kv key list --binding=RSVPS --remote</span> then <span class="cmd">npx wrangler kv key get --binding=RSVPS --remote &lt;party-id&gt;</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Services &mdash; each card shows what it does &amp; every secret tied to it</h2>
+<div class="services">
+
+  <div class="service">
+    <div class="name">Cloudflare Pages</div>
+    <div class="role">Hosts the site &amp; runs the backend (gate, RSVP, signup)</div>
+    <div class="row"><span class="lbl">Login</span><span class="val">dash.cloudflare.com</span></div>
+    <div class="row"><span class="lbl">Auth</span><span class="val">your Cloudflare account (also used by <code>wrangler login</code> on your laptop)</span></div>
+    <div class="row"><span class="lbl">Stores</span><span class="val">
+      <code>SITE_PASSCODE</code> &middot; the gate passcode
+      <span class="secret-loc">&rarr; Pages &rarr; Settings &rarr; Environment variables (Production + Preview)</span>
+      <code>RESEND_API_KEY</code> &middot; copy of the Resend key
+      <span class="secret-loc">&rarr; same place; this is what the code reads</span>
+    </span></div>
+    <div class="row"><span class="lbl">Data</span><span class="val">KV: <code>GUESTS</code> (guest list) &middot; KV: <code>RSVPS</code> (submitted RSVPs + signups)</span></div>
+    <div class="row"><span class="lbl">Set/<br>rotate</span><span class="val"><span class="cmd">npx wrangler pages secret put SITE_PASSCODE</span><br><span class="cmd">npx wrangler pages secret put RESEND_API_KEY</span></span></div>
+  </div>
+
+  <div class="service">
+    <div class="name">Resend</div>
+    <div class="role">Sends the RSVP confirmation + Updates-signup notification emails</div>
+    <div class="row"><span class="lbl">Login</span><span class="val">resend.com/login</span></div>
+    <div class="row"><span class="lbl">Auth</span><span class="val">Resend account login (email + password)</span></div>
+    <div class="row"><span class="lbl">Stores</span><span class="val">
+      The actual API key
+      <span class="secret-loc">&rarr; Resend dashboard &rarr; API Keys (master copy lives here)</span>
+      Domain verification for <code>veronicaandsam2027.com</code>
+      <span class="secret-loc">&rarr; Resend dashboard &rarr; Domains</span>
+    </span></div>
+    <div class="row"><span class="lbl">Used by</span><span class="val">Cloudflare reads it from <code>RESEND_API_KEY</code> secret on every RSVP / signup</span></div>
+    <div class="row"><span class="lbl">If lost</span><span class="val">create a new API key in Resend, then re-run the wrangler <code>secret put</code> for <code>RESEND_API_KEY</code></span></div>
+  </div>
+
+  <div class="service">
+    <div class="name">Domain registrar</div>
+    <div class="role">Owns the domain &amp; holds the DNS records</div>
+    <div class="row"><span class="lbl">Login</span><span class="val">whichever registrar you bought <code>veronicaandsam2027.com</code> from (write it in: ____________________)</span></div>
+    <div class="row"><span class="lbl">Auth</span><span class="val">registrar account login</span></div>
+    <div class="row"><span class="lbl">Stores</span><span class="val">
+      SPF / DKIM / DMARC DNS records
+      <span class="secret-loc">&rarr; required so Resend emails don't go to spam</span>
+      A / CNAME records pointing the domain at Cloudflare
+      <span class="secret-loc">&rarr; required so the URL resolves to the site</span>
+    </span></div>
+    <div class="row"><span class="lbl">Note</span><span class="val">No secrets are stored <em>in the project</em> for this &mdash; only your registrar login.</span></div>
+  </div>
+
+</div>
+
+<div class="note" style="margin-top:8px;">
+  <strong>Local dev only:</strong> <code>.dev.vars</code> is a file on your laptop holding a test copy of <code>SITE_PASSCODE</code> for <code>npm run dev</code>. It is gitignored &mdash; never committed, never on the server. Recreate it from <code>.dev.vars.example</code> if it goes missing.
+</div>
+
+<h2>Commands you'll actually use</h2>
+<div class="grid">
+  <div class="panel">
+    <h3>Day-to-day</h3>
+    <ul>
+      <li><span class="k">Test locally</span><span class="v"><code>npm run dev</code> &rarr; localhost:8788</span></li>
+      <li><span class="k">Publish changes</span><span class="v"><code>npm run deploy</code></span></li>
+      <li><span class="k">Update guest list</span><span class="v">edit <code>functions/guests.json</code>, then <code>npm run deploy</code></span></li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3>Reading RSVPs</h3>
+    <ul>
+      <li><span class="k">List everyone</span><span class="v"><code>npx wrangler kv key list --binding=RSVPS --remote</code></span></li>
+      <li><span class="k">Read one party</span><span class="v"><code>npx wrangler kv key get --binding=RSVPS --remote &lt;party-id&gt;</code></span></li>
+      <li><span class="k">Read a signup</span><span class="v">Use the same commands; signup keys start with <code>notify:</code></span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="emergency">
+  <span><strong>Emergency &middot;</strong> if you can't figure it out from this chart</span>
+  <span>Text Kelly</span>
+</div>
+
+<div class="footnote">Printed from the project &middot; update this file at <code>Wedding_Site_Wall_Chart.html</code> when anything changes.</div>
+
+</body>
+</html>
