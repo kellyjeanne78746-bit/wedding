@@ -78,18 +78,41 @@ function gatePage(errorMessage, prefillEmail) {
       padding: 0;
       text-align: center;
       box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+    .gate-image-col {
+      flex: 0 0 42%;
+      max-width: 42%;
+    }
+    .gate-photo {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 2px;
+    }
+    .gate-form-col {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .gate-card { flex-direction: column; gap: 1.5rem; }
+      .gate-image-col { flex: 0 0 auto; max-width: 80%; }
     }
     .gate-title {
       font-family: 'Monsieur La Doulaise', 'EB Garamond', cursive;
-      font-size: clamp(1.4rem, 7.5vw, 6.5rem);
+      font-size: clamp(2.5rem, 8vw, 6rem);
       color: #B17F5F;
-      margin: 0 0 80px;
+      margin: 0 0 24px;
       padding: 0.4em 0;
       font-weight: 400;
-      line-height: 1.7;
-      letter-spacing: 0.12em;
+      line-height: 1.5;
+      letter-spacing: 0.04em;
       white-space: nowrap;
       overflow: visible;
+      -webkit-text-stroke: 1.5px #B17F5F;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: geometricPrecision;
@@ -97,17 +120,17 @@ function gatePage(errorMessage, prefillEmail) {
     .field {
       max-width: 440px;
       margin: 0 auto 18px;
-      padding: 6px 0;
+      padding: 14px 0;
       border-bottom: 1px solid #D6C4B0;
     }
     .field input {
       width: 100%;
       border: 0;
       background: transparent;
-      padding: 12px 4px;
+      padding: 14px 6px 18px;
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+      font-size: clamp(1.4rem, 2vw, 1.65rem);
       color: #B17F5F;
       text-align: center;
       letter-spacing: 0.02em;
@@ -144,19 +167,24 @@ function gatePage(errorMessage, prefillEmail) {
 </head>
 <body>
   <form class="gate-card" method="POST" action="${GATE_LOGIN_PATH}">
-    <h1 class="gate-title">We are getting married!</h1>
-    ${errorHtml}
-    <!-- EMAIL FIELD TEMPORARILY DISABLED (kept here for easy re-enable when guest emails are collected).
-         To re-enable: remove the surrounding HTML comment around this <div class="field"> block. -->
-    <!--
-    <div class="field">
-      <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email address to access information" aria-label="Email address"${emailValue}>
+    <div class="gate-image-col">
+      <img class="gate-photo" src="/images/Photo%20for%20gated%20landing%20page%20%202.jpg" alt="Veronica and Samuel">
     </div>
-    -->
-    <div class="field">
-      <input id="passcode" name="passcode" type="password" autocomplete="off" placeholder="Please enter password to access site" aria-label="Password" required>
+    <div class="gate-form-col">
+      <h1 class="gate-title">We are getting married!</h1>
+      ${errorHtml}
+      <!-- EMAIL FIELD TEMPORARILY DISABLED (kept here for easy re-enable when guest emails are collected).
+           To re-enable: remove the surrounding HTML comment around this <div class="field"> block. -->
+      <!--
+      <div class="field">
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email address to access information" aria-label="Email address"${emailValue}>
+      </div>
+      -->
+      <div class="field">
+        <input id="passcode" name="passcode" type="password" autocomplete="off" placeholder="Please enter password to access site" aria-label="Password" required>
+      </div>
+      <button type="submit">Click to see details</button>
     </div>
-    <button type="submit">Click to see details</button>
   </form>
 </body>
 </html>`;
@@ -179,6 +207,17 @@ export async function onRequest(context) {
       "Site is not yet configured. The administrator must set the SITE_PASSCODE secret.",
       { status: 503, headers: { "content-type": "text/plain; charset=utf-8" } }
     );
+  }
+
+  // PUBLIC ASSETS used by the gate page itself (must be reachable without auth,
+  // otherwise the image referenced inside the gate HTML returns the gate HTML
+  // instead of the image). Add any new gate-page assets to this allowlist.
+  const PUBLIC_GATE_ASSETS = [
+    "/images/Photo for gated landing page  2.jpg",
+    "/images/Photo for gated landing page .jpg",
+  ];
+  if (PUBLIC_GATE_ASSETS.includes(decodeURIComponent(path))) {
+    return next();
   }
 
   // Handle the gate's own login submission.

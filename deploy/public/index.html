@@ -63,7 +63,6 @@
     --cornflower: #7BA0C9;
     --cream: #FAF5EE;
     --cream-warm: #FAF5EE;
-    --charcoal: #3A3532;
     --warm-gray: #7A7370;
     --light-gray: #B5AFA8;
     --white: #FFFFFF;
@@ -98,7 +97,6 @@
   nav {
     width: 100%;
     background: var(--cream);
-    border-bottom: 1px solid rgba(58,53,50,0.06);
   }
   .nav-inner {
     max-width: 1500px;
@@ -123,8 +121,8 @@
   .nav-links a {
     text-decoration: none;
     color: #B17F5F;
-    font-size: 0.72rem;
-    letter-spacing: 0.13em;
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 400;
     transition: color 0.3s;
@@ -201,16 +199,16 @@
   .hamburger {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 7px;
     cursor: pointer;
-    padding: 5px;
+    padding: 10px;
     background: none;
     border: none;
   }
   .hamburger span {
-    width: 24px;
-    height: 1.5px;
-    background: var(--charcoal);
+    width: 32px;
+    height: 2.5px;
+    background: #B17F5F;
     transition: all 0.3s;
   }
   .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 4px); }
@@ -224,38 +222,45 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background: var(--charcoal);
+    background: var(--cream);
     z-index: 999;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+    padding: 5rem 0 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     opacity: 0;
     transition: opacity 0.4s;
   }
   .mobile-menu.active { display: flex; opacity: 1; }
   .mobile-menu a {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
+    font-size: 1.05rem;
     color: #B17F5F;
     text-decoration: none;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    transition: color 0.3s;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid rgba(177, 127, 95, 0.12);
+    transition: background 0.2s ease;
   }
-  .mobile-menu a:hover { color: #B17F5F; }
+  .mobile-menu a:active { background: rgba(177, 127, 95, 0.06); }
 
   /* ─── MONOGRAM BANNER (top of page, above the sticky nav) ─── */
   .monogram-banner {
     background: var(--cream);
-    padding: 1.5rem 1.5rem 0;
+    padding: 3rem 1.5rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .monogram-banner img,
   .monogram-banner svg {
-    max-height: 252px;
+    max-height: clamp(60px, 14vw, 252px);
     width: auto;
     display: block;
   }
@@ -269,10 +274,8 @@
   }
   @media (max-width: 768px) {
     .monogram-banner {
-      padding: 1rem 1rem 0;
+      padding: 1.75rem 1rem 0;
     }
-    .monogram-banner img,
-    .monogram-banner svg { max-height: 153px; }
   }
 
   /* ─── HERO ─── */
@@ -281,9 +284,11 @@
     display: block;
     text-align: left;
     position: relative;
-    background: var(--charcoal);
+    background: transparent;
     padding: 0;
+    margin: 0;
     overflow: hidden;
+    font-size: 0; /* eliminate inline-image gap that creates a hairline below the photo */
   }
   #venue {
     position: relative;
@@ -318,20 +323,13 @@
   }
 
   .hero-content {
-    position: absolute;
+    position: relative;
     z-index: 2;
-    left: 0;
-    top: 0;
     width: 100%;
-    height: 35%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 2rem;
+    display: block;
+    padding: 0;
     text-align: center;
-    pointer-events: none;
-    overflow: hidden; /* hard guarantee: text NEVER spills into the lighter area below the dark archway */
+    background: transparent;
   }
 
   /* ─── ENGAGEMENT PHOTO ─── */
@@ -355,13 +353,16 @@
   }
   .hero-photo {
     width: 100%;
-    height: auto;
+    aspect-ratio: 4416 / 5221;
+    overflow: hidden;
     position: relative;
     z-index: 1;
   }
   .hero-photo img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
     display: block;
   }
 
@@ -400,13 +401,31 @@
   }
   /* Home-page scoped override: 20% smaller than the gate page so the
      three stacked lines fit nicely in the hero. Does NOT affect the gate. */
+  /* Names rendered as a full-width rectangular banner above the hero image.
+     Background matches the gate page (#EAE0D4 cream-blush); font matches the
+     gate's "We are getting married!" (Monsieur La Doulaise); color is the
+     site's warm copper shifted slightly toward gold. */
   .hero-content .gate-title {
-    font-size: clamp(1.5rem, 8.5vw, 7.5rem);
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Monsieur La Doulaise', 'EB Garamond', cursive;
+    font-size: clamp(1.8rem, 6.5vw, 4.8rem);
     margin: 0;
-    transform: translateY(41px);
-    color: var(--cream);
-    -webkit-text-stroke: 1px var(--cream);
-    line-height: 1.05;
+    transform: none;
+    color: #8a5a3e;
+    -webkit-text-stroke: 0.4px #8a5a3e;
+    line-height: 1.1;
+    background: #F2EDE5;
+    padding: 0.9em 1em;
+    border-radius: 0;
+    box-shadow: none;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    text-align: center;
+    /* Subtle gold "twinkle" — soft warm-gold halo behind the letters,
+       echoes the gilded detail in the image. */
+    text-shadow: 0 0 6px rgba(212, 175, 70, 0.25), 0 0 14px rgba(212, 175, 70, 0.1);
   }
   .hero-married {
     font-family: 'Cormorant Garamond', serif;
@@ -506,10 +525,10 @@
   }
 
   @media (max-width: 768px) {
-    .hero { min-height: 100vh; }
+    .hero { min-height: auto; }
     .hero-content {
       width: 100%;
-      padding: 0 1.2rem;
+      padding: 0;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -524,7 +543,7 @@
     .hero-photo img {
       transform: none;
       width: 100%;
-      height: auto;
+      height: 100%;
     }
     .hero-save-the-date { font-size: 1.35rem; margin-bottom: 0.6rem; letter-spacing: 0.12em; }
     .hero-married { font-size: 0.95rem; margin-top: 0.3rem; }
@@ -788,8 +807,56 @@
   .inv-dl-btn { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; color: #B17F5F; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:30px; padding:0.6rem 1.8rem; cursor:pointer; text-decoration:none; transition:all 0.3s; }
   .inv-dl-btn:hover { background:rgba(255,255,255,0.25); }
 
+  /* ─── GALLERY LIGHTBOX (engagement photos) ─── */
+  .gallery-lightbox {
+    display: none;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 2100;
+    justify-content: center; align-items: center;
+  }
+  .gallery-lightbox.active { display: flex; }
+  .gallery-lightbox img {
+    max-height: 86vh;
+    max-width: 86vw;
+    border-radius: 4px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.6);
+    user-select: none;
+  }
+  .gallery-lightbox-close {
+    position: absolute; top: 1.2rem; right: 1.5rem;
+    background: none; border: none;
+    color: #FBF6EF; font-size: 2.4rem; line-height: 1;
+    cursor: pointer; padding: 0.2rem 0.6rem;
+  }
+  .gallery-lightbox-close:hover { color: #D4A085; }
+  .gallery-lightbox-nav {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #FBF6EF;
+    width: 3.4rem; height: 3.4rem; border-radius: 50%;
+    font-size: 2.2rem; line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .gallery-lightbox-nav:hover {
+    background: rgba(0,0,0,0.6);
+    border-color: rgba(255,255,255,0.5);
+  }
+  .gallery-lightbox-prev { left: 1.5rem; }
+  .gallery-lightbox-next { right: 1.5rem; }
   @media (max-width: 768px) {
-    .save-the-date { padding: 1rem 0.5rem; overflow: hidden; }
+    .gallery-lightbox-nav { width: 2.6rem; height: 2.6rem; font-size: 1.6rem; }
+    .gallery-lightbox-prev { left: 0.6rem; }
+    .gallery-lightbox-next { right: 0.6rem; }
+    .gallery-lightbox img { max-height: 80vh; max-width: 92vw; }
+  }
+
+  @media (max-width: 768px) {
+    .save-the-date { padding: 0 0.5rem; overflow: hidden; }
     .std-frame { min-height: auto; max-width: 100%; }
     .std-art-top { width: 60px; top: -8px; transform: translateX(-50%) rotate(90deg); }
     .std-art-bottom { width: 50px; bottom: -5px; }
@@ -2113,7 +2180,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.72rem;
     font-weight: 400;
-    color: #B17F5F;
+    color: #D4A085;
     text-shadow: 0 1px 2px rgba(0,0,0,0.75);
   }
   .footer-date {
@@ -2123,7 +2190,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     text-shadow: 0 1px 2px rgba(0,0,0,0.75);
-    color: #B17F5F;
+    color: #D4A085;
     margin-top: 0.5rem;
     line-height: 1.4;
   }
@@ -2131,6 +2198,54 @@
     font-size: 1.12rem;
     color: #B17F5F;
     margin-top: 1.5rem;
+  }
+  /* Decorative "Made with amore" plate — thin gold frame, curly bookends,
+     soft golden halo behind the text for readability. Pinned to the bottom
+     center of the footer image so it sits over the darker ground area. */
+  .footer-amore {
+    display: inline-block;
+    position: relative;
+    margin-top: 2rem;
+    padding: 0.45rem 1.7rem;
+    border: 1px solid rgba(212, 175, 110, 0.55);
+    border-radius: 2px;
+    background: radial-gradient(ellipse at center, rgba(240, 215, 170, 0.22) 0%, rgba(240, 215, 170, 0.08) 60%, transparent 100%);
+    box-shadow: 0 0 18px rgba(212, 175, 110, 0.15);
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+  }
+  .footer-amore::before, .footer-amore::after {
+    content: '❧';
+    color: #B17F5F;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .footer-amore::before { left: 0.5rem; }
+  .footer-amore::after { right: 0.5rem; transform: translateY(-50%) scaleX(-1); }
+  .footer-amore-main {
+    display: block;
+    font-size: 0.95rem;
+    font-style: italic;
+    letter-spacing: 0.06em;
+    color: #B17F5F;
+    text-shadow: 0 0 10px rgba(212, 175, 110, 0.55), 0 0 18px rgba(212, 175, 110, 0.3);
+  }
+  .footer-amore-sub {
+    display: block;
+    font-size: 0.78rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: #B17F5F;
+    margin-top: 0.15rem;
+    text-shadow: 0 0 8px rgba(212, 175, 110, 0.45);
+  }
+  .footer-amore-heart {
+    font-family: serif;
+    margin-left: 0.25em;
+    color: #B17F5F;
   }
   .footer-contact-btn {
     display: inline-block;
@@ -2184,9 +2299,8 @@
     .hamburger {
       display: flex;
       position: absolute;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
+      right: 1rem;
+      top: -3.5rem;
     }
     section { padding: 2.5rem 1rem; }
 
@@ -2282,7 +2396,7 @@
       padding: 2rem 1.2rem;
       text-align: center;
       align-items: center;
-      background: var(--charcoal);
+      background: #F2EDE5;
     }
     .footer-names { font-size: 1.8rem; }
     .footer-date { font-size: 0.9rem; }
@@ -2313,6 +2427,7 @@
       <li><a href="#rsvp">RSVP</a></li>
       <li><a href="#registry">Registry</a></li>
       <li><a href="#updates">Updates</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li class="nav-contact">
         <a onclick="toggleContactDropdown(event)">Contact</a>
         <div class="contact-dropdown" id="contactDropdown">
@@ -2341,6 +2456,7 @@
   <a href="#rsvp" onclick="closeMenu()">RSVP</a>
   <a href="#registry" onclick="closeMenu()">Registry</a>
   <a href="#updates" onclick="closeMenu()">Updates</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
   <a href="mailto:hello@veronicaandsam2027.com?subject=Wedding%20Question" onclick="closeMenu()">Email Us</a>
   <a href="sms:+14095339317" onclick="closeMenu()">Text Us</a>
   <a href="#explore" onclick="closeMenu()">Explore</a>
@@ -2349,7 +2465,7 @@
 <!-- ─── HERO ─── -->
 <section class="hero" id="hero">
   <div class="hero-content">
-    <h1 class="gate-title">Veronica Natale<br><span style="font-size:0.55em;">&amp;</span><br>Samuel Hill</h1>
+    <h1 class="gate-title">Veronica Natale <span style="font-size:0.7em; margin:0 0.15em;">&amp;</span> Samuel Hill</h1>
   </div>
   <div class="hero-photo">
     <img src="images/V+S Must use!.jpg" alt="Veronica and Samuel engagement photo">
@@ -2392,6 +2508,14 @@
   <button class="inv-modal-close" onclick="document.getElementById('invModal').classList.remove('active')">&times;</button>
   <img src="Wedding Invitation.svg" alt="Wedding Invitation">
   <a href="Wedding Invitation.svg" download="Veronica-Samuel-Wedding-Invitation.svg" class="inv-dl-btn">&#8681; Download Invitation</a>
+</div>
+
+<!-- ─── GALLERY LIGHTBOX (click on a gallery image to enlarge it; arrows step through the carousel) ─── -->
+<div class="gallery-lightbox" id="galleryLightbox" onclick="if(event.target===this)this.classList.remove('active')">
+  <button class="gallery-lightbox-close" onclick="document.getElementById('galleryLightbox').classList.remove('active')" aria-label="Close">&times;</button>
+  <button class="gallery-lightbox-nav gallery-lightbox-prev" onclick="galleryLightboxStep(-1)" aria-label="Previous">&#8249;</button>
+  <img id="galleryLightboxImg" src="" alt="">
+  <button class="gallery-lightbox-nav gallery-lightbox-next" onclick="galleryLightboxStep(1)" aria-label="Next">&#8250;</button>
 </div>
 
 <!-- ─── PHOTO GALLERY ─── -->
@@ -3455,7 +3579,7 @@
   <div class="footer-content">
     <div class="footer-names">Veronica &amp; Samuel</div>
     <div class="footer-date">May 29, 2027<br>Monte Porzio Catone<br>[Roma], Italia</div>
-    <p class="footer-note" style="margin-top: 3rem; font-size: 0.95rem; opacity: 0.7;">Made with amore<br><span style="display: inline-block; margin-top: 0.2rem; padding-left: 1.6em; font-size: 0.78em;">by Mamma Hill <span style="font-family: serif; font-size: 0.78em; vertical-align: 0.1em; margin-left: 0.1em;">&#9825;</span></span></p>
+    <p class="footer-note" style="margin-top: 2rem; font-size: 1rem; color: #D4A085;">Made with amore by Mamma Hill <span style="font-family: serif; margin-left: 0.1em;">&#9825;</span></p>
   </div>
 </footer>
 
@@ -3878,6 +4002,39 @@
     });
     refresh();
   });
+
+  // ─── GALLERY LIGHTBOX ───
+  // Click any gallery image to enlarge it in a modal; arrows step through the
+  // full set, wrapping at either end. ESC or click on the backdrop closes it.
+  (function () {
+    var lightbox = document.getElementById('galleryLightbox');
+    var lightboxImg = document.getElementById('galleryLightboxImg');
+    if (!lightbox || !lightboxImg) return;
+    var imgs = Array.prototype.slice.call(document.querySelectorAll('.gallery-item img'));
+    if (!imgs.length) return;
+    var idx = 0;
+    function show(i) {
+      idx = ((i % imgs.length) + imgs.length) % imgs.length;
+      var src = imgs[idx].getAttribute('src');
+      var alt = imgs[idx].getAttribute('alt') || '';
+      lightboxImg.setAttribute('src', src);
+      lightboxImg.setAttribute('alt', alt);
+    }
+    window.galleryLightboxStep = function (delta) { show(idx + delta); };
+    imgs.forEach(function (img, i) {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', function () {
+        show(i);
+        lightbox.classList.add('active');
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+      else if (e.key === 'ArrowLeft') show(idx - 1);
+      else if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  })();
 </script>
 
 </body>
