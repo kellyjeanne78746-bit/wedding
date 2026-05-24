@@ -253,14 +253,14 @@
   /* ─── MONOGRAM BANNER (top of page, above the sticky nav) ─── */
   .monogram-banner {
     background: var(--cream);
-    padding: 3rem 1.5rem 0;
+    padding: 0.75rem 1.5rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .monogram-banner img,
   .monogram-banner svg {
-    max-height: clamp(60px, 14vw, 252px);
+    max-height: clamp(62px, 6.25vw, 105px);
     width: auto;
     display: block;
   }
@@ -296,30 +296,29 @@
     text-align: center;
     padding-top: 5rem;
     padding-bottom: 5rem;
+    background: #F2EDE5;
   }
-  /* Edge-to-edge landscape villa photo. Breaks out of the section's left/right
-     padding to span the full viewport width, then crops the source image to a
-     landscape band via object-fit: cover. */
+  /* Villa photo sized to fit one viewport — whole image visible at once,
+     letterboxed with cream-blush on the sides like the Save the Date art. */
   .venue-image-frame {
-    width: 100vw !important;
-    margin-left: calc(50% - 50vw) !important;
-    margin-right: calc(50% - 50vw) !important;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    aspect-ratio: 4 / 3;
+    width: auto !important;
+    max-width: 100%;
+    margin: 2rem auto;
     overflow: hidden;
     display: block !important;
     visibility: visible !important;
-    background: #2a2522;
+    background: #F2EDE5;
   }
   .venue-image {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain !important;
+    margin: 0 auto;
   }
 
   .hero-content {
@@ -410,14 +409,14 @@
     width: 100%;
     box-sizing: border-box;
     font-family: 'Monsieur La Doulaise', 'EB Garamond', cursive;
-    font-size: clamp(1.8rem, 6.5vw, 4.8rem);
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
     margin: 0;
     transform: none;
     color: #8a5a3e;
     -webkit-text-stroke: 0.4px #8a5a3e;
     line-height: 1.1;
     background: #F2EDE5;
-    padding: 0.9em 1em;
+    padding: 0.45em 1em;
     border-radius: 0;
     box-shadow: none;
     letter-spacing: 0.04em;
@@ -596,18 +595,23 @@
   /* ─── SAVE THE DATE ─── */
   .save-the-date {
     padding: 4rem 2rem;
-    background: var(--white);
+    background: #F2EDE5;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow: hidden;
   }
+  /* Artwork sized to fit the viewport — full height visible without scroll,
+     cream-blush sides letterbox naturally since the image is height-constrained
+     and centered. */
   .std-image {
     display: block;
-    max-width: 900px;
-    width: 100%;
+    width: auto;
     height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
   }
   /* ─── Date + Countdown banner (under Save the Date artwork) ─── */
   .date-countdown-banner {
@@ -890,12 +894,15 @@
 
   @media (max-width: 768px) {
     /* Save the Date: invitation artwork takes ~one full viewport so users
-       see the full art first, then scroll to reveal city + countdown. */
+       see the full art first, then scroll to reveal city + countdown.
+       Background matches the hero names banner so the artwork sits inside
+       a cream-blush frame instead of being cropped on portrait artwork. */
     .save-the-date {
       min-height: 100dvh;
       padding: 1rem 0.5rem 2rem;
       overflow: hidden;
       justify-content: flex-start;
+      background: #F2EDE5;
     }
     .std-image {
       height: calc(100dvh - 3rem);
@@ -960,6 +967,23 @@
     #venue {
       min-height: 100dvh;
       box-sizing: border-box;
+    }
+    /* Venue: show the WHOLE Facciata photo (no edge-to-edge landscape crop
+       like desktop). Image is nearly square (5410x5973), so we use the
+       natural aspect ratio + object-fit: contain so nothing is cropped,
+       and we letterbox into the cream-blush frame color so the empty
+       space looks intentional. */
+    #venue { background: #F2EDE5; }
+    .venue-image-frame {
+      aspect-ratio: auto;
+      background: #F2EDE5;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    .venue-image {
+      object-fit: contain !important;
+      height: auto !important;
+      max-height: 70dvh;
     }
   }
 
@@ -2374,13 +2398,24 @@
     .credits-text { font-size: 1rem; letter-spacing: 0.14em; }
   }
 
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 768px) {
+  /* Show the hamburger menu (and hide the inline nav) on tablets too, not
+     just phones. The full 13-item nav row only really fits on wider laptop
+     and desktop screens; below ~1024px it gets cramped and would otherwise
+     wrap awkwardly. */
+  @media (max-width: 1024px) {
     .nav-links { display: none; }
     .hamburger {
       display: flex;
       position: absolute;
       right: 1rem;
+      top: 1rem;
+    }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    /* Mobile-only nav tweaks layer on top of the 1024px hamburger rule. */
+    .hamburger {
       top: -3.5rem;
     }
     section { padding: 2.5rem 1rem; }
@@ -2389,12 +2424,13 @@
     .section-title { font-size: 1.8rem; }
     .section-text { font-size: 1rem; }
 
-    /* Gallery */
+    /* Gallery — show ~1.5 images at a time so each photo is bigger; the
+       half-visible peek on the right cues the user to swipe / arrow for more. */
     .gallery-section { padding-left: 0; padding-right: 0; }
-    .gallery-track { gap: 0.3rem; }
-    .gallery-item { flex: 0 0 calc((100% - 0.9rem) / 3); }
-    .gallery-item img { height: 160px; border-radius: 4px; }
-    .gallery-caption { font-size: 0.7rem; }
+    .gallery-track { gap: 0.5rem; padding-left: 1rem; }
+    .gallery-item { flex: 0 0 calc(66% - 0.25rem); }
+    .gallery-item img { height: 280px; border-radius: 4px; }
+    .gallery-caption { font-size: 0.78rem; }
 
     /* Things to Do */
     .things-grid { grid-template-columns: 1fr; gap: 1rem; }
