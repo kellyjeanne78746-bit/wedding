@@ -535,9 +535,15 @@
     }
     /* On mobile / smaller screens, the fixed 240px translateY from desktop
        would push the names below the 50% mark of the image. Drop the shift
-       to keep the names safely within the top half. */
+       to keep the names safely within the top half.
+       Also allow the long names to wrap to two lines instead of overflowing
+       past the viewport edge on narrow phones. */
     .hero-content .gate-title {
       transform: translateY(0);
+      white-space: normal;
+      font-size: clamp(1.4rem, 7vw, 2.4rem);
+      letter-spacing: 0.02em;
+      padding: 0.7em 0.6em;
     }
     .hero-photo { height: auto; }
     .hero-photo img {
@@ -2400,6 +2406,52 @@
     }
     .footer-names { font-size: 1.8rem; }
     .footer-date { font-size: 0.9rem; }
+
+    /* ─── MOBILE TAP TARGETS (≥44px per WCAG / iOS HIG) ─── */
+    .submit-btn {
+      padding: 16px 24px;
+      font-size: 1rem;
+      min-height: 48px;
+    }
+    .radio-label, .checkbox-label {
+      padding: 0.9rem 1rem;
+      min-height: 44px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+    .venue-btn { padding: 0.65rem 0.9rem; min-height: 38px; font-size: 0.78rem; }
+    .location-tab { padding: 0.7rem 1.1rem; min-height: 40px; font-size: 0.88rem; }
+
+    /* Form inputs: 16px font prevents iOS zoom-on-focus; 44px min-height for tap */
+    .form-container input,
+    .form-container select,
+    .form-container textarea {
+      padding: 0.85rem 0.9rem;
+      font-size: 16px;
+      min-height: 44px;
+      box-sizing: border-box;
+    }
+    .form-container textarea { min-height: 88px; }
+
+    /* Contact dropdown — fit within narrow viewport */
+    .contact-dropdown {
+      min-width: auto;
+      max-width: calc(100vw - 2rem);
+      right: 0.5rem;
+    }
+
+    /* Hamburger — keep within header bounds, no negative offset hiding */
+    .hamburger {
+      top: 0.5rem;
+      right: 0.75rem;
+      padding: 12px;
+    }
+
+    /* Prevent horizontal scroll triggers on any rogue element */
+    body, html { overflow-x: hidden; }
+    img, svg, video { max-width: 100%; height: auto; }
   }
   @media (min-width: 769px) {
     .hotels-grid { grid-template-columns: 1fr 1fr; }
