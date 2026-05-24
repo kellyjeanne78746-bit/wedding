@@ -525,13 +525,36 @@
   }
 
   @media (max-width: 768px) {
-    .hero { min-height: auto; }
+    /* Make the hero section fill the viewport below the sticky header so the
+       monogram + names banner + photo are the entire first screen — no peek
+       of the Save-the-Date section showing at the bottom on initial load.
+       100dvh handles mobile browser chrome (URL bar shrink) gracefully.
+       130px is a conservative estimate of the sticky-header height on phones
+       (monogram banner + nav row). If the header grows, we just give the
+       photo a bit less space, which is fine. */
+    .hero {
+      min-height: 0;
+      height: calc(100vh - 130px);
+      height: calc(100dvh - 130px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
     .hero-content {
       width: 100%;
       padding: 0;
       justify-content: center;
       align-items: center;
       text-align: center;
+      flex: 0 0 auto;
+    }
+    .hero-photo {
+      flex: 1 1 auto;
+      aspect-ratio: auto;
+      min-height: 0;
+    }
+    .hero-photo img {
+      object-position: center bottom;
     }
     /* On mobile / smaller screens, the fixed 240px translateY from desktop
        would push the names below the 50% mark of the image. Drop the shift
@@ -545,11 +568,15 @@
       letter-spacing: 0.02em;
       padding: 0.7em 0.6em;
     }
-    .hero-photo { height: auto; }
+    /* Image fills the remaining flex space; object-fit keeps native aspect
+       and crops dynamically from the top so subject stays anchored to the
+       bottom (Sam & Veronica on the bench). More viewport = less crop. */
     .hero-photo img {
       transform: none;
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
     }
     .hero-save-the-date { font-size: 1.35rem; margin-bottom: 0.6rem; letter-spacing: 0.12em; }
     .hero-married { font-size: 0.95rem; margin-top: 0.3rem; }
@@ -2442,11 +2469,16 @@
       right: 0.5rem;
     }
 
-    /* Hamburger — keep within header bounds, no negative offset hiding */
+    /* Hamburger — smaller bars + tighter padding, kept tappable via padding */
     .hamburger {
       top: 0.5rem;
       right: 0.75rem;
-      padding: 12px;
+      padding: 10px;
+      gap: 5px;
+    }
+    .hamburger span {
+      width: 22px;
+      height: 2px;
     }
 
     /* Prevent horizontal scroll triggers on any rogue element */
