@@ -220,6 +220,16 @@ export async function onRequest(context) {
     return next();
   }
 
+  // Planner RSVP view. This path bypasses the site passcode because it has
+  // its own, stronger lock: in production it is only served on the
+  // planners.veronicaandsam2027.com subdomain, which is protected by
+  // Cloudflare Access (email + one-time PIN). On the main wedding domain
+  // the handler (functions/planners.js) returns 404 regardless, so even
+  // letting `/planners` through here cannot leak guest PII.
+  if (path === "/planners") {
+    return next();
+  }
+
   // Handle the gate's own login submission.
   if (path === GATE_LOGIN_PATH) {
     if (request.method !== "POST") {
