@@ -951,24 +951,14 @@
   }
 
   /* ─── SECTION VIEWPORT FILL (MOBILE) ─── */
-  /* Each major section fills at least one viewport so users scroll from one
-     section to the next cleanly, never seeing partial views of adjacent
-     sections. Sections with more content than fits will grow past 100dvh,
-     which is fine — only the minimum is enforced. */
+  /* Applied only to sections the user explicitly asked to be one-screen:
+     Engagement (gallery) and Venue. Sections with naturally long content
+     (Traveling: food, excursions / Accommodations: hotels) are NOT in
+     this list — they would just look weirdly stretched. */
   @media (max-width: 768px) {
     #gallery,
-    #venue,
-    #schedule,
-    #traveling,
-    #accommodations,
-    #rsvp,
-    #registry,
-    #updates,
-    #faq {
+    #venue {
       min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       box-sizing: border-box;
     }
   }
