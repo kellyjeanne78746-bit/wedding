@@ -889,7 +889,42 @@
   }
 
   @media (max-width: 768px) {
-    .save-the-date { padding: 0 0.5rem; overflow: hidden; }
+    /* Save the Date: invitation artwork takes ~one full viewport so users
+       see the full art first, then scroll to reveal city + countdown. */
+    .save-the-date {
+      min-height: 100dvh;
+      padding: 1rem 0.5rem 2rem;
+      overflow: hidden;
+      justify-content: flex-start;
+    }
+    .std-image {
+      height: calc(100dvh - 3rem);
+      width: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      margin: 0;
+    }
+    /* Date + Countdown banner — stays on ONE line, responsive cell sizes */
+    .date-countdown-banner { padding: 1.5rem 1rem 2rem; gap: 1rem; }
+    .date-countdown-banner .dcb-location {
+      font-size: clamp(1rem, 4.5vw, 1.5rem);
+    }
+    .date-countdown-banner .dcb-countdown {
+      gap: clamp(0.5rem, 3vw, 1.5rem);
+      flex-wrap: nowrap;
+      width: 100%;
+      justify-content: space-around;
+    }
+    .date-countdown-banner .dcb-cd-cell { min-width: 0; }
+    .date-countdown-banner .dcb-cd-num {
+      font-size: clamp(1.4rem, 7vw, 2.4rem);
+    }
+    .date-countdown-banner .dcb-cd-label {
+      font-size: clamp(0.6rem, 2.3vw, 0.85rem);
+      letter-spacing: 0.08em;
+    }
+
+    /* Inline std-* rules retained for the embedded invitation modal styling. */
     .std-frame { min-height: auto; max-width: 100%; }
     .std-art-top { width: 60px; top: -8px; transform: translateX(-50%) rotate(90deg); }
     .std-art-bottom { width: 50px; bottom: -5px; }
@@ -913,6 +948,29 @@
     .std-venue { font-size: 1.1rem; }
     .std-note { font-size: 0.65rem; }
     .std-invitation-link { font-size: 0.9rem; margin-top: 0.6rem; }
+  }
+
+  /* ─── SECTION VIEWPORT FILL (MOBILE) ─── */
+  /* Each major section fills at least one viewport so users scroll from one
+     section to the next cleanly, never seeing partial views of adjacent
+     sections. Sections with more content than fits will grow past 100dvh,
+     which is fine — only the minimum is enforced. */
+  @media (max-width: 768px) {
+    #gallery,
+    #venue,
+    #schedule,
+    #traveling,
+    #accommodations,
+    #rsvp,
+    #registry,
+    #updates,
+    #faq {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+    }
   }
 
   /* ─── SECTIONS ─── */
