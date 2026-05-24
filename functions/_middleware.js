@@ -173,13 +173,9 @@ function gatePage(errorMessage, prefillEmail) {
     <div class="gate-form-col">
       <h1 class="gate-title">We are getting married!</h1>
       ${errorHtml}
-      <!-- EMAIL FIELD TEMPORARILY DISABLED (kept here for easy re-enable when guest emails are collected).
-           To re-enable: remove the surrounding HTML comment around this <div class="field"> block. -->
-      <!--
       <div class="field">
         <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email address to access information" aria-label="Email address"${emailValue}>
       </div>
-      -->
       <div class="field">
         <input id="passcode" name="passcode" type="password" autocomplete="off" placeholder="Please enter password to access site" aria-label="Password" required>
       </div>
