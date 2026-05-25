@@ -260,7 +260,7 @@
   }
   .monogram-banner img,
   .monogram-banner svg {
-    max-height: clamp(62px, 6.25vw, 105px);
+    max-height: clamp(56px, 5.625vw, 95px);
     width: auto;
     display: block;
   }
@@ -301,11 +301,18 @@
   /* Villa photo: wide landscape banner. Per the bride's preference we
      accept some top/bottom crop in exchange for the photo being WIDE
      (the original is nearly square). Cream-blush bg fills the section. */
+  /* Image is sized to about 80% of viewport so the whole section (title
+     + image + address) fits in one screen without scrolling. */
   .venue-image-frame {
-    width: 100% !important;
-    max-width: 1600px;
-    aspect-ratio: 3 / 2;
-    margin: 2rem auto;
+    width: 80vw !important;
+    max-width: 80vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 80vh;
+    height: 80dvh;
+    aspect-ratio: auto;
+    margin: 2rem 0;
     overflow: hidden;
     display: block !important;
     visibility: visible !important;
@@ -353,7 +360,7 @@
   }
   .hero-photo {
     width: 100%;
-    aspect-ratio: 2.22 / 1;
+    aspect-ratio: 2.6 / 1;
     overflow: hidden;
     position: relative;
     z-index: 1;
@@ -410,17 +417,17 @@
     width: 100%;
     box-sizing: border-box;
     font-family: 'Monsieur La Doulaise', 'EB Garamond', cursive;
-    font-size: clamp(1.6rem, 3.5vw, 3rem);
+    font-size: clamp(1.4rem, 3.1vw, 2.65rem);
     margin: 0;
     transform: none;
     color: #8a5a3e;
     -webkit-text-stroke: 0.4px #8a5a3e;
     line-height: 1.1;
     background: #F2EDE5;
-    padding: 0.45em 1em;
+    padding: 0.55em 1em;
     border-radius: 0;
     box-shadow: none;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.12em;
     white-space: nowrap;
     text-align: center;
     /* Subtle gold "twinkle" — soft warm-gold halo behind the letters,
@@ -636,7 +643,7 @@
   }
   .date-countdown-banner .dcb-location {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
     font-style: italic;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -3627,7 +3634,6 @@
         <div class="card-icon">&#9992;</div>
         <div>
           <div class="card-name">Honeymoon Fund</div>
-          <div class="card-desc">Help us explore the Amalfi Coast after the wedding</div>
         </div>
       </div>
       <div class="card-btn">Contribute</div>
@@ -3748,7 +3754,7 @@
   <div class="footer-content">
     <div class="footer-names">Veronica &amp; Samuel</div>
     <div class="footer-date">May 29, 2027<br>Monte Porzio Catone<br>[Roma], Italia</div>
-    <p class="footer-note" style="margin-top: 2rem; font-size: 1rem; color: #D4A085;">Made with amore by Mamma Hill <span style="font-family: serif; margin-left: 0.1em;">&#9825;</span></p>
+    <p class="footer-note" style="margin-top: 2rem; font-size: 1.125rem; font-weight: 500; color: #D4A085;">Made with amore by Mamma Hill <span style="font-family: serif; margin-left: 0.1em;">&#9825;</span></p>
   </div>
 </footer>
 
