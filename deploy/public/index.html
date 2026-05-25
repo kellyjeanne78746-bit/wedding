@@ -15,19 +15,35 @@
 <!--  Search keyword: SECTION_VISIBILITY                                      -->
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 <script>
-  window.SECTION_VISIBILITY = {
-    hero:        true,
-    savethedate: true,
-    gallery:     true,
-    venue:       true,
-    schedule:    true,
-    travel:      true,
-    registry:    true,
-    rsvp:        true,
-    faq:         true,
-    updates:     true,
-    explore:     true,
+  // ══════════════════════════════════════════════════════════════════════
+  //  PHASED REVEAL — change the single number on the CURRENT_PHASE line
+  //  below to switch which sections guests see. No other edits needed.
+  //
+  //    0 = PLANNER REVIEW   (everything visible, for the wedding planners
+  //                          and the bride to review the full site)
+  //    1 = SAVE OUR DATE!   (NOW → hotel blocks confirmed)
+  //                          shows: hero, savethedate, gallery, venue
+  //    2 = TRAVEL PLANNING  (hotels confirmed → ~3 months out)
+  //                          + travel
+  //    3 = RSVP & DETAILS   (3 months out → 1 month out)
+  //                          + rsvp, schedule, registry, faq
+  //    4 = WEDDING WEEK     (week of — everything visible)
+  //                          + updates, explore
+  //
+  //  Sections hero / savethedate / gallery / venue are visible in EVERY
+  //  phase (1-4) — the core "who/when/where" never disappears.
+  // ══════════════════════════════════════════════════════════════════════
+  var CURRENT_PHASE = 0;
+
+  var PHASE_PRESETS = {
+    0: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:true,  travel:true,  registry:true,  rsvp:true,  faq:true,  updates:true,  explore:true  },
+    1: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:false, travel:false, registry:false, rsvp:false, faq:false, updates:false, explore:false },
+    2: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:false, travel:true,  registry:false, rsvp:false, faq:false, updates:false, explore:false },
+    3: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:true,  travel:true,  registry:true,  rsvp:true,  faq:true,  updates:false, explore:false },
+    4: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:true,  travel:true,  registry:true,  rsvp:true,  faq:true,  updates:true,  explore:true  },
   };
+
+  window.SECTION_VISIBILITY = PHASE_PRESETS[CURRENT_PHASE] || PHASE_PRESETS[0];
 
   // Apply the visibility settings above by injecting a <style> rule for any
   // section marked false. Hides the <section> AND its matching nav links.
