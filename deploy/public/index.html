@@ -2589,8 +2589,12 @@
       height: 2px;
     }
 
-    /* Prevent horizontal scroll triggers on any rogue element */
-    body, html { overflow-x: hidden; }
+    /* Prevent horizontal scroll triggers on any rogue element.
+       NOTE: must be `clip`, NOT `hidden` — `overflow-x: hidden` breaks
+       position: sticky on descendants because it forces overflow-y to
+       become a scroll container. `clip` prevents scroll without creating
+       a scroll context, so the sticky site-header keeps working. */
+    body, html { overflow-x: clip; }
     img, svg, video { max-width: 100%; height: auto; }
   }
   @media (min-width: 769px) {
