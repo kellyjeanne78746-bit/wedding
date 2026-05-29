@@ -33,25 +33,51 @@
   //  Sections hero / savethedate / gallery / venue are visible in EVERY
   //  phase (1-4) — the core "who/when/where" never disappears.
   // ══════════════════════════════════════════════════════════════════════
-  var CURRENT_PHASE = 0;
-
-  var PHASE_PRESETS = {
-    0: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:true,  travel:true,  registry:true,  rsvp:true,  faq:true,  updates:true,  explore:true  },
-    1: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:false, travel:false, registry:false, rsvp:false, faq:false, updates:false, explore:false },
-    2: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:false, travel:true,  registry:false, rsvp:false, faq:false, updates:false, explore:false },
-    3: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:true,  travel:true,  registry:true,  rsvp:true,  faq:true,  updates:false, explore:false },
-    4: { hero:true, savethedate:true, gallery:true, venue:true,  schedule:true,  travel:true,  registry:true,  rsvp:true,  faq:true,  updates:true,  explore:true  },
+  // ── CURRENT LAUNCH: "Save Our Date!" phase (set 2026-05-29) ──
+  // true  = section shown to guests
+  // false = section hidden (its nav links hidden too)
+  // Flip any value below to show/hide that section. The footer and the
+  // top header (monogram + nav bar) are always shown — not in this list.
+  window.SECTION_VISIBILITY = {
+    hero:        true,   // engagement hero photo
+    savethedate: true,   // Save Our Date! artwork + countdown (incl. location)
+    gallery:     true,   // engagement photo carousel
+    faq:         true,   // FAQ
+    venue:       false,  // Villa Mondragone — hidden until ready
+    schedule:    false,  // Timeline — hidden until ready
+    travel:      false,  // Traveling + Accommodations (same section) — hidden
+    rsvp:        false,  // RSVP — hidden until ready
+    registry:    false,  // Registry — hidden until ready
+    updates:     false,  // Updates — hidden until ready
+    explore:     false,  // Explore — hidden until ready
+    contact:     false,  // Contact nav dropdown — hidden until ready
   };
 
-  window.SECTION_VISIBILITY = PHASE_PRESETS[CURRENT_PHASE] || PHASE_PRESETS[0];
+  // ── PHASE REFERENCE (for later — copy a row's values into the object
+  //    above when you advance phases) ──
+  //   Phase 1 SAVE OUR DATE  : hero, savethedate, gallery [+ faq per bride]
+  //   Phase 2 TRAVEL PLANNING: + venue, travel
+  //   Phase 3 RSVP & DETAILS : + rsvp, schedule, registry
+  //   Phase 4 WEDDING WEEK   : + updates, explore, contact (everything)
 
   // Apply the visibility settings above by injecting a <style> rule for any
   // section marked false. Hides the <section> AND its matching nav links.
+  // The Contact nav is a dropdown (no #contact section / no href anchor),
+  // so it gets handled explicitly via the .nav-contact selector.
   (function applySectionVisibility() {
     var css = '';
     for (var id in window.SECTION_VISIBILITY) {
       if (window.SECTION_VISIBILITY[id] === false) {
-        css += '#' + id + ', a[href="#' + id + '"]{display:none !important;}';
+        if (id === 'contact') {
+          css += '.nav-contact{display:none !important;}';
+        } else {
+          // Hide: the section itself, the nav <li> wrapping its link (so the
+          // remaining nav items close ranks with no empty gap), and the bare
+          // mobile-menu <a> (which is not wrapped in an <li>).
+          css += '#' + id + '{display:none !important;}';
+          css += 'li:has(> a[href="#' + id + '"]){display:none !important;}';
+          css += 'a[href="#' + id + '"]{display:none !important;}';
+        }
       }
     }
     if (css) {
