@@ -198,6 +198,14 @@ function gatePage(errorMessage, prefillEmail) {
       font-size: 0.95rem;
       line-height: 1.5;
     }
+    .gate-help summary {
+      cursor: pointer;
+      color: #B17F5F;
+      text-decoration: underline;
+      list-style: none;
+    }
+    .gate-help summary::-webkit-details-marker { display: none; }
+    .gate-help p { margin: 12px 0 0; }
     .gate-help a { color: #B17F5F; text-decoration: underline; }
   </style>
 </head>
@@ -220,7 +228,10 @@ function gatePage(errorMessage, prefillEmail) {
         </button>
       </div>
       <button type="submit">Click to see details</button>
-      <p class="gate-help">Having trouble getting in? Email us at <a href="mailto:hello@veronicaandsam2027.com">hello@veronicaandsam2027.com</a></p>
+      <details class="gate-help">
+        <summary>Pin code not working?</summary>
+        <p>Send us a note and we'll get you in: <a href="mailto:hello@veronicaandsam2027.com?subject=Help%20accessing%20our%20wedding%20site">hello@veronicaandsam2027.com</a></p>
+      </details>
     </div>
   </form>
   <script>
