@@ -190,6 +190,15 @@ function gatePage(errorMessage, prefillEmail) {
     .pw-toggle .eye-off { display: none; }
     .pw-toggle.is-on .eye-open { display: none; }
     .pw-toggle.is-on .eye-off { display: block; }
+    .gate-help {
+      max-width: 440px;
+      margin: 28px auto 0;
+      color: #9C6A4D;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .gate-help a { color: #B17F5F; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -211,6 +220,7 @@ function gatePage(errorMessage, prefillEmail) {
         </button>
       </div>
       <button type="submit">Click to see details</button>
+      <p class="gate-help">Having trouble getting in? Email us at <a href="mailto:hello@veronicaandsam2027.com">hello@veronicaandsam2027.com</a></p>
     </div>
   </form>
   <script>
