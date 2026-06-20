@@ -1,22 +1,24 @@
-name: Deploy to GitHub Pages
+# Auto-deploys the site to Cloudflare Pages on every push to main.
+# This replaces the old GitHub Pages workflow so there is ONE deploy path.
+#
+# Requires two repository secrets (Settings -> Secrets and variables -> Actions):
+#   CLOUDFLARE_API_TOKEN  - a "Cloudflare Pages: Edit" scoped token
+#   CLOUDFLARE_ACCOUNT_ID - the Kelly Hill account id (set via CLI)
+#
+# Mirrors `npm run deploy` exactly: wrangler pages deploy ./deploy/public,
+# which also bundles the functions/ gate.
+name: Deploy to Cloudflare Pages
 on:
   push:
     branches: [main]
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: '.'
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./deploy/public --project-name=veronica-and-sam-wedding --branch=main
