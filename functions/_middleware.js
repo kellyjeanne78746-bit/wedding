@@ -15,7 +15,7 @@
 // For local development, put `SITE_PASSCODE=<value>` in `.dev.vars`.
 
 const COOKIE_NAME = "vsw_gate";
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 400; // 400 days (~13 months) — browser max; keeps invitees signed in for a full year of daily access
 const SALT = "vsw-gate-v1";
 
 const GATE_LOGIN_PATH = "/__gate/login";
