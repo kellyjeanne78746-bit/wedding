@@ -163,6 +163,33 @@ function gatePage(errorMessage, prefillEmail) {
       font-style: italic;
       font-size: 1rem;
     }
+    .field-pw { position: relative; }
+    .field-pw input { padding-left: 40px; padding-right: 40px; }
+    .pw-toggle {
+      position: absolute;
+      right: 2px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 6px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: 0;
+      border-radius: 999px;
+      box-shadow: none;
+      color: #B17F5F;
+      cursor: pointer;
+    }
+    .pw-toggle svg { width: 22px; height: 22px; display: block; }
+    .pw-toggle:hover,
+    .pw-toggle:active { filter: none; transform: translateY(-50%); }
+    .pw-toggle .eye-off { display: none; }
+    .pw-toggle.is-on .eye-open { display: none; }
+    .pw-toggle.is-on .eye-off { display: block; }
   </style>
 </head>
 <body>
@@ -174,14 +201,32 @@ function gatePage(errorMessage, prefillEmail) {
       <h1 class="gate-title">We are getting married!</h1>
       ${errorHtml}
       <div class="field">
-        <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email address to access information" aria-label="Email address"${emailValue}>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email address to access information" aria-label="Email address" required${emailValue}>
       </div>
-      <div class="field">
+      <div class="field field-pw">
         <input id="passcode" name="passcode" type="password" autocomplete="off" placeholder="Please enter password to access site" aria-label="Password" required>
+        <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show password" aria-pressed="false">
+          <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-7-11-7a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
       </div>
       <button type="submit">Click to see details</button>
     </div>
   </form>
+  <script>
+    (function () {
+      var t = document.getElementById('pwToggle');
+      var p = document.getElementById('passcode');
+      if (!t || !p) return;
+      t.addEventListener('click', function () {
+        var reveal = p.type === 'password';
+        p.type = reveal ? 'text' : 'password';
+        t.classList.toggle('is-on', reveal);
+        t.setAttribute('aria-pressed', reveal ? 'true' : 'false');
+        t.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
+      });
+    })();
+  </script>
 </body>
 </html>`;
   return new Response(body, {
@@ -241,10 +286,13 @@ export async function onRequest(context) {
       return gatePage("Something went wrong. Please try again.");
     }
 
-    // Email is OPTIONAL for now — the email-gate flow isn't fully wired yet.
-    // If provided, validate the format loosely; if blank, just let it pass.
-    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      return gatePage("Please enter a valid email address (or leave it blank).", email);
+    // Email is REQUIRED — we record every sign-in so the couple has a complete
+    // list of who accessed the site. Reject blank or malformed addresses.
+    if (!email) {
+      return gatePage("Please enter your email address to continue.", email);
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      return gatePage("Please enter a valid email address.", email);
     }
 
     if (timingSafeEqual(submitted, env.SITE_PASSCODE)) {
