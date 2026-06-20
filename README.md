@@ -117,15 +117,36 @@ Both forms send these parameters to EmailJS:
 
 ## Deployment
 
-This is a static site — upload to any static hosting provider:
+The live site runs on **Cloudflare Pages** (project `veronica-and-sam-wedding`, account `khill@friendlyforce.net`) at veronicaandsam2027.com. It is **not** a plain static site — it includes Cloudflare Pages Functions (the passcode gate in `functions/`) and KV storage (`RSVPS`, `GUESTS`).
 
-- **Netlify**: Drag and drop the folder at netlify.com/drop
-- **GitHub Pages**: Push to a repo and enable Pages
-- **Vercel**: Import the repo
-- **Surge.sh**: Run `surge .` in the project folder
-- **Any web server**: Upload all files to the document root
+### Files that matter
+- `deploy/public/index.html` — **the file that actually ships. Edit this one.** (The root `index.html` is stale and unused.)
+- `functions/_middleware.js` — the site-wide passcode gate (also collects sign-in emails into the `RSVPS` KV namespace).
+- `wrangler.toml` — Pages config; build output dir is `./deploy/public`.
 
-No build step is required. All assets are in the root directory.
+### Everyday workflow
+1. Edit `deploy/public/index.html` (or files under `functions/`).
+2. Preview locally: `npm run dev` → http://localhost:8788
+   (needs a `.dev.vars` file containing `SITE_PASSCODE=...` — copy from `.dev.vars.example`).
+3. Commit and push:
+   ```bash
+   git add -A && git commit -m "describe the change" && git push origin main
+   ```
+4. **That's it — pushing to `main` auto-deploys to Cloudflare.** No manual deploy step.
+
+### Auto-deploy (CI)
+`.github/workflows/deploy.yml` runs on every push to `main` and deploys to Cloudflare via `cloudflare/wrangler-action`. It requires two repository secrets (Settings → Secrets and variables → Actions):
+- `CLOUDFLARE_API_TOKEN` — a "Cloudflare Pages: Edit" scoped token
+- `CLOUDFLARE_ACCOUNT_ID` — the Cloudflare account id
+
+### Manual deploy (fallback only)
+If CI is ever unavailable, deploy from a machine logged into the Cloudflare account:
+```bash
+npx wrangler login     # as khill@friendlyforce.net
+npm run deploy         # = wrangler pages deploy ./deploy/public
+```
+
+> Note: the RSVP backend now uses **Cloudflare Functions + Resend** (`functions/api/rsvp.js`), not the EmailJS flow described above. The EmailJS section is retained for historical reference only.
 
 ## Fonts
 
