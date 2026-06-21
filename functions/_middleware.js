@@ -19,6 +19,7 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 400; // 400 days (~13 months) — browser 
 const SALT = "vsw-gate-v1";
 
 const GATE_LOGIN_PATH = "/__gate/login";
+const GATE_HELP_PATH = "/__gate/help";
 
 async function expectedToken(passcode) {
   const data = new TextEncoder().encode(`${passcode}::${SALT}`);
@@ -230,7 +231,7 @@ function gatePage(errorMessage, prefillEmail) {
       <button type="submit">Click to see details</button>
       <details class="gate-help">
         <summary>Passcode not working?</summary>
-        <p>Send us a note and we'll get you in: <a href="mailto:hello@veronicaandsam2027.com?subject=Help%20accessing%20our%20wedding%20site">hello@veronicaandsam2027.com</a></p>
+        <p>Send us a note and we'll get you in: <a id="helpEmail" href="mailto:hello@veronicaandsam2027.com?subject=Help%20accessing%20our%20wedding%20site">hello@veronicaandsam2027.com</a></p>
       </details>
     </div>
   </form>
@@ -245,6 +246,24 @@ function gatePage(errorMessage, prefillEmail) {
         t.classList.toggle('is-on', reveal);
         t.setAttribute('aria-pressed', reveal ? 'true' : 'false');
         t.setAttribute('aria-label', reveal ? 'Hide passcode' : 'Show passcode');
+      });
+    })();
+    // When a guest clicks the help email link, record it (plus whatever they've
+    // typed in the email box) so the couple can see how many people got stuck and
+    // reach out — even if the guest's mail app never opens.
+    (function () {
+      var help = document.getElementById('helpEmail');
+      if (!help) return;
+      help.addEventListener('click', function () {
+        try {
+          var emailEl = document.getElementById('email');
+          var payload = JSON.stringify({ email: emailEl ? emailEl.value : '' });
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon('/__gate/help', payload);
+          } else {
+            fetch('/__gate/help', { method: 'POST', body: payload, keepalive: true });
+          }
+        } catch (e) {}
       });
     })();
   </script>
@@ -345,6 +364,32 @@ export async function onRequest(context) {
       });
     }
     return gatePage("That passcode wasn't right. Please check your invitation and try again.", email);
+  }
+
+  // Records a click on the "Passcode not working?" help link. Lets the couple
+  // count how many guests got stuck, and captures whatever they typed in the
+  // email box at that moment — so even if their mail app never opens, we have
+  // their address and know they need a hand. Bypasses the passcode (they aren't
+  // in yet) but serves NO protected content — it only logs and returns 204.
+  if (path === GATE_HELP_PATH) {
+    if (request.method === "POST" && env?.RSVPS) {
+      try {
+        const body = await request.json();
+        const email = (body?.email || "").toString().trim().slice(0, 200);
+        const when = new Date().toISOString();
+        await env.RSVPS.put(
+          `help:${when}:${email.slice(0, 80) || "(no email entered)"}`,
+          JSON.stringify({
+            email,
+            when,
+            userAgent: (request.headers.get("user-agent") || "").slice(0, 300),
+          })
+        );
+      } catch (err) {
+        console.error("Gate help log failed:", err);
+      }
+    }
+    return new Response(null, { status: 204 });
   }
 
   // Authed requests pass through to the static asset / route handler.
