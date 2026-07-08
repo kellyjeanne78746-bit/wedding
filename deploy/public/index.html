@@ -163,7 +163,7 @@
   .nav-links a {
     text-decoration: none;
     color: #B17F5F;
-    font-size: 0.66rem;
+    font-size: 0.78rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 400;
@@ -2627,6 +2627,31 @@
     .hotels-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
+<!-- ============================================================================
+     FONT TRIAL (Adobe Typekit: livory / medusa)
+     To UNDO completely: delete this entire <style id="font-trial"> block.
+     Nothing else in the file was changed. Nav is intentionally NOT affected.
+     ============================================================================ -->
+<style id="font-trial">
+@import url("https://p.typekit.net/p.css?s=1&k=vwx3pug&ht=tk&f=10306.10308.38084&a=2496331&app=typekit&e=css");
+
+@font-face{font-family:"livory";src:url("https://use.typekit.net/af/8b225b/00000000000000007735d6c0/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/8b225b/00000000000000007735d6c0/31/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/8b225b/00000000000000007735d6c0/31/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");font-display:swap;font-style:normal;font-weight:400;font-stretch:normal;}
+@font-face{font-family:"livory";src:url("https://use.typekit.net/af/b91827/00000000000000007735d6c3/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/b91827/00000000000000007735d6c3/31/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/b91827/00000000000000007735d6c3/31/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");font-display:swap;font-style:normal;font-weight:700;font-stretch:normal;}
+@font-face{font-family:"medusa";src:url("https://use.typekit.net/af/53bb98/00000000000000007735e736/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/53bb98/00000000000000007735e736/31/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/53bb98/00000000000000007735e736/31/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");font-display:swap;font-style:normal;font-weight:400;font-stretch:normal;}
+
+/* ---- KNOBS: change "livory" <-> "medusa" here to try each font in each spot ---- */
+:root{
+  --trial-names:  "medusa", cursive;   /* names at the very top (Veronica Natale & Samuel Hill) */
+  --trial-titles: "medusa", cursive;   /* major section / category titles (Our Engagement, Schedule, etc.) */
+  --trial-faq:    "medusa", cursive;   /* FAQ question + answer text */
+}
+/* ---- targeted overrides — ONLY these three areas; navigation is left alone ---- */
+.gate-title                { font-family: var(--trial-names)  !important; }
+.section-title             { font-family: var(--trial-titles) !important; }
+.faq-question,
+.faq-answer                { font-family: var(--trial-faq)    !important; }
+</style>
+<!-- ===================== END FONT TRIAL ===================== -->
 </head>
 <body>
 
