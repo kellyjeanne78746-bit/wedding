@@ -50,7 +50,7 @@
     registry:    false,  // Registry — hidden until ready
     updates:     false,  // Updates — hidden until ready
     explore:     false,  // Explore — hidden until ready
-    contact:     false,  // Contact nav dropdown — hidden until ready
+    contact:     true,   // Contact nav dropdown — shown (email + phone for calls/texts)
   };
 
   // ── PHASE REFERENCE (for later — copy a row's values into the object
@@ -891,6 +891,64 @@
   .inv-modal img { max-height:80vh; max-width:90vw; border-radius:8px; box-shadow:0 10px 50px rgba(0,0,0,0.5); }
   .inv-modal-close { position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; color: #B17F5F; font-size:2rem; cursor:pointer; }
   .inv-modal-close:hover { color: #B17F5F; }
+
+  /* ─── CONTACT POPUP (matches the landing/gate form) ─── */
+  .contact-modal { display:none; position:fixed; inset:0; background:rgba(58,53,50,0.55); z-index:3000; justify-content:center; align-items:center; padding:1.5rem; }
+  .contact-modal.active { display:flex; }
+  .contact-modal-card {
+    position:relative; background:#EAE0D4; color:#B17F5F; border-radius:6px;
+    padding:2.6rem 2.2rem 2.4rem; width:100%; max-width:460px; max-height:90vh; overflow-y:auto;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3); text-align:center;
+    font-family:'EB Garamond','Times New Roman',serif;
+  }
+  .contact-modal-close { position:absolute; top:0.6rem; right:1rem; background:none; border:none; color:#B17F5F; font-size:1.9rem; line-height:1; cursor:pointer; }
+  .contact-modal-title { font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:2.3rem; color:#B17F5F; margin:0 0 0.5rem; }
+  .contact-modal-sub { font-family:'EB Garamond', serif; font-style:italic; font-size:1.02rem; color:#B17F5F; margin:0 auto 1.3rem; max-width:400px; line-height:1.55; }
+  .contact-modal-info { margin:0 0 1.6rem; }
+  .contact-modal-info-name { font-family:'EB Garamond', serif; font-size:1.3rem; color:#B17F5F; }
+  .contact-modal-info-phone { display:flex; align-items:center; justify-content:center; gap:0.6rem; margin-top:0.25rem; }
+  .contact-modal-info-phone a { color:#B17F5F; text-decoration:none; font-family:'EB Garamond', serif; font-size:1.15rem; letter-spacing:0.02em; }
+  .contact-copy-inline { background:none; border:1px solid rgba(177,127,95,0.5); color:#B17F5F; border-radius:999px; padding:2px 10px; font-size:0.72rem; cursor:pointer; font-family:'Josefin Sans', sans-serif; letter-spacing:0.04em; }
+  .contact-copy-inline:hover { background:rgba(177,127,95,0.12); }
+  .contact-alt { max-width:400px; margin:0.3rem auto 0; font-family:'EB Garamond', serif; font-style:italic; font-size:0.92rem; color:#B17F5F; text-align:center; }
+  .contact-alt a { color:#B17F5F; text-decoration:none; }
+  .contact-divider { max-width:400px; margin:0.8rem auto 0; border-top:1px solid #D6C4B0; }
+  .c-eyebrow { font-family:'Josefin Sans', sans-serif; text-transform:uppercase; letter-spacing:0.14em; font-size:0.7rem; color:#B17F5F; opacity:0.8; margin:0.2rem 0 0.55rem; text-align:center; }
+  .c-eyebrow-msg { margin-top:1rem; }
+  .c-row { display:flex; gap:0.8rem; max-width:400px; margin:0 auto; }
+  .c-row .c-field { flex:1 1 0; min-width:0; max-width:none; }
+  .c-field { max-width:420px; margin:0 auto 14px; }
+  .c-field input, .c-field textarea {
+    width:100%; box-sizing:border-box; border:1px solid rgba(177,127,95,0.28); background:rgba(177,127,95,0.07); border-radius:8px; padding:13px 14px;
+    font-family:'EB Garamond', serif; font-style:italic; font-size:1.3rem; color:#B17F5F; text-align:center;
+    letter-spacing:0.02em; resize:vertical; transition:background-color .2s ease, border-color .2s ease;
+  }
+  .c-field input::placeholder, .c-field textarea::placeholder { color:#B17F5F; opacity:0.9; font-style:italic; }
+  .c-field input:focus, .c-field textarea:focus { outline:none; background:#FBF6EF; border-color:#9C6A4D; }
+  /* kill the browser autofill "white box" — keep fields transparent on the beige card */
+  .c-field input:-webkit-autofill,
+  .c-field input:-webkit-autofill:hover,
+  .c-field input:-webkit-autofill:focus,
+  .c-field input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #E6D9CC inset;
+    box-shadow: 0 0 0 1000px #E6D9CC inset;
+    -webkit-text-fill-color: #B17F5F;
+    caret-color: #B17F5F;
+    transition: background-color 100000s ease-in-out 0s;
+  }
+  .c-field-msg textarea { min-height:88px; resize:none; }
+  .contact-submit {
+    margin-top:1.4rem; padding:13px 50px; font-family:'EB Garamond', serif; font-style:italic; font-size:1.05rem;
+    letter-spacing:0.06em; color:#FBF6EF; background:linear-gradient(135deg,#B5805F 0%,#D9A175 50%,#B5805F 100%);
+    border:0; border-radius:999px; cursor:pointer; box-shadow:0 4px 14px rgba(156,106,77,0.22); transition:filter .18s, transform .18s;
+  }
+  .contact-submit:hover { filter:brightness(1.05); transform:translateY(-1px); }
+  .contact-submit:disabled { opacity:0.7; cursor:default; }
+  .contact-modal-error { color:#9C4F3A; font-style:italic; font-size:0.95rem; margin-top:0.8rem; }
+  .contact-success { padding:1rem 0; }
+  .contact-success .success-icon { font-size:2.4rem; }
+  .contact-success h2 { font-family:'Cormorant Garamond', serif; font-style:italic; color:#B17F5F; margin:0.4rem 0; }
+  .contact-success p { font-family:'EB Garamond', serif; font-style:italic; color:#B17F5F; }
   .inv-dl-btn { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; color: #B17F5F; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:30px; padding:0.6rem 1.8rem; cursor:pointer; text-decoration:none; transition:all 0.3s; }
   .inv-dl-btn:hover { background:rgba(255,255,255,0.25); }
 
@@ -2643,13 +2701,12 @@
 :root{
   --trial-names:  "medusa", cursive;   /* names at the very top (Veronica Natale & Samuel Hill) */
   --trial-titles: "medusa", cursive;   /* major section / category titles (Our Engagement, Schedule, etc.) */
-  --trial-faq:    "medusa", cursive;   /* FAQ question + answer text */
+  --trial-faq:    'Josefin Sans', sans-serif;   /* FAQ questions + answers — plain body font, matches .section-text; only the FAQ title stays medusa */
 }
 /* ---- targeted overrides — ONLY these three areas; navigation is left alone ---- */
 .gate-title                { font-family: var(--trial-names)  !important; }
 .section-title             { font-family: var(--trial-titles) !important; }
-.faq-question,
-.faq-answer                { font-family: var(--trial-faq)    !important; }
+/* FAQ questions + answers reverted to their original site fonts (Cormorant Garamond / body); only the FAQ title stays medusa */
 </style>
 <!-- ===================== END FONT TRIAL ===================== -->
 </head>
@@ -2675,13 +2732,7 @@
       <li><a href="#registry">Registry</a></li>
       <li><a href="#updates">Updates</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li class="nav-contact">
-        <a onclick="toggleContactDropdown(event)">Contact</a>
-        <div class="contact-dropdown" id="contactDropdown">
-          <a href="mailto:hello@veronicaandsam2027.com?subject=Wedding%20Question"><span class="contact-dropdown-icon">&#9993;</span> Email Veronica</a>
-          <a href="sms:+14095339317"><span class="contact-dropdown-icon">&#9993;</span> Text Veronica</a>
-        </div>
-      </li>
+      <li class="nav-contact"><a href="#" onclick="openContactModal(event)">Contact</a></li>
       <li><a href="#explore">Explore</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -2704,8 +2755,7 @@
   <a href="#registry" onclick="closeMenu()">Registry</a>
   <a href="#updates" onclick="closeMenu()">Updates</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
-  <a href="mailto:hello@veronicaandsam2027.com?subject=Wedding%20Question" onclick="closeMenu()">Email Us</a>
-  <a href="sms:+14095339317" onclick="closeMenu()">Text Us</a>
+  <a href="#" onclick="closeMenu(); openContactModal(event)">Contact</a>
   <a href="#explore" onclick="closeMenu()">Explore</a>
 </div>
 
@@ -2751,6 +2801,31 @@
 </section>
 
 <!-- ─── INVITATION MODAL ─── -->
+<!-- ─── CONTACT POPUP FORM ─── -->
+<div class="contact-modal" id="contactModal" onclick="if(event.target===this)closeContactModal()">
+  <div class="contact-modal-card">
+    <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
+    <div class="contact-modal-title">Get in touch</div>
+    <p class="contact-modal-sub">Have a question about the wedding, travel, or anything else? Leave us a note below — or reach out directly. We'd love to hear from you.</p>
+    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+      <div class="c-field"><input type="text" id="contactName" name="name" placeholder="Your name" autocomplete="name" required></div>
+      <div class="c-field"><input type="email" id="contactEmail" name="email" placeholder="Your email address" autocomplete="email" required></div>
+      <div class="c-field"><input type="tel" id="contactPhone" name="phone" placeholder="Your phone/text (optional)" autocomplete="tel"></div>
+      <div class="c-eyebrow c-eyebrow-msg">Your message</div>
+      <div class="c-field c-field-msg"><textarea id="contactMessage" name="message" placeholder="Type your message or question here…" rows="4" required></textarea></div>
+      <div class="contact-alt">Prefer to call or text? <a href="tel:+14405339317">440-533-9317</a> <button type="button" class="contact-copy-inline" onclick="copyContact(event, '440-533-9317', this)" aria-label="Copy number">⧉ Copy</button></div>
+      <div class="contact-divider"></div>
+      <button type="submit" class="contact-submit" id="contactSubmitBtn">Send message</button>
+      <p class="contact-modal-error" id="contactError" style="display:none;"></p>
+    </form>
+    <div class="contact-success" id="contactSuccess" style="display:none;">
+      <div class="success-icon">💌</div>
+      <h2>Message sent!</h2>
+      <p>Thank you — we'll get back to you soon.</p>
+    </div>
+  </div>
+</div>
+
 <div class="inv-modal" id="invModal" onclick="if(event.target===this)this.classList.remove('active')">
   <button class="inv-modal-close" onclick="document.getElementById('invModal').classList.remove('active')">&times;</button>
   <img src="Wedding Invitation.svg" alt="Wedding Invitation">
@@ -2784,9 +2859,18 @@
     <div class="gallery-item"><img src="images/engagement-08.jpg" alt="Engagement 8"></div>
     <div class="gallery-item"><img src="images/engagement-09.jpg" alt="Engagement 9"></div>
     <div class="gallery-item"><img src="images/engagement-10.jpg" alt="Engagement 10"></div>
+    <div class="gallery-item"><img src="images/engagement-11.jpg" alt="Engagement 11"></div>
     <div class="gallery-item"><img src="images/engagement-12.jpg" alt="Engagement 12"></div>
+    <div class="gallery-item"><img src="images/engagement-13.jpg" alt="Engagement 13"></div>
     <div class="gallery-item"><img src="images/engagement-14.jpg" alt="Engagement 14"></div>
+    <div class="gallery-item"><img src="images/engagement-15.jpg" alt="Engagement 15"></div>
+    <div class="gallery-item"><img src="images/engagement-16.jpg" alt="Engagement 16"></div>
     <div class="gallery-item"><img src="images/engagement-17.jpg" alt="Engagement 17"></div>
+    <div class="gallery-item"><img src="images/engagement-18.jpg" alt="Engagement 18"></div>
+    <div class="gallery-item"><img src="images/engagement-19.jpg" alt="Engagement 19"></div>
+    <div class="gallery-item"><img src="images/engagement-20.jpg" alt="Engagement 20"></div>
+    <div class="gallery-item"><img src="images/engagement-21.jpg" alt="Engagement 21"></div>
+    <div class="gallery-item"><img src="images/engagement-22.jpg" alt="Engagement 22"></div>
   </div>
   </div>
 
@@ -4075,6 +4159,49 @@
 
   // ─── FORM SUBMISSION (CONTACT) ───
   // ─── CONTACT DROPDOWN ───
+  function fallbackCopy(text){
+    var ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly','');
+    ta.style.position='absolute'; ta.style.left='-9999px'; document.body.appendChild(ta);
+    ta.select(); try{document.execCommand('copy');}catch(_){} document.body.removeChild(ta);
+  }
+  function copyContact(e, text, el){
+    e.preventDefault();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).catch(function(){ fallbackCopy(text); });
+    } else { fallbackCopy(text); }
+    if(el.__t) clearTimeout(el.__t);
+    if(!el.__orig) el.__orig = el.innerHTML;
+    el.innerHTML = 'Copied ✓';
+    el.__t = setTimeout(function(){ el.innerHTML = el.__orig; el.__orig=null; el.__t=null; }, 1500);
+  }
+  function openContactModal(e){ if(e) e.preventDefault();
+    var f=document.getElementById('contactForm'), s=document.getElementById('contactSuccess'), err=document.getElementById('contactError');
+    if(f) f.style.display=''; if(s) s.style.display='none'; if(err) err.style.display='none';
+    document.getElementById('contactModal').classList.add('active');
+  }
+  function closeContactModal(){ document.getElementById('contactModal').classList.remove('active'); }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeContactModal(); });
+  async function handleContactSubmit(e){
+    e.preventDefault();
+    var btn=document.getElementById('contactSubmitBtn'), err=document.getElementById('contactError');
+    var name=document.getElementById('contactName').value.trim();
+    var email=document.getElementById('contactEmail').value.trim();
+    var phone=document.getElementById('contactPhone').value.trim();
+    var message=document.getElementById('contactMessage').value.trim();
+    err.style.display='none';
+    if(!name||!email||!message){ err.textContent='Please add your name, email, and message.'; err.style.display='block'; return; }
+    btn.disabled=true; var orig=btn.textContent; btn.textContent='Sending…';
+    try{
+      var res=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,phone:phone,message:message})});
+      var data=await res.json().catch(function(){return {};});
+      if(!res.ok){ throw new Error(data.error||'Something went wrong. Please try again.'); }
+      document.getElementById('contactForm').style.display='none';
+      document.getElementById('contactSuccess').style.display='block';
+    }catch(ex){
+      err.textContent=ex.message||'Could not send. Please try again.'; err.style.display='block';
+      btn.disabled=false; btn.textContent=orig;
+    }
+  }
   function toggleContactDropdown(e) {
     e.preventDefault();
     e.stopPropagation();

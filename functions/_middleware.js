@@ -312,7 +312,7 @@ export async function onRequest(context) {
   // Cloudflare Access (email + one-time PIN). On the main wedding domain
   // the handler (functions/planners.js) returns 404 regardless, so even
   // letting `/planners` through here cannot leak guest PII.
-  if (path === "/planners") {
+  if (path === "/planners" || path === "/text-list" || path === "/messages") {
     return next();
   }
 
