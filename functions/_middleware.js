@@ -208,6 +208,11 @@ function gatePage(errorMessage, prefillEmail) {
     .gate-help summary::-webkit-details-marker { display: none; }
     .gate-help p { margin: 12px 0 0; }
     .gate-help a { color: #B17F5F; text-decoration: underline; }
+
+    /* ===== FONT TRIAL (medusa) — delete from here to the END marker to undo ===== */
+    @font-face{font-family:"medusa";src:url("https://use.typekit.net/af/53bb98/00000000000000007735e736/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/53bb98/00000000000000007735e736/31/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/53bb98/00000000000000007735e736/31/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");font-display:swap;font-style:normal;font-weight:400;font-stretch:normal;}
+    .gate-title { font-family: "medusa", cursive !important; }
+    /* ===== END FONT TRIAL ===== */
   </style>
 </head>
 <body>
@@ -219,10 +224,10 @@ function gatePage(errorMessage, prefillEmail) {
       <h1 class="gate-title">We are getting married!</h1>
       ${errorHtml}
       <div class="field">
-        <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email address to access information" aria-label="Email address" required${emailValue}>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" aria-label="Email address" required${emailValue}>
       </div>
       <div class="field field-pw">
-        <input id="passcode" name="passcode" type="password" autocomplete="off" placeholder="Enter the passcode from your invitation" aria-label="Passcode" required>
+        <input id="passcode" name="passcode" type="password" autocomplete="off" placeholder="Enter invite passcode" aria-label="Passcode" required>
         <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show passcode" aria-pressed="false">
           <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
           <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-7-11-7a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
