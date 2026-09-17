@@ -45,13 +45,37 @@
     faq:         true,   // FAQ
     venue:       false,  // Villa Mondragone — hidden until ready
     schedule:    false,  // Timeline — hidden until ready
-    travel:      false,  // Traveling + Accommodations (same section) — hidden
+    travel:      true,   // Traveling + Accommodations (same section) — SHOWN
     rsvp:        false,  // RSVP — hidden until ready
     registry:    false,  // Registry — hidden until ready
     updates:     false,  // Updates — hidden until ready
     explore:     false,  // Explore — hidden until ready
     contact:     true,   // Contact nav dropdown — shown (email + phone for calls/texts)
   };
+
+  // ══════════════════════════════════════════════════════════════════════
+  // ── WHICH HOTELS ARE SHOWN (set 2026-09-17) ──
+  // Same idea as the sections above: true = guests see this hotel,
+  // false = hidden. Only hotels we have CONFIRMED wedding rates for are
+  // shown. The hidden cards are still fully written below — flip one to
+  // true the day its rate sheet arrives, nothing else to do.
+  window.HOTEL_VISIBILITY = {
+    'villa-grazioli':  true,   // ✓ rates confirmed + reservation form
+    'villa-mercede':   false,  // waiting on rate sheet
+    'villa-tuscolana': false,  // waiting on rate sheet
+    'poggio-regillo':  false,  // waiting on rate sheet
+    'hotel-colonna':   false,  // waiting on rate sheet
+    'hotel-cacciani':  false,  // waiting on rate sheet
+    'del-corso':       false,  // Rome — waiting on rate sheet
+    'santa-maria':     false,  // Rome — waiting on rate sheet
+    'campo-de-fiori':  false,  // Rome — waiting on rate sheet
+    'ponte-sisto':     false,  // Rome — waiting on rate sheet
+    'donna-camilla':   false,  // Rome — waiting on rate sheet
+  };
+
+  // The "Near the Venue / In Central Rome" tabs only make sense once there
+  // is more than one hotel to compare. Set to true to bring them back.
+  window.SHOW_LOCATION_TABS = false;
 
   // ── PHASE REFERENCE (for later — copy a row's values into the object
   //    above when you advance phases) ──
@@ -80,11 +104,39 @@
         }
       }
     }
+    // Hotels marked false above, plus the location tabs when switched off.
+    for (var slug in window.HOTEL_VISIBILITY) {
+      if (window.HOTEL_VISIBILITY[slug] === false) {
+        css += '.hotel-card[data-hotel="' + slug + '"]{display:none !important;}';
+      }
+    }
+    // Scoped to #travel so the Explore section keeps its own tabs.
+    if (window.SHOW_LOCATION_TABS === false) {
+      css += '#travel .location-tabs{display:none !important;}';
+      // With the tabs gone the panels must not stay behind their
+      // "only the active one shows" rule, or a hotel in a non-active
+      // panel would be invisible even when set to true above.
+      css += '#travel .location-panel{display:block !important;}';
+    }
     if (css) {
       var style = document.createElement('style');
       style.textContent = css;
       document.head.appendChild(style);
     }
+
+    // A panel whose hotels are all hidden would otherwise show its intro
+    // paragraph over an empty space — hide the whole panel instead.
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('#travel .location-panel').forEach(function (panel) {
+        var anyVisible = Array.prototype.some.call(
+          panel.querySelectorAll('.hotel-card'),
+          function (card) {
+            return window.HOTEL_VISIBILITY[card.dataset.hotel] !== false;
+          }
+        );
+        if (!anyVisible) panel.style.display = 'none';
+      });
+    });
   })();
 </script>
 
@@ -1650,6 +1702,132 @@
     font-weight: 400;
   }
 
+  /* ─── FEATURED HOTEL (confirmed wedding rates) ─── */
+  .hotel-card--featured {
+    border-color: rgba(201,169,110,0.45);
+    box-shadow: 0 4px 22px rgba(58,53,50,0.07);
+  }
+  .hotel-card--featured .hotel-expanded-inner { text-align: left; }
+  .hotel-blurb {
+    font-size: 0.95rem;
+    color: #B17F5F;
+    font-weight: 300;
+    line-height: 1.75;
+    margin: 0 0 1.1rem;
+  }
+  .hotel-rates { margin-bottom: 1.4rem; }
+  .hotel-rates-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: #B17F5F;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+  }
+  .rate-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    color: #B17F5F;
+    font-weight: 300;
+  }
+  .rate-table th {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-align: left;
+    padding: 0.35rem 0.2rem;
+    border-bottom: 1px solid rgba(201,169,110,0.35);
+  }
+  .rate-table th:not(:first-child),
+  .rate-table td:not(:first-child) { text-align: right; white-space: nowrap; }
+  /* The dollar column is a convenience, not the billed price — kept lighter
+     so the euro rate the hotel actually charges stays the primary figure. */
+  .rate-table .rate-usd { opacity: 0.7; padding-left: 0.7rem; }
+  /* Phones: the three-column rate table is the tightest thing on this page.
+     The room-type column is allowed to wrap onto two lines so the two price
+     columns (which must never break mid-figure) always fit without pushing
+     the page wider than the screen. */
+  @media (max-width: 480px) {
+    .rate-table { font-size: 0.82rem; table-layout: fixed; }
+    .rate-table th:first-child,
+    .rate-table td:first-child { width: 52%; white-space: normal; word-break: normal; }
+    .rate-table .rate-usd { padding-left: 0.4rem; }
+    .rate-table th { font-size: 0.62rem; letter-spacing: 0.1em; }
+    .rate-table td { padding: 0.5rem 0.1rem; }
+  }
+  .rate-table td {
+    padding: 0.5rem 0.2rem;
+    border-bottom: 1px solid rgba(201,169,110,0.15);
+    line-height: 1.4;
+  }
+  .rate-table tbody tr:last-child td { border-bottom: none; }
+  .rate-note {
+    font-size: 0.8rem;
+    color: #B17F5F;
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0.6rem 0 0;
+    opacity: 0.85;
+  }
+  .rate-note--deadline {
+    margin-top: 0.9rem;
+    padding: 0.7rem 0.9rem;
+    background: rgba(201,169,110,0.08);
+    border-left: 2px solid rgba(201,169,110,0.5);
+    border-radius: 4px;
+    opacity: 1;
+  }
+  .booking-steps {
+    margin: 0 0 0.9rem;
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    color: #B17F5F;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .booking-steps li { margin-bottom: 0.3rem; }
+  .booking-steps a {
+    color: #B17F5F;
+    border-bottom: 1px solid rgba(201,169,110,0.4);
+    text-decoration: none;
+    /* The hotel's email address is long enough to overflow a narrow phone
+       if it is treated as one unbreakable word. */
+    overflow-wrap: anywhere;
+  }
+  .form-download {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.6);
+    color: #B17F5F;
+    text-decoration: none;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .form-download:hover {
+    background: rgba(201,169,110,0.1);
+    border-color: #B17F5F;
+  }
+  .form-download-icon { font-size: 1.1rem; line-height: 1; flex-shrink: 0; }
+  .form-download > span:last-child { min-width: 0; }
+  .form-download-label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
+  }
+  .form-download-sub {
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 300;
+    opacity: 0.8;
+    margin-top: 0.1rem;
+  }
+
   /* ─── LOCATION TOGGLE TABS ─── */
   .location-tabs {
     display: flex;
@@ -2973,7 +3151,11 @@
     </div>
 
     <h3 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 3rem 0 0.4rem; letter-spacing: 0.04em;">Hotels &amp; Accommodations</h3>
+    <!-- Original tabbed intro (restore when SHOW_LOCATION_TABS goes back to true):
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">Two clusters of options — close to the venue or in central Rome — to fit how you'd like to experience the trip.</p>
+    -->
+    <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">For the full wedding weekend we strongly recommend arriving <strong>Thursday, May 27</strong> and departing <strong>Sunday, May 30, 2027</strong>. This gives you plenty of time to settle in, enjoy Frascati and the surrounding area, and celebrate with us all weekend long.</p>
+    <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">We are holding rooms at several hotels near the venue. Below is the first with confirmed wedding rates — <strong>more are coming soon</strong>, so please check back before booking if you would like to compare.</p>
 
     <div class="location-tabs">
       <button class="location-tab active" onclick="switchLocationTab('near-venue', this)">Near the Venue</button>
@@ -2984,7 +3166,65 @@
     <p class="section-text">Villa Mondragone sits in the Castelli Romani hills above Frascati. Staying nearby means less travel on the wedding day and a chance to wander the beautiful hill towns.</p>
 
     <div class="hotels-grid">
-      <div class="hotel-card">
+      <div class="hotel-card hotel-card--featured" data-hotel="villa-grazioli">
+        <img class="hotel-img" src="images/hotel_villa_grazioli.jpg" alt="Park Hotel Villa Grazioli — 1580 villa exterior">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">★ Wedding Rates Confirmed · Grottaferrata</div>
+            <div class="hotel-name">Park Hotel Villa Grazioli</div>
+            <div class="hotel-price-brief">From €160/night · ~$184 USD · 9 min to venue by car</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <p class="hotel-blurb">Special discounted rates have been arranged for our wedding guests at Park Hotel Villa Grazioli, a frescoed 1580 villa in the hills above Rome.</p>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">Wedding Guest Rates</div>
+              <table class="rate-table">
+                <thead>
+                  <tr><th>Room Type</th><th>Per Night</th><th class="rate-usd">Approx. USD</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Double Room for Single Use</td><td>€160</td><td class="rate-usd">~$184</td></tr>
+                  <tr><td>Double Room</td><td>€170</td><td class="rate-usd">~$196</td></tr>
+                  <tr><td>Triple Room</td><td>€190</td><td class="rate-usd">~$219</td></tr>
+                </tbody>
+              </table>
+              <p class="rate-note">Rates are per room, per night and include breakfast. 10% VAT is not included. There is no city tax.</p>
+              <p class="rate-note">The hotel bills in euro. Dollar amounts are a guide only, converted at about $1.15 to €1 — your bank's rate on the day will differ slightly.</p>
+            </div>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">How to Book</div>
+              <ol class="booking-steps">
+                <li>Download and complete the reservation form below.</li>
+                <li>Email the completed form to <a href="mailto:congressi@villa-grazioli.it?subject=Natale%2FHill%20Wedding%20—%20Room%20Reservation">congressi@villa-grazioli.it</a>.</li>
+              </ol>
+              <a class="form-download" href="docs/villa-grazioli-reservation-form.docx" download>
+                <span class="form-download-icon">⬇</span>
+                <span>
+                  <span class="form-download-label">Download Reservation Form</span>
+                  <span class="form-download-sub">Word document · fill in and email back to the hotel</span>
+                </span>
+              </a>
+              <p class="rate-note rate-note--deadline"><strong>Booking deadline: September 20, 2026.</strong> Rooms are held for individual guest reservations through this date. After it, any rooms left in our block are released.</p>
+            </div>
+
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.villa-grazioli.it/en/" target="_blank">villa-grazioli.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Breakfast Included</span>
+              <span class="hotel-tag">1580 Villa</span>
+              <span class="hotel-tag">Frescoed Rooms</span>
+              <span class="hotel-tag">Panoramic Views</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-card" data-hotel="poggio-regillo">
         <img class="hotel-img" src="images/hotel_poggio_regillo.jpg" alt="Hotel Poggio Regillo — exterior">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3020,7 +3260,7 @@
         </div>
       </div>
 
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="villa-tuscolana">
         <img class="hotel-img" src="images/hotel_villa_tuscolana.webp" alt="Villa Tuscolana — historic 16th-century villa">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3056,7 +3296,7 @@
         </div>
       </div>
 
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="hotel-colonna">
         <img class="hotel-img" src="images/hotel_colonna.jpg" alt="Hotel Colonna — central Frascati">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3092,7 +3332,7 @@
         </div>
       </div>
 
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="hotel-cacciani">
         <img class="hotel-img" src="images/hotel_cacciani.webp" alt="Hotel Cacciani — room with view of Rome">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3120,7 +3360,7 @@
         </div>
       </div>
 
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="villa-mercede">
         <img class="hotel-img" src="images/hotel_villa_mercede.jpg" alt="Villa Mercede — pool with views over the Castelli Romani">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3147,37 +3387,6 @@
         </div>
       </div>
 
-      <div class="hotel-card">
-        <img class="hotel-img" src="images/hotel_villa_grazioli.jpg" alt="Park Hotel Villa Grazioli — 1580 villa exterior">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">Historic Villa · Grottaferrata</div>
-            <div class="hotel-name">Park Hotel Villa Grazioli</div>
-            <div class="hotel-price-brief">9 min to venue by car</div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Distance</div>
-              <div class="hotel-detail-value">~9 min to venue by car</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Rooms</div>
-              <div class="hotel-detail-value">62 hotel rooms</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.villa-grazioli.it/en/" target="_blank">villa-grazioli.it</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">1580 Villa</span>
-              <span class="hotel-tag">Frescoed Rooms</span>
-              <span class="hotel-tag">Panoramic Views</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     </div>
 
@@ -3185,7 +3394,7 @@
     <p class="section-text">For those who want to explore the city before or after the wedding. ~30–40 min to venue by car or shuttle.</p>
 
     <div class="hotels-grid">
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="del-corso">
         <img class="hotel-img" src="https://images.unsplash.com/photo-1631049552240-59c37f38802b?w=600&h=280&fit=crop" alt="Hotel Del Corso">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3213,7 +3422,7 @@
         </div>
       </div>
 
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="santa-maria">
         <img class="hotel-img" src="https://images.unsplash.com/photo-1529154036614-a60975f5c760?w=600&h=280&fit=crop" alt="Hotel Santa Maria">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3249,7 +3458,7 @@
         </div>
       </div>
 
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="campo-de-fiori">
         <img class="hotel-img" src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=280&fit=crop" alt="Hotel Campo de' Fiori">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3285,7 +3494,7 @@
         </div>
       </div>
 
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="ponte-sisto">
         <img class="hotel-img" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=280&fit=crop" alt="Hotel Ponte Sisto">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
@@ -3320,7 +3529,7 @@
         </div>
       </div>
 
-      <div class="hotel-card">
+      <div class="hotel-card" data-hotel="donna-camilla">
         <img class="hotel-img" src="https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&h=280&fit=crop" alt="Hotel Donna Camilla Savelli">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
