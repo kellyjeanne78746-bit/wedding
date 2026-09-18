@@ -1601,10 +1601,19 @@
     grid-template-columns: 1fr;
     gap: 1.2rem;
     margin-top: 2rem;
-    /* Cards size to their own content, so a short "coming soon" card in the
-       second row is not stretched to match a tall rates card above it. */
-    align-items: start;
+    /* Cards stretch to the height of their row. Letting them size to their
+       own content instead leaves a ragged gap beside the taller card. */
+    align-items: stretch;
   }
+  .hotel-card {
+    display: flex;
+    flex-direction: column;
+  }
+  /* The detail panel takes up whatever height the row has left, so a short
+     card's border and background reach the bottom like its neighbour's. */
+  .hotel-card .hotel-expanded { flex: 1; }
+  /* Keep the photo at its fixed height inside the flex column. */
+  .hotel-img { flex-shrink: 0; }
   .hotel-card {
     background: var(--white);
     border: 1px solid rgba(201,169,110,0.15);
@@ -1653,6 +1662,32 @@
     margin-bottom: 0.8rem;
   }
   .hotel-toggle { display: none; }
+
+  /* ─── VIEW MORE / VIEW LESS ─── */
+  .hotel-card.is-collapsed .hotel-expanded { display: none; }
+  .hotel-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 1.2rem;
+    padding: 0.45rem 1.1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #B17F5F;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .hotel-toggle-btn:hover {
+    background: rgba(201,169,110,0.12);
+    border-color: #B17F5F;
+  }
+  .hotel-toggle-caret { transition: transform 0.3s; font-size: 0.9rem; }
+  .hotel-card.is-open .hotel-toggle-caret { transform: rotate(180deg); }
   .hotel-expanded {
     border-top: 1px solid rgba(201,169,110,0.12);
     padding: 0.8rem 1.4rem 1.2rem;
@@ -4365,6 +4400,44 @@
     document.getElementById(panelId).classList.add('active');
   }
 
+
+  // ─── HOTEL CARDS: COLLAPSE THE DETAIL PANEL ───
+  // Hotels carry wildly different amounts of detail — six rate rows and a
+  // booking procedure for one, a single "coming soon" line for another. Left
+  // open, the short cards sit half empty beside the long ones. Collapsing
+  // them makes every card the same height, so the grid reads evenly and the
+  // section stays short enough to scan.
+  //
+  // Cards with little to show (no rate table, no form) are left open: a
+  // "View More" button that reveals one sentence is a wasted tap.
+  (function collapsibleHotelCards() {
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('#travel .hotel-card').forEach(function (card) {
+        var panel = card.querySelector('.hotel-expanded');
+        if (!panel) return;
+        // Only worth collapsing if there is real detail behind the button.
+        if (!panel.querySelector('.rate-table, .form-download, .booking-steps')) return;
+
+        var name = (card.querySelector('.hotel-name') || {}).textContent || 'this hotel';
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'hotel-toggle-btn';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = '<span class="hotel-toggle-text">View More</span><span class="hotel-toggle-caret" aria-hidden="true">▾</span>';
+        btn.setAttribute('aria-label', 'View rates and booking details for ' + name.trim());
+
+        card.classList.add('is-collapsed');
+        card.querySelector('.hotel-summary').appendChild(btn);
+
+        btn.addEventListener('click', function () {
+          var open = card.classList.toggle('is-open');
+          card.classList.toggle('is-collapsed', !open);
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          btn.querySelector('.hotel-toggle-text').textContent = open ? 'View Less' : 'View More';
+        });
+      });
+    });
+  })();
 
   // ─── FORM SUBMISSION (RSVP) ───
   async function handleSubmit(e) {
