@@ -1601,6 +1601,9 @@
     grid-template-columns: 1fr;
     gap: 1.2rem;
     margin-top: 2rem;
+    /* Cards size to their own content, so a short "coming soon" card in the
+       second row is not stretched to match a tall rates card above it. */
+    align-items: start;
   }
   .hotel-card {
     background: var(--white);
@@ -3266,28 +3269,6 @@
           </div>
         </div>
       </div>
-      <div class="hotel-card" data-hotel="villa-tuscolana">
-        <img class="hotel-img" src="images/hotel_villa_tuscolana.webp" alt="Villa Tuscolana — historic 16th-century villa">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">Rates Coming Soon · Frascati</div>
-            <div class="hotel-name">Villa Tuscolana</div>
-            <div class="hotel-price-brief">8 min to venue by car</div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <p class="hotel-blurb">We have also arranged accommodations for our wedding guests at Villa Tuscolana. Wedding guest rates and booking instructions are coming soon — please check back for additional information before making your reservation.</p>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.villatuscolana.com/en/home/" target="_blank">villatuscolana.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Rates Coming Soon</span>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="hotel-card hotel-card--featured" data-hotel="villa-grazioli">
         <img class="hotel-img" src="images/hotel_villa_grazioli.jpg" alt="Park Hotel Villa Grazioli — 1580 villa exterior">
         <div class="hotel-summary">
@@ -3346,7 +3327,28 @@
           </div>
         </div>
       </div>
-
+      <div class="hotel-card" data-hotel="villa-tuscolana">
+        <img class="hotel-img" src="images/hotel_villa_tuscolana.webp" alt="Villa Tuscolana — historic 16th-century villa">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Rates Coming Soon · Frascati</div>
+            <div class="hotel-name">Villa Tuscolana</div>
+            <div class="hotel-price-brief">8 min to venue by car</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <p class="hotel-blurb">We have also arranged accommodations for our wedding guests at Villa Tuscolana. Wedding guest rates and booking instructions are coming soon — please check back for additional information before making your reservation.</p>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.villatuscolana.com/en/home/" target="_blank">villatuscolana.com</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Rates Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="hotel-card" data-hotel="hotel-flora">
         <img class="hotel-img" src="images/hotel_flora.jpg" alt="Hotel Flora — rooftop terrace looking across Rome to St. Peter's">
         <div class="hotel-summary">
@@ -3365,6 +3367,7 @@
           </div>
         </div>
       </div>
+
       <div class="hotel-card" data-hotel="poggio-regillo">
         <img class="hotel-img" src="images/hotel_poggio_regillo.jpg" alt="Hotel Poggio Regillo — exterior">
         <div class="hotel-summary">
