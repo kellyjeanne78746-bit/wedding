@@ -61,8 +61,9 @@
   // true the day its rate sheet arrives, nothing else to do.
   window.HOTEL_VISIBILITY = {
     'villa-grazioli':  true,   // ✓ rates confirmed + reservation form
-    'villa-mercede':   false,  // waiting on rate sheet
-    'villa-tuscolana': false,  // waiting on rate sheet
+    'villa-mercede':   true,   // ✓ rates confirmed + promo code
+    'villa-tuscolana': true,   // shown as "rates coming soon" per the bride
+    'hotel-flora':     true,   // shown as "rates coming soon" per the bride
     'poggio-regillo':  false,  // waiting on rate sheet
     'hotel-colonna':   false,  // waiting on rate sheet
     'hotel-cacciani':  false,  // waiting on rate sheet
@@ -1702,6 +1703,10 @@
     font-weight: 400;
   }
 
+  /* A hotel we have no photo of yet still needs the top padding the image
+     would otherwise have provided. */
+  .hotel-card--nophoto .hotel-summary { padding-top: 1.6rem; }
+
   /* ─── FEATURED HOTEL (confirmed wedding rates) ─── */
   .hotel-card--featured {
     border-color: rgba(201,169,110,0.45);
@@ -1722,6 +1727,13 @@
     color: #B17F5F;
     letter-spacing: 0.04em;
     margin-bottom: 0.5rem;
+  }
+  /* Last-resort guard: if a rate table ever cannot fit a very narrow phone,
+     it scrolls inside this box rather than widening the whole page. */
+  .rate-table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .rate-table {
     width: 100%;
@@ -1771,13 +1783,24 @@
     margin: 0.6rem 0 0;
     opacity: 0.85;
   }
+  /* The deadline is the one thing on this card that expires, so it is set
+     larger than the notes around it and given its own block. */
   .rate-note--deadline {
-    margin-top: 0.9rem;
-    padding: 0.7rem 0.9rem;
-    background: rgba(201,169,110,0.08);
-    border-left: 2px solid rgba(201,169,110,0.5);
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    background: rgba(201,169,110,0.12);
+    border-left: 3px solid rgba(201,169,110,0.65);
     border-radius: 4px;
     opacity: 1;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .rate-note--deadline strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.25rem;
   }
   .booking-steps {
     margin: 0 0 0.9rem;
@@ -1796,6 +1819,19 @@
        if it is treated as one unbreakable word. */
     overflow-wrap: anywhere;
   }
+  /* The promo code has to be transcribed exactly into the hotel's booking
+     form, so it is set apart from the sentence around it. */
+  .promo-code {
+    display: inline-block;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    padding: 0.15rem 0.5rem;
+    background: rgba(201,169,110,0.14);
+    border: 1px solid rgba(201,169,110,0.35);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
   .form-download {
     display: flex;
     align-items: center;
@@ -1812,6 +1848,14 @@
     background: rgba(201,169,110,0.1);
     border-color: #B17F5F;
   }
+  .form-alt {
+    font-size: 0.8rem;
+    color: #B17F5F;
+    font-weight: 300;
+    margin: 0.5rem 0 0;
+    opacity: 0.85;
+  }
+  .form-alt a { color: #B17F5F; border-bottom: 1px solid rgba(201,169,110,0.4); text-decoration: none; }
   .form-download-icon { font-size: 1.1rem; line-height: 1; flex-shrink: 0; }
   .form-download > span:last-child { min-width: 0; }
   .form-download-label {
@@ -3155,7 +3199,6 @@
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">Two clusters of options — close to the venue or in central Rome — to fit how you'd like to experience the trip.</p>
     -->
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">For the full wedding weekend we strongly recommend arriving <strong>Thursday, May 27</strong> and departing <strong>Sunday, May 30, 2027</strong>. This gives you plenty of time to settle in, enjoy Frascati and the surrounding area, and celebrate with us all weekend long.</p>
-    <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">We are holding rooms at several hotels near the venue. Below is the first with confirmed wedding rates — <strong>more are coming soon</strong>, so please check back before booking if you would like to compare.</p>
 
     <div class="location-tabs">
       <button class="location-tab active" onclick="switchLocationTab('near-venue', this)">Near the Venue</button>
@@ -3166,22 +3209,101 @@
     <p class="section-text">Villa Mondragone sits in the Castelli Romani hills above Frascati. Staying nearby means less travel on the wedding day and a chance to wander the beautiful hill towns.</p>
 
     <div class="hotels-grid">
+      <div class="hotel-card hotel-card--featured" data-hotel="villa-mercede">
+        <img class="hotel-img" src="images/hotel_villa_mercede.jpg" alt="Villa Mercede — pool with views over the Castelli Romani">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Frascati</div>
+            <div class="hotel-name">Hotel Villa Mercede</div>
+            <div class="hotel-price-brief">From €145/night · ~$167 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <p class="hotel-blurb">We have arranged special rates for our wedding guests at Hotel Villa Mercede.</p>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">Wedding Guest Rates</div>
+              <div class="rate-table-scroll"><table class="rate-table">
+                <thead>
+                  <tr><th>Room Type</th><th>Per Night</th><th class="rate-usd">Approx. USD</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Single Room with French Bed</td><td>€145</td><td class="rate-usd">~$167</td></tr>
+                  <tr><td>Standard Double Room</td><td>€160</td><td class="rate-usd">~$184</td></tr>
+                  <tr><td>Superior Double Room</td><td>€175</td><td class="rate-usd">~$201</td></tr>
+                  <tr><td>Standard Triple Room</td><td>€180</td><td class="rate-usd">~$207</td></tr>
+                  <tr><td>Superior Triple Room</td><td>€195</td><td class="rate-usd">~$224</td></tr>
+                  <tr><td>Junior Suite for Four Guests</td><td>€220</td><td class="rate-usd">~$253</td></tr>
+                </tbody>
+              </table></div>
+              <p class="rate-note">Rates are per room, per night. A tourist tax of €2 per person, per night is not included.</p>
+              <p class="rate-note">The hotel bills in euro. Dollar amounts are a guide only, converted at about $1.15 to €1 — your bank's rate on the day will differ slightly.</p>
+            </div>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">Included With Your Stay</div>
+              <p class="hotel-blurb">All rates include breakfast, complimentary parking, Wi-Fi throughout the property, access to the TechnoGym fitness center, and use of the outdoor restaurant swimming pool during opening hours (10:00&nbsp;AM–6:00&nbsp;PM).</p>
+              <p class="hotel-blurb">Wedding guests will also receive a 10% discount on eligible services not already included in the room offer or subject to another promotion, including the Là Kitchen with a View restaurant, Spa &amp; Beauty services, Rapsodia Lounge Bar, padel courts, and the outdoor pool at Padel Club Villa Mercede.</p>
+            </div>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">How to Book</div>
+              <ol class="booking-steps">
+                <li>Visit the <a href="https://www.villamercede.com/en/" target="_blank">Hotel Villa Mercede website</a> and select <strong>Reservations</strong>.</li>
+                <li>Use our wedding promo code: <strong class="promo-code">WEDDINGNATALE</strong></li>
+                <li>The website will automatically display the special rates reserved for our wedding guests for the eligible dates.</li>
+              </ol>
+            </div>
+
+            <div class="hotel-tags">
+              <span class="hotel-tag">Breakfast Included</span>
+              <span class="hotel-tag">Free Parking</span>
+              <span class="hotel-tag">Wi-Fi</span>
+              <span class="hotel-tag">Fitness Center</span>
+              <span class="hotel-tag">Outdoor Pool</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-card" data-hotel="villa-tuscolana">
+        <img class="hotel-img" src="images/hotel_villa_tuscolana.webp" alt="Villa Tuscolana — historic 16th-century villa">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Rates Coming Soon · Frascati</div>
+            <div class="hotel-name">Villa Tuscolana</div>
+            <div class="hotel-price-brief">8 min to venue by car</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <p class="hotel-blurb">We have also arranged accommodations for our wedding guests at Villa Tuscolana. Wedding guest rates and booking instructions are coming soon — please check back for additional information before making your reservation.</p>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.villatuscolana.com/en/home/" target="_blank">villatuscolana.com</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Rates Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="hotel-card hotel-card--featured" data-hotel="villa-grazioli">
         <img class="hotel-img" src="images/hotel_villa_grazioli.jpg" alt="Park Hotel Villa Grazioli — 1580 villa exterior">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">★ Wedding Rates Confirmed · Grottaferrata</div>
+            <div class="hotel-type">Grottaferrata</div>
             <div class="hotel-name">Park Hotel Villa Grazioli</div>
             <div class="hotel-price-brief">From €160/night · ~$184 USD · 9 min to venue by car</div>
           </div>
         </div>
         <div class="hotel-expanded">
           <div class="hotel-expanded-inner">
-            <p class="hotel-blurb">Special discounted rates have been arranged for our wedding guests at Park Hotel Villa Grazioli, a frescoed 1580 villa in the hills above Rome.</p>
+            <p class="hotel-blurb">Special discounted rates have been arranged for our wedding guests at Park Hotel Villa Grazioli.</p>
 
             <div class="hotel-rates">
               <div class="hotel-rates-title">Wedding Guest Rates</div>
-              <table class="rate-table">
+              <div class="rate-table-scroll"><table class="rate-table">
                 <thead>
                   <tr><th>Room Type</th><th>Per Night</th><th class="rate-usd">Approx. USD</th></tr>
                 </thead>
@@ -3190,7 +3312,7 @@
                   <tr><td>Double Room</td><td>€170</td><td class="rate-usd">~$196</td></tr>
                   <tr><td>Triple Room</td><td>€190</td><td class="rate-usd">~$219</td></tr>
                 </tbody>
-              </table>
+              </table></div>
               <p class="rate-note">Rates are per room, per night and include breakfast. 10% VAT is not included. There is no city tax.</p>
               <p class="rate-note">The hotel bills in euro. Dollar amounts are a guide only, converted at about $1.15 to €1 — your bank's rate on the day will differ slightly.</p>
             </div>
@@ -3201,11 +3323,14 @@
                 <li>Download and complete the reservation form below.</li>
                 <li>Email the completed form to <a href="mailto:congressi@villa-grazioli.it?subject=Natale%2FHill%20Wedding%20—%20Room%20Reservation">congressi@villa-grazioli.it</a>.</li>
               </ol>
-              <a class="form-download" href="docs/villa-grazioli-reservation-form.docx" download>
-                <span class="form-download-icon">⬇</span>
+              <!-- PDF opens straight in the browser on phones and laptops; the
+                   Word version stays available for anyone who would rather type
+                   into it than print it. -->
+              <a class="form-download" href="docs/villa-grazioli-reservation-form.pdf" target="_blank" rel="noopener">
+                <span class="form-download-icon">📄</span>
                 <span>
-                  <span class="form-download-label">Download Reservation Form</span>
-                  <span class="form-download-sub">Word document · fill in and email back to the hotel</span>
+                  <span class="form-download-label">View Reservation Form</span>
+                  <span class="form-download-sub">PDF · view, save, print, or download — then email it back to the hotel</span>
                 </span>
               </a>
               <p class="rate-note rate-note--deadline"><strong>Booking deadline: September 20, 2026.</strong> Rooms are held for individual guest reservations through this date. After it, any rooms left in our block are released.</p>
@@ -3217,9 +3342,24 @@
             </div>
             <div class="hotel-tags">
               <span class="hotel-tag">Breakfast Included</span>
-              <span class="hotel-tag">1580 Villa</span>
-              <span class="hotel-tag">Frescoed Rooms</span>
-              <span class="hotel-tag">Panoramic Views</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card hotel-card--nophoto" data-hotel="hotel-flora">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Rates Coming Soon</div>
+            <div class="hotel-name">Hotel Flora</div>
+            <div class="hotel-price-brief">Details to follow</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <p class="hotel-blurb">We have also arranged accommodations for our wedding guests at Hotel Flora. Wedding guest rates and booking instructions are coming soon — please check back for additional information before making your reservation.</p>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Rates Coming Soon</span>
             </div>
           </div>
         </div>
@@ -3260,41 +3400,6 @@
         </div>
       </div>
 
-      <div class="hotel-card" data-hotel="villa-tuscolana">
-        <img class="hotel-img" src="images/hotel_villa_tuscolana.webp" alt="Villa Tuscolana — historic 16th-century villa">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">Historic Villa · Frascati</div>
-            <div class="hotel-name">Villa Tuscolana</div>
-            <div class="hotel-price-brief">8 min to venue by car</div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Distance</div>
-              <div class="hotel-detail-value">~8 min to venue by car</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Rooms</div>
-              <div class="hotel-detail-value">92 hotel rooms</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Amenities</div>
-              <div class="hotel-detail-value">Continental breakfast, parking available</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.villatuscolana.com/en/home/" target="_blank">villatuscolana.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Continental Breakfast</span>
-              <span class="hotel-tag">Parking</span>
-              <span class="hotel-tag">92 Rooms</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="hotel-card" data-hotel="hotel-colonna">
         <img class="hotel-img" src="images/hotel_colonna.jpg" alt="Hotel Colonna — central Frascati">
@@ -3360,32 +3465,6 @@
         </div>
       </div>
 
-      <div class="hotel-card" data-hotel="villa-mercede">
-        <img class="hotel-img" src="images/hotel_villa_mercede.jpg" alt="Villa Mercede — pool with views over the Castelli Romani">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">Frascati</div>
-            <div class="hotel-name">Villa Mercede</div>
-            <div class="hotel-price-brief">60 hotel rooms</div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Rooms</div>
-              <div class="hotel-detail-value">60 hotel rooms</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.villamercede.com/en/" target="_blank">villamercede.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">60 Rooms</span>
-              <span class="hotel-tag">Frascati</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
     </div>
