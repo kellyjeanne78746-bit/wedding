@@ -1728,6 +1728,15 @@
     margin-top: 0.2rem;
     margin-bottom: 0.8rem;
   }
+  /* Euro, dollar and the period set apart from one another rather than run
+     together, so each reads on its own. Wraps to two lines on a phone. */
+  .hotel-price-brief {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+  }
+  .hotel-price-brief .per-night { opacity: 0.75; }
   .hotel-toggle { display: none; }
 
   /* ─── VIEW MORE / VIEW LESS ─── */
@@ -2242,6 +2251,16 @@
   .transfer-table td:first-child { font-size: 0.9rem; }
   .transfer-table th { color: #B17F5F; opacity: 0.75; }
   .travel-tips .tips-subhead { margin-top: 2rem; }
+  /* Dollar equivalents sit under each euro figure rather than in extra
+     columns — four columns of prices already fill a phone. */
+  .rate-usd-inline {
+    display: inline;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.7rem;
+    opacity: 0.62;
+    margin-top: 0.1rem;
+    white-space: nowrap;
+  }
   .tips-subhead {
     /* same token as .hotel-detail-label on the original cards */
     font-family: 'Josefin Sans', sans-serif;
@@ -3521,11 +3540,11 @@
           <tr><th>Transfer</th><th>1–3 Guests</th><th>4–6 Guests</th><th>7–8 Guests</th></tr>
         </thead>
         <tbody>
-          <tr><td>Hotel → Fiumicino Airport (FCO)</td><td>€90</td><td>€120</td><td>€140</td></tr>
-          <tr><td>Fiumicino Airport (FCO) → Hotel</td><td>€100</td><td>€130</td><td>€150</td></tr>
-          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td>€50</td><td>€60</td><td>€70</td></tr>
-          <tr><td>Hotel ↔ Roma Termini</td><td>€75</td><td>€95</td><td>€115</td></tr>
-          <tr><td>Hotel ↔ Central Rome</td><td>€90</td><td>€100</td><td>€120</td></tr>
+          <tr><td>Hotel → Fiumicino Airport (FCO)</td><td>€90<span class="rate-usd-inline">/ $103</span></td><td>€120<span class="rate-usd-inline">/ $138</span></td><td>€140<span class="rate-usd-inline">/ $161</span></td></tr>
+          <tr><td>Fiumicino Airport (FCO) → Hotel</td><td>€100<span class="rate-usd-inline">/ $115</span></td><td>€130<span class="rate-usd-inline">/ $150</span></td><td>€150<span class="rate-usd-inline">/ $172</span></td></tr>
+          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td>€50<span class="rate-usd-inline">/ $57</span></td><td>€60<span class="rate-usd-inline">/ $69</span></td><td>€70<span class="rate-usd-inline">/ $80</span></td></tr>
+          <tr><td>Hotel ↔ Roma Termini</td><td>€75<span class="rate-usd-inline">/ $86</span></td><td>€95<span class="rate-usd-inline">/ $109</span></td><td>€115<span class="rate-usd-inline">/ $132</span></td></tr>
+          <tr><td>Hotel ↔ Central Rome</td><td>€90<span class="rate-usd-inline">/ $103</span></td><td>€100<span class="rate-usd-inline">/ $115</span></td><td>€120<span class="rate-usd-inline">/ $138</span></td></tr>
         </tbody>
       </table>
       </div>
@@ -3533,7 +3552,7 @@
         <div class="hotel-detail-label">To arrange a transfer</div>
         <div class="hotel-detail-value">Marco — <a href="tel:+393286248270">+39 328 624 8270</a> or <a href="tel:+393474893557">+39 347 489 3557</a><br><a href="mailto:marcolombardi48@gmail.com?subject=Natale-Hill%20Wedding%20—%20Private%20Transfer">marcolombardi48@gmail.com</a></div>
       </div>
-      <p class="rate-note transfer-footnote">Night and holiday service is subject to a 30% surcharge (minimum €10). The hotel recommends reserving at least one hour in advance.</p>
+      <p class="rate-note transfer-footnote">Night and holiday service is subject to a 30% surcharge (minimum €10 · ~$12). The hotel recommends reserving at least one hour in advance.</p>
 
       <p class="tips-subhead">Villa Tuscolana</p>
       <div class="rate-table-scroll">
@@ -3542,9 +3561,9 @@
           <tr><th>Transfer</th><th>1–3 Guests</th><th>4–8 Guests</th></tr>
         </thead>
         <tbody>
-          <tr><td>Hotel ↔ Fiumicino Airport (FCO)</td><td>€99</td><td>€99 + €10 per additional guest</td></tr>
-          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td>€55</td><td>€55 + €7 per additional guest</td></tr>
-          <tr><td>Hotel ↔ Central Rome</td><td>€89</td><td>€89 + €10 per additional guest</td></tr>
+          <tr><td>Hotel ↔ Fiumicino Airport (FCO)</td><td>€99<span class="rate-usd-inline">/ $114</span></td><td>€99 + €10 per additional guest<span class="rate-usd-inline">/ $114 + $12 ea</span></td></tr>
+          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td>€55<span class="rate-usd-inline">/ $63</span></td><td>€55 + €7 per additional guest<span class="rate-usd-inline">/ $63 + $8 ea</span></td></tr>
+          <tr><td>Hotel ↔ Central Rome</td><td>€89<span class="rate-usd-inline">/ $102</span></td><td>€89 + €10 per additional guest<span class="rate-usd-inline">/ $102 + $12 ea</span></td></tr>
         </tbody>
       </table>
       </div>
@@ -3604,7 +3623,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">Historic Villa · Grottaferrata</div>
             <div class="hotel-name">Park Hotel Villa Grazioli</div>
-            <div class="hotel-price-brief">€160–€190/night · ~$184–219 USD</div>
+            <div class="hotel-price-brief"><span>€160–€190</span><span>$184–219</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -3684,7 +3703,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">Historic Villa · Frascati</div>
             <div class="hotel-name">Hotel Flora</div>
-            <div class="hotel-price-brief">€120–€180/night · ~$138–207 USD</div>
+            <div class="hotel-price-brief"><span>€120–€180</span><span>$138–207</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -3713,7 +3732,7 @@
               </table>
               </div>
               <p class="rate-note">Rates are per room, per night and include breakfast, service, and VAT.</p>
-              <p class="rate-note">A tourist tax of €2 per person, per night is not included and must be paid directly to the hotel. Children under 10 and guests over 70 are exempt from the tourist tax.</p>
+              <p class="rate-note">A tourist tax of €2 (~$2.30) per person, per night is not included and must be paid directly to the hotel. Children under 10 and guests over 70 are exempt from the tourist tax.</p>
               <p class="rate-note">The hotel bills in euro. Dollar amounts are a guide only, converted at about $1.15 to €1 — your bank's rate on the day will differ slightly.</p>
             </div>
 
@@ -3763,7 +3782,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">Panoramic Pool · Frascati</div>
             <div class="hotel-name">Hotel Villa Mercede</div>
-            <div class="hotel-price-brief">€145–€220/night · ~$167–253 USD</div>
+            <div class="hotel-price-brief"><span>€145–€220</span><span>$167–253</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -3841,7 +3860,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">★ Discount with Villa Mondragone</div>
             <div class="hotel-name">Hotel Poggio Regillo</div>
-            <div class="hotel-price-brief">From €89/night · ~$98 USD</div>
+            <div class="hotel-price-brief"><span>from €89</span><span>$102</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -4053,7 +4072,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">Boutique · Trastevere</div>
             <div class="hotel-name">Hotel Santa Maria</div>
-            <div class="hotel-price-brief">From €109/night · ~$120 USD</div>
+            <div class="hotel-price-brief"><span>from €109</span><span>$125</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -4086,7 +4105,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">Boutique · Centro Storico</div>
             <div class="hotel-name">Hotel Campo de' Fiori</div>
-            <div class="hotel-price-brief">From €130/night · ~$143 USD</div>
+            <div class="hotel-price-brief"><span>from €130</span><span>$150</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -4119,7 +4138,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">4-Star · Near Trastevere</div>
             <div class="hotel-name">Hotel Ponte Sisto</div>
-            <div class="hotel-price-brief">From €114/night · ~$125 USD</div>
+            <div class="hotel-price-brief"><span>from €114</span><span>$131</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -4151,7 +4170,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">Luxury · Trastevere</div>
             <div class="hotel-name">Hotel Donna Camilla Savelli</div>
-            <div class="hotel-price-brief">From €230/night · ~$253 USD</div>
+            <div class="hotel-price-brief"><span>from €230</span><span>$264</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
