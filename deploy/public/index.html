@@ -43,13 +43,13 @@
     savethedate: true,   // Save Our Date! artwork + countdown (incl. location)
     gallery:     true,   // engagement photo carousel
     faq:         true,   // FAQ
-    venue:       false,  // Villa Mondragone — hidden until ready
+    venue:       false,  // Villa Mondragone — hidden at the bride's request
     schedule:    false,  // Timeline — hidden until ready
     travel:      true,   // Traveling + Accommodations (same section) — SHOWN
     rsvp:        false,  // RSVP — hidden until ready
     registry:    false,  // Registry — hidden until ready
-    updates:     false,  // Updates — hidden until ready
-    explore:     false,  // Explore — hidden until ready
+    updates:     true,   // Updates — SHOWN (text-message sign-up)
+    explore:     true,   // Explore — SHOWN (includes Hotels in Rome)
     contact:     true,   // Contact nav dropdown — shown (email + phone for calls/texts)
   };
 
@@ -120,6 +120,7 @@
     // Scoped to #travel so the Explore section keeps its own tabs.
     if (window.SHOW_LOCATION_TABS === false) {
       css += '#travel .location-tabs{display:none !important;}';
+      css += '#central-rome.location-panel{display:block !important;}';
       // With the tabs gone the panels must not stay behind their
       // "only the active one shows" rule, or a hotel in a non-active
       // panel would be invisible even when set to true above.
@@ -134,7 +135,7 @@
     // A panel whose hotels are all hidden would otherwise show its intro
     // paragraph over an empty space — hide the whole panel instead.
     document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('#travel .location-panel').forEach(function (panel) {
+      document.querySelectorAll('#travel .location-panel, #explore #central-rome').forEach(function (panel) {
         var anyVisible = Array.prototype.some.call(
           panel.querySelectorAll('.hotel-card'),
           function (card) {
@@ -151,6 +152,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italianno&family=Josefin+Sans:wght@300;400;500&family=Monsieur+La+Doulaise&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
+    --logo-blue: #4884cc;
+    --logo-blue-light: #6090d8;
     --gold: #C6B185;
     --gold-light: #D8C9A2;
     --gold-dark: #A89768;
@@ -963,6 +966,27 @@
     box-shadow:0 20px 60px rgba(0,0,0,0.3); text-align:center;
     font-family:'EB Garamond','Times New Roman',serif;
   }
+  /* The hotel dialog reuses the contact modal's frame, widened a little
+     because it carries a rate table rather than a short form. */
+  .hotel-modal-card { max-width: 620px; }
+  /* Prose, not a field — so it reads as a paragraph instead of a labelled
+     value. Same tokens as the contact dialog's intro line. */
+  .hotel-about-text {
+    font-family: 'EB Garamond', 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: #B17F5F;
+    margin: 0 auto 1.3rem;
+    max-width: 44ch;
+  }
+  .hotel-modal-card .hotel-type { margin-bottom: 0.3rem; }
+  .hotel-modal-card .hotel-price-brief { margin-bottom: 1.4rem; }
+  .hotel-modal-card .hotel-expanded-inner { text-align: center; }
+  .hotel-modal-card .hotel-detail-row { margin-bottom: 0.9rem; }
+  @media (max-width: 480px) {
+    .hotel-modal-card { padding: 2.2rem 1.2rem 1.8rem; }
+  }
   .contact-modal-close { position:absolute; top:0.6rem; right:1rem; background:none; border:none; color:#B17F5F; font-size:1.9rem; line-height:1; cursor:pointer; }
   .contact-modal-title { font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:2.3rem; color:#B17F5F; margin:0 0 0.5rem; }
   .contact-modal-sub { font-family:'EB Garamond', serif; font-style:italic; font-size:1.02rem; color:#B17F5F; margin:0 auto 1.3rem; max-width:400px; line-height:1.55; }
@@ -1155,6 +1179,20 @@
       height: auto !important;
       max-height: 70dvh;
     }
+  }
+
+  /* The watercolour of the villa, the same artwork as the stationery. It sits
+     on the page's own cream rather than in a frame, the way a painting on
+     paper would. */
+  .venue-watercolor {
+    max-width: 560px;
+    margin: 2.5rem auto 1.5rem;
+    padding: 0 1rem;
+  }
+  .venue-watercolor img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   /* ─── SECTIONS ─── */
@@ -1424,7 +1462,7 @@
     font-style: italic;
     color: #B17F5F;
     text-decoration: none;
-    border-bottom: 1px solid rgba(107,135,168,0.3);
+    border-bottom: 1px solid rgba(72,132,204,0.3);
     transition: border-color 0.3s;
   }
   .thing-link:hover { border-color: #B17F5F; }
@@ -1700,6 +1738,20 @@
   .hotel-card.is-clickable .hotel-img { cursor: pointer; }
   .hotel-card.is-clickable .hotel-summary a { cursor: pointer; }
 
+  /* Group titles inside a section — same cursive face as the section
+     titles above them, a step smaller. Inherits the font trial variable so
+     swapping medusa/livory changes these too. */
+  .group-title {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.1rem;
+    font-weight: 400;
+    color: #B17F5F;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin: 3.5rem 0 0.6rem;
+  }
+
   /* ─── CARD FACE: what each hotel is, before anyone clicks ─── */
   .hotel-face-about {
     font-family: 'Cormorant Garamond', serif;
@@ -1720,55 +1772,45 @@
   .hotel-always .hotel-detail-row { margin-top: 0.4rem; }
   .hotel-always .rate-note--deadline { font-size: 0.88rem; }
   .hotel-always .rate-note--deadline strong { font-size: 1.05rem; }
+  /* Two boxed pills stacked on the card face read as heavy and cluttered.
+     The hotel's site is a quiet italic line in the site's serif, and Details
+     is small letter-spaced caps under a hairline — the same restraint the
+     rest of the page uses for links. */
   .hotel-visit-btn {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.1rem;
-    padding: 0.5rem 1.2rem;
-    border: 1px solid rgba(201,169,110,0.4);
-    border-radius: 20px;
-    background: rgba(255,255,255,0.6);
-    color: #B17F5F;
-    text-decoration: none;
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .hotel-visit-btn:hover {
-    background: rgba(201,169,110,0.12);
-    border-color: #B17F5F;
-  }
-  .hotel-visit-btn > span:first-child {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .hotel-visit-host {
+    display: inline-block;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 0.86rem;
-    opacity: 0.8;
+    font-size: 1rem;
+    color: #B17F5F;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(72,132,204,0.35);
+    padding-bottom: 1px;
+    transition: border-color 0.3s;
   }
+  .hotel-visit-btn:hover { border-color: var(--logo-blue); }
+
   .hotel-toggle-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    margin: 0 0 1.2rem;
-    padding: 0.45rem 1.1rem;
+    gap: 0.45rem;
+    margin: 1.1rem 0 1.3rem;
+    padding: 0.55rem 0 0;
+    border: 0;
+    border-top: 1px solid rgba(201,169,110,0.35);
+    border-radius: 0;
+    background: none;
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
+    font-weight: 400;
     color: #B17F5F;
-    background: rgba(255,255,255,0.6);
-    border: 1px solid rgba(201,169,110,0.4);
-    border-radius: 20px;
     cursor: pointer;
-    transition: background 0.3s, border-color 0.3s;
+    transition: color 0.3s, border-color 0.3s;
   }
   .hotel-toggle-btn:hover {
-    background: rgba(201,169,110,0.12);
-    border-color: #B17F5F;
+    color: var(--logo-blue);
+    border-color: rgba(72,132,204,0.45);
   }
   .hotel-toggle-caret { transition: transform 0.3s; font-size: 0.9rem; }
   .hotel-card.is-open .hotel-toggle-caret { transform: rotate(180deg); }
@@ -1803,7 +1845,7 @@
   .hotel-detail-value a {
     color: #B17F5F;
     text-decoration: none;
-    border-bottom: 1px solid rgba(107,135,168,0.3);
+    border-bottom: 1px solid rgba(72,132,204,0.3);
     transition: border-color 0.3s;
   }
   .hotel-detail-value a:hover { border-color: #B17F5F; }
@@ -1828,6 +1870,15 @@
   /* A hotel we have no photo of yet still needs the top padding the image
      would otherwise have provided. */
   .hotel-card--nophoto .hotel-summary { padding-top: 1.6rem; }
+
+  /* A lone hotel in a two-column grid leaves an empty half beside it.
+     One card centres at a single card's width instead of stretching. */
+  .hotels-grid:has(> .hotel-card:only-child),
+  #central-rome .hotels-grid { justify-content: center; }
+  #central-rome .hotels-grid > .hotel-card { max-width: 430px; width: 100%; }
+  @media (min-width: 769px) {
+    #central-rome .hotels-grid { grid-template-columns: minmax(0, 430px); }
+  }
 
   /* ─── FEATURED HOTEL (confirmed wedding rates) ─── */
   .hotel-card--featured {
@@ -1885,6 +1936,13 @@
   }
   .rate-table th:not(:first-child),
   .rate-table td:not(:first-child) { text-align: right; white-space: nowrap; }
+  /* ...except a cell carrying a sentence rather than a figure — "€99 + €10
+     per additional guest" cannot sit on one line on a phone, and forcing it
+     pushed the table past the margins of the section. */
+  .transfer-table td:not(:first-child) {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+  }
   /* The dollar column is a convenience, not the billed price — kept lighter
      so the euro rate the hotel actually charges stays the primary figure. */
   .rate-table .rate-usd { opacity: 0.7; padding-left: 0.7rem; }
@@ -2137,12 +2195,62 @@
     .transfer-table th:first-child,
     .transfer-table td:first-child { width: 40%; }
   }
-  .tips-subhead {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.12rem;
-    font-style: italic;
+  /* Links in the new travel copy had no styling, so the browser painted
+     them default blue and underlined — glaring against the warm palette.
+     They now match every other link on the site. */
+  .travel-tips a,
+  .tips-text a,
+  .rate-note a {
     color: #B17F5F;
-    margin: 1.1rem 0 0.4rem;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(72,132,204,0.3);
+    transition: border-color 0.3s;
+  }
+  .travel-tips a:hover,
+  .tips-text a:hover,
+  .rate-note a:hover { border-color: var(--logo-blue); }
+
+  /* Type scale inside the travel boxes, following the original hand:
+     paragraphs sit at the same size as the bullet lists, and notes below a
+     table are fine print — clearly smaller than the content they annotate. */
+  .travel-tips .tips-text { font-size: 1.1rem; }
+  .travel-tips .rate-note {
+    font-size: 0.86rem;
+    line-height: 1.75;
+    opacity: 0.9;
+    max-width: min(58ch, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Typographic variety, following the original cards: a tiny letter-spaced
+     label, a serif italic hotel name, body-size route names, prices set in
+     the serif a touch larger so the figures carry, and a fine italic
+     footnote. Not one block of text at one size. */
+  .transfer-contact { margin: 1.4rem auto 0.4rem; }
+  .transfer-contact .hotel-detail-value { line-height: 1.9; }
+  .transfer-footnote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    opacity: 0.8;
+    margin-top: 0.5rem;
+  }
+  .transfer-table { margin-top: 0.7rem; margin-bottom: 0.2rem; }
+  .transfer-table td:not(:first-child) {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.02rem;
+  }
+  .transfer-table td:first-child { font-size: 0.9rem; }
+  .transfer-table th { color: #B17F5F; opacity: 0.75; }
+  .travel-tips .tips-subhead { margin-top: 2rem; }
+  .tips-subhead {
+    /* same token as .hotel-detail-label on the original cards */
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #B17F5F;
+    margin: 1.6rem 0 0.5rem;
   }
   .travel-tips p, .travel-tips li {
     font-size: 1.1rem;
@@ -2231,7 +2339,7 @@
   }
   input:focus, select:focus, textarea:focus {
     border-color: #B17F5F;
-    box-shadow: 0 0 0 3px rgba(107,135,168,0.1);
+    box-shadow: 0 0 0 3px rgba(72,132,204,0.1);
     background: var(--white);
   }
   textarea { resize: vertical; min-height: 80px; }
@@ -2269,7 +2377,7 @@
   .checkbox-label input { display: none; }
   .checkbox-label input:checked + span { color: #B17F5F; font-weight: 400; }
   .checkbox-label:has(input:checked) {
-    background: rgba(107,135,168,0.08);
+    background: rgba(72,132,204,0.08);
     border-color: #B17F5F;
   }
   .checkmark {
@@ -2318,7 +2426,7 @@
   .radio-label:hover { border-color: #B17F5F; }
   .radio-label input { display: none; }
   .radio-label:has(input:checked) {
-    background: rgba(107,135,168,0.08);
+    background: rgba(72,132,204,0.08);
     border-color: #B17F5F;
     color: #B17F5F;
     font-weight: 400;
@@ -2390,7 +2498,7 @@
   }
   .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(107,135,168,0.3);
+    box-shadow: 0 8px 25px rgba(72,132,204,0.3);
     background: var(--dusty-blue-light);
   }
   .submit-btn:active { transform: translateY(0); }
@@ -3117,7 +3225,8 @@
 }
 /* ---- targeted overrides — ONLY these three areas; navigation is left alone ---- */
 .gate-title                { font-family: var(--trial-names)  !important; }
-.section-title             { font-family: var(--trial-titles) !important; }
+.section-title,
+.group-title               { font-family: var(--trial-titles) !important; }
 /* FAQ questions + answers reverted to their original site fonts (Cormorant Garamond / body); only the FAQ title stays medusa */
 </style>
 <!-- ===================== END FONT TRIAL ===================== -->
@@ -3214,6 +3323,16 @@
 
 <!-- ─── INVITATION MODAL ─── -->
 <!-- ─── CONTACT POPUP FORM ─── -->
+<div class="contact-modal hotel-modal" id="hotelModal" onclick="if(event.target===this)closeHotelModal()">
+  <div class="contact-modal-card hotel-modal-card" role="dialog" aria-modal="true" aria-labelledby="hotelModalTitle">
+    <button class="contact-modal-close" onclick="closeHotelModal()" aria-label="Close">&times;</button>
+    <div class="hotel-type" id="hotelModalType"></div>
+    <h3 class="contact-modal-title" id="hotelModalTitle"></h3>
+    <div class="hotel-price-brief" id="hotelModalPrice"></div>
+    <div id="hotelModalBody"></div>
+  </div>
+</div>
+
 <div class="contact-modal" id="contactModal" onclick="if(event.target===this)closeContactModal()">
   <div class="contact-modal-card">
     <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
@@ -3304,6 +3423,10 @@
     <img class="venue-image" src="images/Facciata_V4.jpg" alt="Villa Mondragone facade" loading="eager" decoding="sync" fetchpriority="high">
   </div>
 
+  <div class="venue-watercolor">
+    <img src="images/venue_watercolor.jpg" alt="Watercolour painting of Villa Mondragone" loading="lazy" decoding="async">
+  </div>
+
   <div class="venue-details">
     <div class="venue-address">Via Frascati, 51<br>00078 Monte Porzio Catone, Roma, Italy</div>
   </div>
@@ -3359,7 +3482,7 @@
     <p class="section-text">For guests flying to Italy, we recommend <strong>Rome Fiumicino Airport (FCO)</strong> as your arrival and departure airport.</p>
 
     <div class="travel-tips">
-      <h3>Arriving in Italy</h3>
+      <h3>✈️ Arriving in Italy</h3>
       <p class="tips-text">After landing at Fiumicino, follow signs for passport control and baggage claim. U.S. travelers should allow additional time for entry procedures under Europe's Entry/Exit System (EES).</p>
       <p class="tips-subhead">Before you travel:</p>
       <ul>
@@ -3369,7 +3492,7 @@
     </div>
 
     <div class="travel-tips">
-      <h3>Getting to Frascati</h3>
+      <h3>🚆 Getting to Frascati</h3>
       <p class="tips-text">All our recommended accommodations are located in Frascati, approximately 30–45 minutes outside central Rome.</p>
       <p class="tips-subhead">Via Taxi or Private Transfer</p>
       <p class="tips-text">For guests traveling directly to Frascati, a taxi or pre-arranged private transfer is the easiest option, particularly when traveling with luggage. Several of our recommended hotels offer private transfer services for their guests. Please see the <strong>Accommodations</strong> section below for rates and booking information.</p>
@@ -3378,7 +3501,7 @@
     </div>
 
     <div class="travel-tips">
-      <h3>Getting Around</h3>
+      <h3>🧭 Getting Around</h3>
       <ul>
         <li><strong>Uber</strong> is available in Rome, with service primarily through Uber Black.</li>
         <li><strong>Taxis</strong> are widely available and we recommend downloading <strong>FREE NOW</strong> or <strong>itTaxi</strong> before your trip.</li>
@@ -3388,7 +3511,7 @@
     </div>
 
     <div class="travel-tips">
-      <h3>Private Transfer Service</h3>
+      <h3>🚘 Private Transfer Service</h3>
       <p class="tips-text">For added convenience, private car service is available for hotel guests. Transfers can be arranged between the hotel and Rome Fiumicino Airport (FCO), Ciampino Airport (CIA), and central Rome.</p>
 
       <p class="tips-subhead">Hotel Villa Mercede</p>
@@ -3406,8 +3529,11 @@
         </tbody>
       </table>
       </div>
-      <p class="rate-note">To arrange a transfer: Marco — <a href="tel:+393286248270">+39 328 624 8270</a> or <a href="tel:+393474893557">+39 347 489 3557</a> · <a href="mailto:marcolombardi48@gmail.com?subject=Natale-Hill%20Wedding%20—%20Private%20Transfer">marcolombardi48@gmail.com</a></p>
-      <p class="rate-note">Night and holiday service is subject to a 30% surcharge (minimum €10). The hotel recommends reserving at least one hour in advance.</p>
+      <div class="hotel-detail-row transfer-contact">
+        <div class="hotel-detail-label">To arrange a transfer</div>
+        <div class="hotel-detail-value">Marco — <a href="tel:+393286248270">+39 328 624 8270</a> or <a href="tel:+393474893557">+39 347 489 3557</a><br><a href="mailto:marcolombardi48@gmail.com?subject=Natale-Hill%20Wedding%20—%20Private%20Transfer">marcolombardi48@gmail.com</a></div>
+      </div>
+      <p class="rate-note transfer-footnote">Night and holiday service is subject to a 30% surcharge (minimum €10). The hotel recommends reserving at least one hour in advance.</p>
 
       <p class="tips-subhead">Villa Tuscolana</p>
       <div class="rate-table-scroll">
@@ -3422,11 +3548,14 @@
         </tbody>
       </table>
       </div>
-      <p class="rate-note">To arrange a transfer: Vincenzo — <a href="tel:+393401570316">+39 340 157 0316</a> · Massimo — <a href="tel:+393273984046">+39 327 398 4046</a></p>
-      <p class="rate-note">Night service from 8:30 PM–6:30 AM is subject to a 30% surcharge.</p>
+      <div class="hotel-detail-row transfer-contact">
+        <div class="hotel-detail-label">To arrange a transfer</div>
+        <div class="hotel-detail-value">Vincenzo — <a href="tel:+393401570316">+39 340 157 0316</a><br>Massimo — <a href="tel:+393273984046">+39 327 398 4046</a></div>
+      </div>
+      <p class="rate-note transfer-footnote">Night service from 8:30 PM–6:30 AM is subject to a 30% surcharge.</p>
     </div>
 
-    <h3 id="accommodations" style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 3rem 0 0.4rem; letter-spacing: 0.04em;">Wedding Hotels</h3>
+    <h3 id="accommodations" class="group-title">Accommodations</h3>
     <!-- Original tabbed intro (restore when SHOW_LOCATION_TABS goes back to true):
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">Two clusters of options — close to the venue or in central Rome — to fit how you'd like to experience the trip.</p>
     -->
@@ -3448,52 +3577,44 @@
             <div class="hotel-type">Historic Villa · Frascati</div>
             <div class="hotel-name">Villa Tuscolana</div>
             <div class="hotel-price-brief">Rates coming soon</div>
-            <p class="hotel-face-about">A historic residence built in 1578 on the slopes of Tuscolo, the highest of the Tuscolane villas above Frascati, looking out over Rome.</p>
-            <div class="hotel-detail-row hotel-face-row">
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
               <div class="hotel-detail-label">Address</div>
               <div class="hotel-detail-value">Via del Tuscolo km 1.5, Frascati (RM)</div>
             </div>
-            <div class="hotel-tags hotel-face-tags">
+            <p class="hotel-about-text">Wedding guest rates and booking instructions are coming soon. Please check back for additional information before making your reservation.</p>
+
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.villatuscolana.com/en/home/" target="_blank">villatuscolana.com</a></div>
+            </div>
+            <div class="hotel-tags">
               <span class="hotel-tag">1578 Villa</span>
               <span class="hotel-tag">92 Rooms</span>
               <span class="hotel-tag">Above Frascati</span>
             </div>
           </div>
         </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <p class="hotel-blurb">We have also arranged accommodations for our wedding guests at Villa Tuscolana. Wedding guest rates and booking instructions are coming soon — please check back for additional information before making your reservation.</p>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.villatuscolana.com/en/home/" target="_blank">villatuscolana.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Rates Coming Soon</span>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="hotel-card hotel-card--featured" data-hotel="villa-grazioli">
-        <img class="hotel-img" src="images/hotel_villa_grazioli_bride.jpg" alt="Park Hotel Villa Grazioli — the villa and its fountain courtyard">
+        <img class="hotel-img" src="images/hotel_villa_grazioli_aerial.jpg" alt="Park Hotel Villa Grazioli — the villa in its grounds above the Rome plain">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
             <div class="hotel-type">Historic Villa · Grottaferrata</div>
             <div class="hotel-name">Park Hotel Villa Grazioli</div>
             <div class="hotel-price-brief">€160–€190/night · ~$184–219 USD</div>
-            <p class="hotel-face-about">A cardinal's residence dating to 1580 inside the Castelli Romani park, with frescoed halls, historic gardens and spectacular views over Rome.</p>
-            <div class="hotel-detail-row hotel-face-row">
-              <div class="hotel-detail-label">Address</div>
-              <div class="hotel-detail-value">Via Umberto Pavoni 19, 00046 Grottaferrata (RM)</div>
-            </div>
-            <div class="hotel-tags hotel-face-tags">
-              <span class="hotel-tag">1580 Villa</span>
-              <span class="hotel-tag">Frescoed Halls</span>
-              <span class="hotel-tag">Views Over Rome</span>
-            </div>
           </div>
         </div>
         <div class="hotel-expanded">
           <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Umberto Pavoni 19, 00046 Grottaferrata (RM)</div>
+            </div>
+            <p class="hotel-about-text">A cardinal's residence dating to 1580 inside the Castelli Romani park, with frescoed halls, historic gardens and spectacular views over Rome.</p>
             <p class="hotel-blurb">Special discounted rates have been arranged for our wedding guests at Park Hotel Villa Grazioli.</p>
 
             <div class="hotel-rates">
@@ -3551,31 +3672,29 @@
             </div>
             <div class="hotel-tags">
               <span class="hotel-tag">Breakfast Included</span>
+              <span class="hotel-tag">1580 Villa</span>
+              <span class="hotel-tag">Frescoed Halls</span>
+              <span class="hotel-tag">Views Over Rome</span>
             </div>
           </div>
         </div>
       </div>
       <div class="hotel-card hotel-card--featured" data-hotel="hotel-flora">
-        <img class="hotel-img" src="images/hotel_flora.jpg" alt="Hotel Flora — the villa and its gardens in Frascati">
+        <img class="hotel-img" src="images/hotel_flora_facade.jpg" alt="Hotel Flora — the villa and its gardens in Frascati">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
             <div class="hotel-type">Historic Villa · Frascati</div>
             <div class="hotel-name">Hotel Flora</div>
             <div class="hotel-price-brief">€120–€180/night · ~$138–207 USD</div>
-            <p class="hotel-face-about">A restored 19th-century villa with 37 rooms across two buildings and a rooftop terrace looking across Tusculum to Rome.</p>
-            <div class="hotel-detail-row hotel-face-row">
-              <div class="hotel-detail-label">Address</div>
-              <div class="hotel-detail-value">Viale V. Veneto 8, 00044 Frascati (RM)</div>
-            </div>
-            <div class="hotel-tags hotel-face-tags">
-              <span class="hotel-tag">Rooftop Terrace</span>
-              <span class="hotel-tag">19th-Century Villa</span>
-              <span class="hotel-tag">Breakfast Included</span>
-            </div>
           </div>
         </div>
         <div class="hotel-expanded">
           <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Viale V. Veneto 8, 00044 Frascati (RM)</div>
+            </div>
+            <p class="hotel-about-text">A restored 19th-century villa with 37 rooms across two buildings and a rooftop terrace looking across Tusculum to Rome.</p>
             <p class="hotel-blurb">We have also arranged accommodations for our wedding guests at Hotel Flora.</p>
 
             <div class="hotel-rates">
@@ -3632,6 +3751,9 @@
             <div class="hotel-tags">
               <span class="hotel-tag">Breakfast Included</span>
               <span class="hotel-tag">VAT Included</span>
+              <span class="hotel-tag">Rooftop Terrace</span>
+              <span class="hotel-tag">19th-Century Villa</span>
+              <span class="hotel-tag">Breakfast Included</span>
             </div>
           </div>
         </div>
@@ -3643,20 +3765,15 @@
             <div class="hotel-type">Panoramic Pool · Frascati</div>
             <div class="hotel-name">Hotel Villa Mercede</div>
             <div class="hotel-price-brief">€145–€220/night · ~$167–253 USD</div>
-            <p class="hotel-face-about">A four-star hotel 800 metres from the centre of Frascati, with a swimming pool and panoramic views across the Castelli Romani hills.</p>
-            <div class="hotel-detail-row hotel-face-row">
-              <div class="hotel-detail-label">Address</div>
-              <div class="hotel-detail-value">Via Tuscolana 20, 00044 Frascati (RM)</div>
-            </div>
-            <div class="hotel-tags hotel-face-tags">
-              <span class="hotel-tag">Swimming Pool</span>
-              <span class="hotel-tag">Spa</span>
-              <span class="hotel-tag">Restaurant</span>
-            </div>
           </div>
         </div>
         <div class="hotel-expanded">
           <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Tuscolana 20, 00044 Frascati (RM)</div>
+            </div>
+            <p class="hotel-about-text">A four-star hotel 800 metres from the centre of Frascati, with a swimming pool and panoramic views across the Castelli Romani hills.</p>
             <p class="hotel-blurb">We have arranged special rates for our wedding guests at Hotel Villa Mercede.</p>
 
             <div class="hotel-rates">
@@ -3711,6 +3828,9 @@
               <span class="hotel-tag">Wi-Fi</span>
               <span class="hotel-tag">Fitness Center</span>
               <span class="hotel-tag">Outdoor Pool</span>
+              <span class="hotel-tag">Swimming Pool</span>
+              <span class="hotel-tag">Spa</span>
+              <span class="hotel-tag">Restaurant</span>
             </div>
           </div>
         </div>
@@ -3821,189 +3941,15 @@
     </div>
     </div>
 
-    <div class="location-panel" id="central-rome">
-    <h3 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 3rem 0 0.4rem; letter-spacing: 0.04em;">Exploring Rome</h3>
-    <p class="section-text">For those who want to explore the city before or after the wedding — these dates fall outside the wedding weekend. ~30–40 min to the venue by car or shuttle.</p>
-
-    <div class="hotels-grid">
-      <div class="hotel-card hotel-card--nophoto" data-hotel="del-corso">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">Rome · Via del Corso</div>
-            <div class="hotel-name">Hotel Del Corso</div>
-            <div class="hotel-price-brief">Rates coming soon</div>
-            <p class="hotel-face-about">For anyone wishing to explore Rome before or after, we have also arranged accommodation options for our wedding guests at Hotel Del Corso from <strong>May 25–27, 2027</strong> or <strong>May 30–June 1, 2027</strong>. Rates and booking instructions are coming soon — please check back for additional information before making your reservation.</p>
-            <div class="hotel-tags hotel-face-tags">
-              <span class="hotel-tag">Rates Coming Soon</span>
-            </div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.hoteldelcorsoroma.com/" target="_blank">hoteldelcorsoroma.com</a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hotel-card" data-hotel="santa-maria">
-        <img class="hotel-img" src="https://images.unsplash.com/photo-1529154036614-a60975f5c760?w=600&h=280&fit=crop" alt="Hotel Santa Maria">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">Boutique · Trastevere</div>
-            <div class="hotel-name">Hotel Santa Maria</div>
-            <div class="hotel-price-brief">From €109/night · ~$120 USD</div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Address</div>
-              <div class="hotel-detail-value">Vicolo del Piede 2, Trastevere, Roma</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">About</div>
-              <div class="hotel-detail-value">17th-century cloister, 19 rooms around an orange garden courtyard</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Phone</div>
-              <div class="hotel-detail-value"><a href="tel:+39065894626">+39 06 589 4626</a></div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.hotelsantamariatrastevere.it/en/" target="_blank">hotelsantamariatrastevere.it</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Courtyard</span>
-              <span class="hotel-tag">Breakfast Included</span>
-              <span class="hotel-tag">Charming</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hotel-card" data-hotel="campo-de-fiori">
-        <img class="hotel-img" src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=280&fit=crop" alt="Hotel Campo de' Fiori">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">Boutique · Centro Storico</div>
-            <div class="hotel-name">Hotel Campo de' Fiori</div>
-            <div class="hotel-price-brief">From €130/night · ~$143 USD</div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Address</div>
-              <div class="hotel-detail-value">Via del Biscione 6, Roma</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">About</div>
-              <div class="hotel-detail-value">Steps from Campo de' Fiori piazza, rooftop terrace, near Pantheon</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Phone</div>
-              <div class="hotel-detail-value"><a href="tel:+39066874886">+39 06 687 4886</a></div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.hotelcampodefiori.com/en/" target="_blank">hotelcampodefiori.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Rooftop Terrace</span>
-              <span class="hotel-tag">Central</span>
-              <span class="hotel-tag">Walkable</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hotel-card" data-hotel="ponte-sisto">
-        <img class="hotel-img" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=280&fit=crop" alt="Hotel Ponte Sisto">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">4-Star · Near Trastevere</div>
-            <div class="hotel-name">Hotel Ponte Sisto</div>
-            <div class="hotel-price-brief">From €114/night · ~$125 USD</div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Address</div>
-              <div class="hotel-detail-value">Via dei Pettinari 64, Roma</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">About</div>
-              <div class="hotel-detail-value">Courtyard garden oasis between Trastevere and Centro Storico</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Phone</div>
-              <div class="hotel-detail-value"><a href="tel:+39066863100">+39 06 686 3100</a></div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.hotelpontesisto.it/en/" target="_blank">hotelpontesisto.it</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Garden</span>
-              <span class="hotel-tag">Near Campo de' Fiori</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hotel-card" data-hotel="donna-camilla">
-        <img class="hotel-img" src="https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&h=280&fit=crop" alt="Hotel Donna Camilla Savelli">
-        <div class="hotel-summary">
-          <div class="hotel-summary-left">
-            <div class="hotel-type">Luxury · Trastevere</div>
-            <div class="hotel-name">Hotel Donna Camilla Savelli</div>
-            <div class="hotel-price-brief">From €230/night · ~$253 USD</div>
-          </div>
-        </div>
-        <div class="hotel-expanded">
-          <div class="hotel-expanded-inner">
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Address</div>
-              <div class="hotel-detail-value">Via Garibaldi 27, Trastevere, Roma</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">About</div>
-              <div class="hotel-detail-value">Borromini-designed 17th-century monastery, baroque architecture</div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Phone</div>
-              <div class="hotel-detail-value"><a href="tel:+3906588861">+39 06 588 861</a></div>
-            </div>
-            <div class="hotel-detail-row">
-              <div class="hotel-detail-label">Website</div>
-              <div class="hotel-detail-value"><a href="https://www.vretreats.com/en/donna-camilla-savelli/" target="_blank">vretreats.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Historic Monastery</span>
-              <span class="hotel-tag">Terrace</span>
-              <span class="hotel-tag">Luxury</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
 
     <div class="travel-tips" style="margin-top: 2rem;">
-      <h3>🚐 Wedding Day Transport</h3>
-      <ul>
-        <li>For our out-of-town guests, transportation will be provided with prearranged pick-up and drop-off times from a designated hotel</li>
-        <li>Additional details will be shared closer to the date</li>
-        <!-- Removed 2026-09-20 as no longer accurate; restore only with
-             current figures / advice:
-        <li>Taxi from venue back to Rome — budget ~€40–50 · ~$45–55 USD</li>
-        <li>We recommend downloading the <strong>FREE NOW</strong> or <strong>Uber</strong> app for Rome</li>
-        -->
-      </ul>
+  
+    <h3>🚐 Wedding Day Transport</h3>
+      <p class="tips-text">For our out-of-town guests, transportation will be provided with prearranged pick-up and drop-off times from a designated hotel. Additional details will be shared closer to the date.</p>
+      <!-- Removed 2026-09-20 as no longer accurate; restore only with
+           current figures / advice:
+           • Taxi from venue back to Rome — budget ~€40–50 · ~$45–55 USD
+           • We recommend downloading FREE NOW or Uber app for Rome -->
     </div>
   </div>
 </section>
@@ -4080,11 +4026,11 @@
   <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">From Rome's most iconic landmarks to favorite day trips beyond the city — toggle between the two below.</p>
 
   <div class="location-tabs">
-    <button class="location-tab active" onclick="switchLocationTab('classic-sites-panel', this)">Classic Tours</button>
-    <button class="location-tab" onclick="switchLocationTab('excursions-panel', this)">Excursions</button>
+    <button class="location-tab" onclick="switchLocationTab('classic-sites-panel', this)">Classic Tours</button>
+    <button class="location-tab active" onclick="switchLocationTab('excursions-panel', this)">Excursions</button>
   </div>
 
-  <div class="location-panel active" id="classic-sites-panel">
+  <div class="location-panel" id="classic-sites-panel">
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">Rome's most iconic landmarks — best visited early in the morning or later in the evening.</p>
 
     <div class="things-grid">
@@ -4164,7 +4110,7 @@
     </div>
   </div>
 
-  <div class="location-panel" id="excursions-panel">
+  <div class="location-panel active" id="excursions-panel">
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 680px;">For guests extending the celebration with side trips — a lakeside afternoon next door, a coastal day, or a longer escape into the hills.</p>
 
     <div class="things-grid">
@@ -4242,6 +4188,165 @@
 
     </div>
   </div>
+
+    <div class="location-panel" id="central-rome">
+    <h3 class="group-title">Hotels in Rome</h3>
+    <p class="section-text">For those of you who want to explore Rome before or after the wedding, we recommend this hotel — these dates fall outside the wedding weekend. It is about 30–40 minutes from the venue by car or shuttle.</p>
+
+    <div class="hotels-grid">
+      <div class="hotel-card" data-hotel="del-corso">
+        <img class="hotel-img" src="images/hotel_del_corso_entrance.jpg" alt="Hotel Del Corso — the lit entrance on Via del Corso at dusk">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Rome · Via del Corso</div>
+            <div class="hotel-name">Hotel Del Corso</div>
+            <div class="hotel-price-brief">Rates coming soon</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <p class="hotel-about-text">For anyone wishing to explore Rome before or after, we have also arranged accommodation options for our wedding guests at Hotel Del Corso from <strong>May 25–27, 2027</strong> or <strong>May 30–June 1, 2027</strong>. Rates and booking instructions are coming soon — please check back for additional information before making your reservation.</p>
+
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hoteldelcorsoroma.com/" target="_blank">hoteldelcorsoroma.com</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="hotel-card" data-hotel="santa-maria">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1529154036614-a60975f5c760?w=600&h=280&fit=crop" alt="Hotel Santa Maria">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Boutique · Trastevere</div>
+            <div class="hotel-name">Hotel Santa Maria</div>
+            <div class="hotel-price-brief">From €109/night · ~$120 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Vicolo del Piede 2, Trastevere, Roma</div>
+            </div>
+            <p class="hotel-about-text">17th-century cloister, 19 rooms around an orange garden courtyard</p>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+39065894626">+39 06 589 4626</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hotelsantamariatrastevere.it/en/" target="_blank">hotelsantamariatrastevere.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Courtyard</span>
+              <span class="hotel-tag">Breakfast Included</span>
+              <span class="hotel-tag">Charming</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card" data-hotel="campo-de-fiori">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=280&fit=crop" alt="Hotel Campo de' Fiori">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Boutique · Centro Storico</div>
+            <div class="hotel-name">Hotel Campo de' Fiori</div>
+            <div class="hotel-price-brief">From €130/night · ~$143 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via del Biscione 6, Roma</div>
+            </div>
+            <p class="hotel-about-text">Steps from Campo de' Fiori piazza, rooftop terrace, near Pantheon</p>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+39066874886">+39 06 687 4886</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hotelcampodefiori.com/en/" target="_blank">hotelcampodefiori.com</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Rooftop Terrace</span>
+              <span class="hotel-tag">Central</span>
+              <span class="hotel-tag">Walkable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card" data-hotel="ponte-sisto">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=280&fit=crop" alt="Hotel Ponte Sisto">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">4-Star · Near Trastevere</div>
+            <div class="hotel-name">Hotel Ponte Sisto</div>
+            <div class="hotel-price-brief">From €114/night · ~$125 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via dei Pettinari 64, Roma</div>
+            </div>
+            <p class="hotel-about-text">Courtyard garden oasis between Trastevere and Centro Storico</p>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+39066863100">+39 06 686 3100</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hotelpontesisto.it/en/" target="_blank">hotelpontesisto.it</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Garden</span>
+              <span class="hotel-tag">Near Campo de' Fiori</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card" data-hotel="donna-camilla">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&h=280&fit=crop" alt="Hotel Donna Camilla Savelli">
+        <div class="hotel-summary">
+          <div class="hotel-summary-left">
+            <div class="hotel-type">Luxury · Trastevere</div>
+            <div class="hotel-name">Hotel Donna Camilla Savelli</div>
+            <div class="hotel-price-brief">From €230/night · ~$253 USD</div>
+          </div>
+        </div>
+        <div class="hotel-expanded">
+          <div class="hotel-expanded-inner">
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Garibaldi 27, Trastevere, Roma</div>
+            </div>
+            <p class="hotel-about-text">Borromini-designed 17th-century monastery, baroque architecture</p>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Phone</div>
+              <div class="hotel-detail-value"><a href="tel:+3906588861">+39 06 588 861</a></div>
+            </div>
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.vretreats.com/en/donna-camilla-savelli/" target="_blank">vretreats.com</a></div>
+            </div>
+            <div class="hotel-tags">
+              <span class="hotel-tag">Historic Monastery</span>
+              <span class="hotel-tag">Terrace</span>
+              <span class="hotel-tag">Luxury</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
 
   <h3 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 3rem 0 0.4rem; letter-spacing: 0.04em;">A Few Notes</h3>
   <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">Small tips that go a long way during your stay.</p>
@@ -4712,95 +4817,60 @@
   }
 
 
-  // ─── HOTEL CARDS: ONE "BOOKING" BUTTON ───
-  // Hotels carry wildly different amounts of detail — six rate rows, a
-  // booking procedure and four room descriptions for one, a single "coming
-  // soon" line for another. Shown in full they clutter the card and leave
-  // the short ones half empty beside the long ones.
-  //
-  // So everything to do with money and booking — rates, what is included,
-  // how to book, the form, the hotel's phone and email — goes behind a
-  // single Booking button. Two things are deliberately lifted OUT of it and
-  // left visible on the closed card:
-  //
-  //   • the hotel's own website, so guests can look the place up without
-  //     committing to booking it
-  //
-  // Deadlines sit inside the panel with the rest of the booking detail, so
-  // every card reads the same height. They are styled large within it.
-  (function hotelBookingToggle() {
+  // ─── HOTEL CARDS: DETAILS OPENS A DIALOG ───
+  // Unfolding a card in place stretched its column and left the card beside
+  // it stranded against empty space. The details open in the same dialog the
+  // contact form already uses, so every card stays the same size.
+  function closeHotelModal() {
+    document.getElementById('hotelModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  (function hotelDetailsDialog() {
     document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('#travel .hotel-card').forEach(function (card) {
+      var modal = document.getElementById('hotelModal');
+      if (!modal) return;
+
+      document.querySelectorAll('#travel .hotel-card, #explore .hotel-card').forEach(function (card) {
         var panel = card.querySelector('.hotel-expanded');
         var summary = card.querySelector('.hotel-summary');
         if (!panel || !summary) return;
-        // Only worth a button if there is real detail behind it.
-        if (!panel.querySelector('.rate-table, .form-download, .booking-steps')) return;
 
-        var always = document.createElement('div');
-        always.className = 'hotel-always';
-
-        // Website row and any deadline stay on the face of the card.
-        var website = Array.prototype.find.call(
-          panel.querySelectorAll('.hotel-detail-row'),
-          function (r) {
-            var l = r.querySelector('.hotel-detail-label');
-            return l && /website/i.test(l.textContent);
-          }
-        );
-        // Show the hotel's own site as a proper link people will click, not a
-        // small label buried among the details.
-        if (website) {
-          var siteLink = website.querySelector('a');
-          if (siteLink) {
-            var visit = document.createElement('a');
-            visit.className = 'hotel-visit-btn';
-            visit.href = siteLink.href;
-            visit.target = '_blank';
-            visit.rel = 'noopener';
-            visit.innerHTML = '<span>Visit Website</span><span class="hotel-visit-host">' + siteLink.textContent.trim() + '</span>';
-            always.appendChild(visit);
-          } else {
-            always.appendChild(website);
-          }
-        }
-        if (always.children.length) summary.appendChild(always);
+        // Keep the panel in the document as the source of the dialog's
+        // contents, but never show it inside the card.
+        panel.hidden = true;
 
         var name = (card.querySelector('.hotel-name') || {}).textContent || 'this hotel';
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'hotel-toggle-btn';
-        btn.setAttribute('aria-expanded', 'false');
-        btn.setAttribute('aria-label', 'Show rates and booking details for ' + name.trim());
-        btn.innerHTML = '<span class="hotel-toggle-text">Details</span><span class="hotel-toggle-caret" aria-hidden="true">▾</span>';
-
-        card.classList.add('is-collapsed');
+        btn.setAttribute('aria-haspopup', 'dialog');
+        btn.setAttribute('aria-label', 'Rates and booking details for ' + name.trim());
+        btn.innerHTML = '<span class="hotel-toggle-text">Details</span>';
         summary.appendChild(btn);
 
-        function setOpen(open) {
-          card.classList.toggle('is-open', open);
-          card.classList.toggle('is-collapsed', !open);
-          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-          btn.querySelector('.hotel-toggle-text').textContent = open ? 'Close' : 'Details';
+        function open() {
+          document.getElementById('hotelModalType').textContent =
+            (card.querySelector('.hotel-type') || {}).textContent || '';
+          document.getElementById('hotelModalTitle').textContent = name.trim();
+          document.getElementById('hotelModalPrice').textContent =
+            (card.querySelector('.hotel-price-brief') || {}).textContent || '';
+          var body = document.getElementById('hotelModalBody');
+          body.innerHTML = '';
+          body.appendChild(panel.querySelector('.hotel-expanded-inner').cloneNode(true));
+          modal.classList.add('active');
+          modal.querySelector('.contact-modal-close').focus();
+          document.body.style.overflow = 'hidden';
         }
 
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          setOpen(!card.classList.contains('is-open'));
-        });
-
-        // The whole card face opens it too — people tap the photo or the
-        // hotel name long before they aim for a button. Clicks on a real
-        // link (the hotel's website, a phone number) are left alone so they
-        // still do what they say.
+        btn.addEventListener('click', function (e) { e.stopPropagation(); open(); });
         card.classList.add('is-clickable');
-        summary.addEventListener('click', function (e) {
-          if (e.target.closest('a')) return;
-          setOpen(!card.classList.contains('is-open'));
-        });
-        card.querySelector('.hotel-img').addEventListener('click', function () {
-          setOpen(!card.classList.contains('is-open'));
-        });
+        summary.addEventListener('click', function (e) { if (!e.target.closest('a')) open(); });
+        var img = card.querySelector('.hotel-img');
+        if (img) img.addEventListener('click', open);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeHotelModal();
       });
     });
   })();
