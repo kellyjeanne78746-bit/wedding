@@ -1719,8 +1719,8 @@
     font-size: 0.88rem;
     color: #B17F5F;
     font-weight: 300;
-    margin-top: 0.2rem;
-    margin-bottom: 0.8rem;
+    margin-top: 0.45rem;
+    margin-bottom: 0.2rem;
   }
   /* Euro, dollar and the period set apart from one another rather than run
      together, so each reads on its own. Wraps to two lines on a phone. */
@@ -1820,8 +1820,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    margin: 1.1rem 0 1.3rem;
-    padding: 0.55rem 0 0;
+    margin: 1.35rem 0 1.4rem;
+    padding: 0.7rem 0 0;
     border: 0;
     border-top: 1px solid rgba(201,169,110,0.35);
     border-radius: 0;
@@ -1907,6 +1907,18 @@
     #central-rome .hotels-grid { grid-template-columns: minmax(0, 430px); }
   }
 
+  /* Breathing room above the Rome hotel, so its note and card read as one
+     group set apart from the four venue hotels rather than trailing on. */
+  .rome-intro {
+    margin-top: 4.5rem;
+    padding-top: 2.6rem;
+    border-top: 1px solid rgba(201,169,110,0.28);
+    max-width: 620px;
+  }
+  #central-rome .hotels-grid { margin-top: 1.6rem; }
+  @media (max-width: 768px) {
+    .rome-intro { margin-top: 3rem; padding-top: 2rem; }
+  }
   /* ─── FEATURED HOTEL (confirmed wedding rates) ─── */
   .hotel-card--featured {
     border-color: rgba(201,169,110,0.45);
@@ -2214,7 +2226,7 @@
   }
   /* Transfer tables carry four columns of prices, so they get a little more
      room than the hotel rate tables and their own narrow phone sizing. */
-  .transfer-table { max-width: min(62ch, 100%); margin: 0 auto; }
+  .transfer-table { max-width: 100%; width: 100%; margin: 0 auto; }
   .transfer-table td:first-child { text-align: left; }
   @media (max-width: 480px) {
     .transfer-table { font-size: 0.78rem; }
@@ -2267,6 +2279,10 @@
     font-size: 1.02rem;
   }
   .transfer-table td:first-child { font-size: 0.9rem; }
+  .transfer-table th:first-child,
+  .transfer-table td:first-child { width: 34%; }
+  .transfer-table th:not(:first-child),
+  .transfer-table td:not(:first-child) { padding-left: 0.9rem; }
   .transfer-table th { color: #B17F5F; opacity: 0.75; }
   .travel-tips .tips-subhead { margin-top: 2rem; }
   /* Dollar equivalents sit under each euro figure rather than in extra
@@ -3816,7 +3832,7 @@
         <img class="hotel-img" src="images/hotel_villa_mercede_bride.jpg" alt="Hotel Villa Mercede — the lit entrance and terrace at dusk">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">Panoramic Pool · Frascati</div>
+            <div class="hotel-type">Four-Star Hotel · Frascati</div>
             <div class="hotel-name">Hotel Villa Mercede</div>
             <div class="hotel-price-brief"><span>€145–€220</span><span>$167–253</span><span class="per-night">per night</span></div>
           </div>
@@ -3996,14 +4012,14 @@
     </div>
 
     <div class="location-panel" id="central-rome">
-    <p class="section-text">For those of you who want to explore Rome before or after the wedding, we recommend this hotel — these dates fall outside the wedding weekend. It is about 30–40 minutes from the venue by car or shuttle.</p>
+    <p class="section-text rome-intro">For those of you who want to explore Rome before or after the wedding, we recommend this hotel — these dates fall outside the wedding weekend. It is about 30–40 minutes from the venue by car or shuttle.</p>
 
     <div class="hotels-grid">
       <div class="hotel-card" data-hotel="del-corso">
         <img class="hotel-img" src="images/hotel_del_corso_entrance.jpg" alt="Hotel Del Corso — the lit entrance on Via del Corso at dusk">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">Rome · Via del Corso</div>
+            <div class="hotel-type">Historic Centre · Rome</div>
             <div class="hotel-name">Hotel Del Corso</div>
             <div class="hotel-price-brief">Rates coming soon</div>
           </div>
@@ -4900,7 +4916,7 @@
         btn.className = 'hotel-toggle-btn';
         btn.setAttribute('aria-haspopup', 'dialog');
         btn.setAttribute('aria-label', 'Rates and booking details for ' + name.trim());
-        btn.innerHTML = '<span class="hotel-toggle-text">Details</span>';
+        btn.innerHTML = '<span class="hotel-toggle-text">More</span>';
         summary.appendChild(btn);
 
         function open() {
