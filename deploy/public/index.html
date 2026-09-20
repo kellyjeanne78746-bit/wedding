@@ -49,7 +49,7 @@
     rsvp:        false,  // RSVP — hidden until ready
     registry:    false,  // Registry — hidden until ready
     updates:     true,   // Updates — SHOWN (text-message sign-up)
-    explore:     true,   // Explore — SHOWN (includes Hotels in Rome)
+    explore:     false,  // Explore — hidden until Eat & Drink and Tours are verified
     contact:     true,   // Contact nav dropdown — shown (email + phone for calls/texts)
   };
 
@@ -1750,10 +1750,31 @@
   /* Group titles inside a section — same cursive face as the section
      titles above them, a step smaller. Inherits the font trial variable so
      swapping medusa/livory changes these too. */
+  /* Sub-headings inside Accommodations, marking the two clusters. Same tiny
+     letter-spaced token the cards use for their field labels, so it reads as
+     a divider rather than competing with the cursive section title. */
+  .group-subtitle {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #B17F5F;
+    text-align: center;
+    margin: 2.6rem 0 0.3rem;
+    opacity: 0.85;
+  }
+  .group-subtitle::after {
+    content: '';
+    display: block;
+    width: 34px;
+    height: 1px;
+    margin: 0.55rem auto 0;
+    background: rgba(201,169,110,0.5);
+  }
   .group-title {
     text-align: center;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.1rem;
+    font-size: 1.62rem;
     font-weight: 400;
     color: #B17F5F;
     letter-spacing: 0.02em;
@@ -3497,7 +3518,7 @@
 <section class="full-width travel-section" id="travel">
   <div class="section-inner">
     <div class="section-label">Getting There</div>
-    <div class="section-title">Travelling to Italy</div>
+    <div class="section-title">Traveling to Italy</div>
     <p class="section-text">For guests flying to Italy, we recommend <strong>Rome Fiumicino Airport (FCO)</strong> as your arrival and departure airport.</p>
 
     <div class="travel-tips">
@@ -3586,6 +3607,8 @@
     </div>
 
     <div class="location-panel active" id="near-venue">
+
+    <div class="group-subtitle">Near the Wedding Venue</div>
 
     <div class="hotels-grid">
       <div class="hotel-card" data-hotel="villa-tuscolana">
@@ -3959,95 +3982,8 @@
     </div>
     </div>
 
-
-    <div class="travel-tips" style="margin-top: 2rem;">
-  
-    <h3>🚐 Wedding Day Transport</h3>
-      <p class="tips-text">For our out-of-town guests, transportation will be provided with prearranged pick-up and drop-off times from a designated hotel. Additional details will be shared closer to the date.</p>
-      <!-- Removed 2026-09-20 as no longer accurate; restore only with
-           current figures / advice:
-           • Taxi from venue back to Rome — budget ~€40–50 · ~$45–55 USD
-           • We recommend downloading FREE NOW or Uber app for Rome -->
-    </div>
-  </div>
-</section>
-
-<!-- ─── EXPLORE ITALY ─── -->
-<section class="things-section" id="explore">
-  <div style="text-align: center;">
-    <div class="section-label">While You're Here</div>
-    <div class="section-title">Explore Italy</div>
-    <p class="section-text" style="margin: 0 auto 0.5rem; max-width: 720px;">For those making a trip out of the celebration, here are a few of our favorite places and experiences in Rome. Whether it's your first visit or a return, there's no better place to wander, dine, and take it all in.</p>
-  </div>
-
-    <!-- ─── EAT & DRINK — HIDDEN 2026-09-20 ───
-         Hidden until the bride confirms each place is still open and the
-         details are right. Cards are intact; change display:none to
-         display:block to bring it back. -->
-    <div id="eat-drink" style="display: none;">
-  <h3 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 2.5rem 0 0.4rem; letter-spacing: 0.04em;">Eat &amp; Drink</h3>
-  <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">A few of our favorites while in Rome. We recommend making reservations when possible, especially for dinner.</p>
-
-  <div class="things-grid">
-    <div class="thing-card">
-      <img src="images/Roma_Pastry_capacino.jpg" alt="Maritozzi pastries and cappuccino in Rome" class="thing-img">
-      <div class="thing-card-body">
-        <div class="thing-category">Breakfast</div>
-        <div class="thing-name">Cornetto &amp; Cappuccino</div>
-        <div class="thing-desc">The Roman morning ritual — a flaky cornetto and a cappuccino at the bar of a neighborhood pasticceria. Try the little bakeries around Piazza Navona and Campo de' Fiori — the pastries are extraordinary.</div>
-      </div>
-    </div>
-
-    <div class="thing-card">
-      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=280&fit=crop" alt="Pizza in Rome" class="thing-img">
-      <div class="thing-card-body">
-        <div class="thing-category">Pizza</div>
-        <div class="thing-name">Pizzeria Da Baffetto</div>
-        <div class="thing-desc">For the best pizza — Roman-style, thin, crisp, and unmistakable. A no-frills institution near Piazza Navona, just a few blocks from the Pantheon. Expect a queue; expect it to be worth it.</div>
-      </div>
-    </div>
-
-    <div class="thing-card">
-      <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&h=280&fit=crop" alt="Pasta in Rome" class="thing-img">
-      <div class="thing-card-body">
-        <div class="thing-category">Pasta</div>
-        <div class="thing-name">Da Dino e Tony</div>
-        <div class="thing-desc">Our pick for the best pasta in Rome — tucked near the Vatican.</div>
-      </div>
-    </div>
-
-    <div class="thing-card">
-      <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&h=280&fit=crop" alt="Aperitivo" class="thing-img">
-      <div class="thing-card-body">
-        <div class="thing-category">Aperitivo</div>
-        <div class="thing-name">A Spritz Before Dinner</div>
-        <div class="thing-desc">The Roman ritual — a spritz or glass of wine at a local bar before dinner. Find a piazza, find a seat, watch the city go by.</div>
-      </div>
-    </div>
-
-    <div class="thing-card">
-      <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=600&h=280&fit=crop" alt="Venchi gelato" class="thing-img">
-      <div class="thing-card-body">
-        <div class="thing-category">Gelato</div>
-        <div class="thing-name">Venchi</div>
-        <div class="thing-desc">For the best gelato — silky, rich, and made with their own chocolate. Multiple locations across the city.</div>
-      </div>
-    </div>
-
-    <div class="thing-card">
-      <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&h=280&fit=crop" alt="Tartufo dessert" class="thing-img">
-      <div class="thing-card-body">
-        <div class="thing-category">Dessert</div>
-        <div class="thing-name">I Tre Scalini</div>
-        <div class="thing-desc">For the best Tartufo — the legendary chocolate dessert in Piazza Navona. A Roman institution.</div>
-      </div>
-    </div>
-
-  </div>
-    </div>
-
     <div class="location-panel" id="central-rome">
-    <h3 class="group-title">Hotels in Rome</h3>
+    <div class="group-subtitle">Central Rome</div>
     <p class="section-text">For those of you who want to explore Rome before or after the wedding, we recommend this hotel — these dates fall outside the wedding weekend. It is about 30–40 minutes from the venue by car or shuttle.</p>
 
     <div class="hotels-grid">
@@ -4204,6 +4140,94 @@
       </div>
     </div>
     </div>
+
+
+    <div class="travel-tips" style="margin-top: 2rem;">
+  
+    <h3>🚐 Wedding Day Transport</h3>
+      <p class="tips-text">For our out-of-town guests, transportation will be provided with prearranged pick-up and drop-off times from a designated hotel. Additional details will be shared closer to the date.</p>
+      <!-- Removed 2026-09-20 as no longer accurate; restore only with
+           current figures / advice:
+           • Taxi from venue back to Rome — budget ~€40–50 · ~$45–55 USD
+           • We recommend downloading FREE NOW or Uber app for Rome -->
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPLORE ITALY ─── -->
+<section class="things-section" id="explore">
+  <div style="text-align: center;">
+    <div class="section-label">While You're Here</div>
+    <div class="section-title">Explore Italy</div>
+    <p class="section-text" style="margin: 0 auto 0.5rem; max-width: 720px;">For those making a trip out of the celebration, here are a few of our favorite places and experiences in Rome. Whether it's your first visit or a return, there's no better place to wander, dine, and take it all in.</p>
+  </div>
+
+    <!-- ─── EAT & DRINK — HIDDEN 2026-09-20 ───
+         Hidden until the bride confirms each place is still open and the
+         details are right. Cards are intact; change display:none to
+         display:block to bring it back. -->
+    <div id="eat-drink" style="display: none;">
+  <h3 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 2.5rem 0 0.4rem; letter-spacing: 0.04em;">Eat &amp; Drink</h3>
+  <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">A few of our favorites while in Rome. We recommend making reservations when possible, especially for dinner.</p>
+
+  <div class="things-grid">
+    <div class="thing-card">
+      <img src="images/Roma_Pastry_capacino.jpg" alt="Maritozzi pastries and cappuccino in Rome" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Breakfast</div>
+        <div class="thing-name">Cornetto &amp; Cappuccino</div>
+        <div class="thing-desc">The Roman morning ritual — a flaky cornetto and a cappuccino at the bar of a neighborhood pasticceria. Try the little bakeries around Piazza Navona and Campo de' Fiori — the pastries are extraordinary.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=280&fit=crop" alt="Pizza in Rome" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Pizza</div>
+        <div class="thing-name">Pizzeria Da Baffetto</div>
+        <div class="thing-desc">For the best pizza — Roman-style, thin, crisp, and unmistakable. A no-frills institution near Piazza Navona, just a few blocks from the Pantheon. Expect a queue; expect it to be worth it.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&h=280&fit=crop" alt="Pasta in Rome" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Pasta</div>
+        <div class="thing-name">Da Dino e Tony</div>
+        <div class="thing-desc">Our pick for the best pasta in Rome — tucked near the Vatican.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&h=280&fit=crop" alt="Aperitivo" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Aperitivo</div>
+        <div class="thing-name">A Spritz Before Dinner</div>
+        <div class="thing-desc">The Roman ritual — a spritz or glass of wine at a local bar before dinner. Find a piazza, find a seat, watch the city go by.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=600&h=280&fit=crop" alt="Venchi gelato" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Gelato</div>
+        <div class="thing-name">Venchi</div>
+        <div class="thing-desc">For the best gelato — silky, rich, and made with their own chocolate. Multiple locations across the city.</div>
+      </div>
+    </div>
+
+    <div class="thing-card">
+      <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&h=280&fit=crop" alt="Tartufo dessert" class="thing-img">
+      <div class="thing-card-body">
+        <div class="thing-category">Dessert</div>
+        <div class="thing-name">I Tre Scalini</div>
+        <div class="thing-desc">For the best Tartufo — the legendary chocolate dessert in Piazza Navona. A Roman institution.</div>
+      </div>
+    </div>
+
+  </div>
+    </div>
+
 
     <!-- ─── TOURS & EXCURSIONS — HIDDEN 2026-09-20 ───
          Some details under both tabs need correcting. Everything below is
