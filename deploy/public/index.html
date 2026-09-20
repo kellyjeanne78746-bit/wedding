@@ -1176,6 +1176,19 @@
     max-width: 600px;
     line-height: 1.9;
   }
+
+  /* The category label, the cursive title and the intro paragraph under it
+     are centred in every section — that is the house style, and only a few
+     sections had been carrying their own rule for it. */
+  .section-label,
+  .section-title,
+  .section-inner > .section-text {
+    text-align: center;
+  }
+  .section-inner > .section-text {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .divider {
     display: none;
   }
@@ -1614,6 +1627,10 @@
   .hotel-card .hotel-expanded { flex: 1; }
   /* Keep the photo at its fixed height inside the flex column. */
   .hotel-img { flex-shrink: 0; }
+  /* The Flora photo is a tall portrait shot in a wide strip, so the crop
+     is anchored just below the top — that keeps the facade and the Latin
+     inscription in frame instead of centring on blank wall. */
+  .hotel-card[data-hotel="hotel-flora"] .hotel-img { object-position: center 30%; }
   .hotel-card {
     background: var(--white);
     border: 1px solid rgba(201,169,110,0.15);
@@ -1627,7 +1644,7 @@
   }
   .hotel-img {
     width: 100%;
-    height: 160px;
+    height: 260px;
     object-fit: cover;
     transition: transform 0.6s;
   }
@@ -1665,6 +1682,61 @@
 
   /* ─── VIEW MORE / VIEW LESS ─── */
   .hotel-card.is-collapsed .hotel-expanded { display: none; }
+  /* The whole card face is a target, so say so on hover. Links inside it
+     keep their own cursor and their own click. */
+  .hotel-card.is-clickable .hotel-summary,
+  .hotel-card.is-clickable .hotel-img { cursor: pointer; }
+  .hotel-card.is-clickable .hotel-summary a { cursor: pointer; }
+
+  /* ─── CARD FACE: what each hotel is, before anyone clicks ─── */
+  .hotel-face-about {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.02rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: #B17F5F;
+    margin: 0.7rem auto 0.9rem;
+    max-width: min(34ch, 100%);
+  }
+  .hotel-face-row { margin-bottom: 0.7rem; }
+  .hotel-face-tags { margin-bottom: 0.9rem; }
+
+  /* Website link and any deadline, kept on the face of the card. */
+  .hotel-always {
+    margin: 0.2rem 0 1rem;
+  }
+  .hotel-always .hotel-detail-row { margin-top: 0.4rem; }
+  .hotel-always .rate-note--deadline { font-size: 0.88rem; }
+  .hotel-always .rate-note--deadline strong { font-size: 1.05rem; }
+  .hotel-visit-btn {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 20px;
+    background: rgba(255,255,255,0.6);
+    color: #B17F5F;
+    text-decoration: none;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .hotel-visit-btn:hover {
+    background: rgba(201,169,110,0.12);
+    border-color: #B17F5F;
+  }
+  .hotel-visit-btn > span:first-child {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .hotel-visit-host {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    opacity: 0.8;
+  }
   .hotel-toggle-btn {
     display: inline-flex;
     align-items: center;
@@ -1750,7 +1822,16 @@
     border-color: rgba(201,169,110,0.45);
     box-shadow: 0 4px 22px rgba(58,53,50,0.07);
   }
-  .hotel-card--featured .hotel-expanded-inner { text-align: left; }
+  /* Numbered steps and bulleted room notes cannot be centred character by
+     character, so each list is centred as a block with its text left inside. */
+  .hotel-card--featured .booking-steps,
+  .hotel-card--featured .room-info {
+    display: inline-block;
+    text-align: left;
+    max-width: min(42ch, 100%);
+  }
+  .hotel-card--featured .rate-table-scroll { max-width: min(42ch, 100%); margin: 0 auto; }
+  .hotel-card--featured .form-download { max-width: min(34ch, 100%); margin: 0 auto; }
   .hotel-blurb {
     font-size: 0.95rem;
     color: #B17F5F;
@@ -2015,7 +2096,17 @@
     font-style: italic;
     margin-bottom: 1rem;
     color: #B17F5F;
+    /* Headings are centred throughout the site. The bullet list below stays
+       left-aligned, centred as a block, because list text cannot be centred
+       line by line and stay readable. */
+    text-align: center;
   }
+  .travel-tips ul {
+    display: inline-block;
+    text-align: left;
+    max-width: min(60ch, 100%);
+  }
+  .travel-tips { text-align: center; }
   .travel-tips p, .travel-tips li {
     font-size: 1.1rem;
     color: #B17F5F;
@@ -2828,7 +2919,12 @@
 
     /* Hotels */
     .hotels-grid { grid-template-columns: 1fr; }
-    .hotel-img { height: 140px; }
+    .hotel-img { height: 220px; }
+    .hotel-face-about { font-size: 0.98rem; margin: 0.6rem auto 0.8rem; }
+    .hotel-face-row { margin-bottom: 0.6rem; }
+    .hotel-face-tags { margin-bottom: 0.8rem; gap: 0.3rem; }
+    .hotel-face-tags .hotel-tag { font-size: 0.7rem; padding: 0.15rem 0.5rem; }
+    .hotel-toggle-btn { width: 100%; justify-content: center; }
     .hotel-summary { padding: 0.8rem 1rem 0; }
     .hotel-name { font-size: 1.1rem; }
     .hotel-type { font-size: 0.72rem; }
@@ -3270,9 +3366,19 @@
         <img class="hotel-img" src="images/hotel_villa_mercede.jpg" alt="Villa Mercede — pool with views over the Castelli Romani">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">Frascati</div>
+            <div class="hotel-type">Panoramic Pool · Frascati</div>
             <div class="hotel-name">Hotel Villa Mercede</div>
-            <div class="hotel-price-brief">From €145/night · ~$167 USD</div>
+            <div class="hotel-price-brief">€145–€220/night · ~$167–253 USD</div>
+            <p class="hotel-face-about">A four-star hotel 800 metres from the centre of Frascati, with a swimming pool and panoramic views across the Castelli Romani hills.</p>
+            <div class="hotel-detail-row hotel-face-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Tuscolana 20, 00044 Frascati (RM)</div>
+            </div>
+            <div class="hotel-tags hotel-face-tags">
+              <span class="hotel-tag">Swimming Pool</span>
+              <span class="hotel-tag">Spa</span>
+              <span class="hotel-tag">Restaurant</span>
+            </div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -3299,7 +3405,7 @@
             </div>
 
             <div class="hotel-rates">
-              <div class="hotel-rates-title">Included With Your Stay</div>
+              <div class="hotel-rates-title">Good to Know</div>
               <p class="hotel-blurb">All rates include breakfast, complimentary parking, Wi-Fi throughout the property, access to the TechnoGym fitness center, and use of the outdoor restaurant swimming pool during opening hours (10:00&nbsp;AM–6:00&nbsp;PM).</p>
               <p class="hotel-blurb">Wedding guests will also receive a 10% discount on eligible services not already included in the room offer or subject to another promotion, including the Là Kitchen with a View restaurant, Spa &amp; Beauty services, Rapsodia Lounge Bar, padel courts, and the outdoor pool at Padel Club Villa Mercede.</p>
             </div>
@@ -3307,12 +3413,20 @@
             <div class="hotel-rates">
               <div class="hotel-rates-title">How to Book</div>
               <ol class="booking-steps">
-                <li>Visit the <a href="https://www.villamercede.com/en/" target="_blank">Hotel Villa Mercede website</a> and select <strong>Reservations</strong>.</li>
+                <!-- Direct link into the hotel's booking engine, so guests do
+                     not have to hunt for "Reservations" themselves. It is a
+                     third-party system (hotel id 2027 in the URL), so if it
+                     ever breaks, fall back to the hotel website link below. -->
+                <li>Visit the <a href="https://www.villamercede.com/en/" target="_blank">Hotel Villa Mercede website</a> and select <strong>Reservations</strong> — or go <a href="https://www.hoteleasyreservations.it/herx?form=load&amp;hotel=115&amp;hlang=en" target="_blank" rel="noopener">straight to their booking page</a>.</li>
                 <li>Use our wedding promo code: <strong class="promo-code">WEDDINGNATALE</strong></li>
                 <li>The website will automatically display the special rates reserved for our wedding guests for the eligible dates.</li>
               </ol>
             </div>
 
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Hotel Contact</div>
+              <div class="hotel-detail-value"><a href="mailto:info@villamercede.com?subject=Natale-Hill%20Wedding%20—%20Room%20Reservation">info@villamercede.com</a> · <a href="tel:+390699291979">+39 06 99291979</a></div>
+            </div>
             <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.villamercede.com/en/" target="_blank">villamercede.com</a></div>
@@ -3328,12 +3442,22 @@
         </div>
       </div>
       <div class="hotel-card hotel-card--featured" data-hotel="villa-grazioli">
-        <img class="hotel-img" src="images/hotel_villa_grazioli.jpg" alt="Park Hotel Villa Grazioli — 1580 villa exterior">
+        <img class="hotel-img" src="images/hotel_villa_grazioli_bride.jpg" alt="Park Hotel Villa Grazioli — the villa and its fountain courtyard">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">Grottaferrata</div>
+            <div class="hotel-type">Historic Villa · Grottaferrata</div>
             <div class="hotel-name">Park Hotel Villa Grazioli</div>
-            <div class="hotel-price-brief">From €160/night · ~$184 USD · 9 min to venue by car</div>
+            <div class="hotel-price-brief">€160–€190/night · ~$184–219 USD</div>
+            <p class="hotel-face-about">A cardinal's residence dating to 1580 inside the Castelli Romani park, with frescoed halls, historic gardens and spectacular views over Rome.</p>
+            <div class="hotel-detail-row hotel-face-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via Umberto Pavoni 19, 00046 Grottaferrata (RM)</div>
+            </div>
+            <div class="hotel-tags hotel-face-tags">
+              <span class="hotel-tag">1580 Villa</span>
+              <span class="hotel-tag">Frescoed Halls</span>
+              <span class="hotel-tag">Views Over Rome</span>
+            </div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -3357,12 +3481,16 @@
             </div>
 
             <div class="hotel-rates">
+              <div class="hotel-rates-title">Good to Know</div>
+              <p class="rate-note rate-note--flat">Wedding guests will receive the special flat rates listed on this website as part of our reserved hotel block, rather than the standard rates shown on the form.</p>
+            </div>
+
+            <div class="hotel-rates">
               <div class="hotel-rates-title">How to Book</div>
               <ol class="booking-steps">
                 <li>Download and complete the reservation form below.</li>
                 <li>Email the completed form to <a href="mailto:congressi@villa-grazioli.it?subject=Natale%2FHill%20Wedding%20—%20Room%20Reservation">congressi@villa-grazioli.it</a>.</li>
               </ol>
-              <p class="rate-note rate-note--flat">Wedding guests will receive the special flat rates listed on this website as part of our reserved hotel block, rather than the standard rates shown on the form.</p>
               <!-- PDF opens straight in the browser on phones and laptops; the
                    Word version stays available for anyone who would rather type
                    into it than print it. -->
@@ -3377,6 +3505,10 @@
             </div>
 
             <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Hotel Contact</div>
+              <div class="hotel-detail-value"><a href="tel:+3906945400">+39 06 945400</a></div>
+            </div>
+            <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.villa-grazioli.it/en/" target="_blank">villa-grazioli.it</a></div>
             </div>
@@ -3390,9 +3522,19 @@
         <img class="hotel-img" src="images/hotel_villa_tuscolana.webp" alt="Villa Tuscolana — historic 16th-century villa">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">Rates Coming Soon · Frascati</div>
+            <div class="hotel-type">Historic Villa · Frascati</div>
             <div class="hotel-name">Villa Tuscolana</div>
-            <div class="hotel-price-brief">8 min to venue by car</div>
+            <div class="hotel-price-brief">Rates coming soon</div>
+            <p class="hotel-face-about">A historic residence built in 1578 on the slopes of Tuscolo, the highest of the Tuscolane villas above Frascati, looking out over Rome.</p>
+            <div class="hotel-detail-row hotel-face-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Via del Tuscolo km 1.5, Frascati (RM)</div>
+            </div>
+            <div class="hotel-tags hotel-face-tags">
+              <span class="hotel-tag">1578 Villa</span>
+              <span class="hotel-tag">92 Rooms</span>
+              <span class="hotel-tag">Above Frascati</span>
+            </div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -3409,12 +3551,22 @@
         </div>
       </div>
       <div class="hotel-card hotel-card--featured" data-hotel="hotel-flora">
-        <img class="hotel-img" src="images/hotel_flora.jpg" alt="Hotel Flora — rooftop terrace looking across Rome to St. Peter's">
+        <img class="hotel-img" src="images/hotel_flora.jpg" alt="Hotel Flora — the Liberty-style facade in Frascati">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">Frascati</div>
+            <div class="hotel-type">Liberty Mansion · Frascati</div>
             <div class="hotel-name">Hotel Flora</div>
-            <div class="hotel-price-brief">From €120/night · ~$138 USD</div>
+            <div class="hotel-price-brief">€120–€180/night · ~$138–207 USD</div>
+            <p class="hotel-face-about">A restored 19th-century Liberty-style mansion with 37 rooms across two buildings and a rooftop terrace looking across Tusculum to Rome.</p>
+            <div class="hotel-detail-row hotel-face-row">
+              <div class="hotel-detail-label">Address</div>
+              <div class="hotel-detail-value">Viale V. Veneto 8, 00044 Frascati (RM)</div>
+            </div>
+            <div class="hotel-tags hotel-face-tags">
+              <span class="hotel-tag">Rooftop Terrace</span>
+              <span class="hotel-tag">Liberty-Style Mansion</span>
+              <span class="hotel-tag">Breakfast Included</span>
+            </div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -3443,7 +3595,7 @@
             </div>
 
             <div class="hotel-rates">
-              <div class="hotel-rates-title">Room Information</div>
+              <div class="hotel-rates-title">Good to Know</div>
               <ul class="room-info">
                 <li><strong>Comfort Double/Twin Rooms</strong> are located in the villa adjacent to the main hotel building. These are standard-sized rooms located on an upper floor without elevator access.</li>
                 <li><strong>Superior Double/Twin Rooms</strong> are more spacious and located in the main hotel building, which has elevator access.</li>
@@ -3464,6 +3616,10 @@
               </ol>
             </div>
 
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Hotel Contact</div>
+              <div class="hotel-detail-value"><a href="mailto:info@hotel-flora.it?subject=Natale-Hill%20Wedding%20—%20Room%20Reservation">info@hotel-flora.it</a> · <a href="tel:+39069416110">+39 06 9416110</a></div>
+            </div>
             <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.hotel-flora.it/en/" target="_blank">hotel-flora.it</a></div>
@@ -4179,7 +4335,7 @@
       What is the dress code?
       <span class="faq-toggle">+</span>
     </div>
-    <div class="faq-answer">We invite guests to dress in elegant garden cocktail attire.<br><strong>Footwear guidance:</strong> Our venue includes grass and gravel pathways. If you are planning to wear heels, we recommend opting for block heels, wedges, or styles with more support, as thinner heels may be difficult to navigate on these surfaces.</div>
+    <div class="faq-answer">We invite guests to dress in elegant garden cocktail attire. Think polished and sophisticated, with a relaxed Italian garden feel which includes midi- to floor-length flowy dresses, elevated pantsuits or matching sets, and suits with a jacket. We encourage spring colors, prints, and lightweight fabrics that feel festive and elegant for an evening in the gardens.<br><strong>Footwear guidance:</strong> Our venue includes grass and gravel pathways. If you are planning to wear heels, we recommend block heels, wedges, or styles with more support, as thinner heels may be difficult to navigate on these surfaces.</div>
   </div>
 
   <div class="faq-item">
@@ -4477,39 +4633,94 @@
   }
 
 
-  // ─── HOTEL CARDS: COLLAPSE THE DETAIL PANEL ───
-  // Hotels carry wildly different amounts of detail — six rate rows and a
-  // booking procedure for one, a single "coming soon" line for another. Left
-  // open, the short cards sit half empty beside the long ones. Collapsing
-  // them makes every card the same height, so the grid reads evenly and the
-  // section stays short enough to scan.
+  // ─── HOTEL CARDS: ONE "BOOKING" BUTTON ───
+  // Hotels carry wildly different amounts of detail — six rate rows, a
+  // booking procedure and four room descriptions for one, a single "coming
+  // soon" line for another. Shown in full they clutter the card and leave
+  // the short ones half empty beside the long ones.
   //
-  // Cards with little to show (no rate table, no form) are left open: a
-  // "View More" button that reveals one sentence is a wasted tap.
-  (function collapsibleHotelCards() {
+  // So everything to do with money and booking — rates, what is included,
+  // how to book, the form, the hotel's phone and email — goes behind a
+  // single Booking button. Two things are deliberately lifted OUT of it and
+  // left visible on the closed card:
+  //
+  //   • the hotel's own website, so guests can look the place up without
+  //     committing to booking it
+  //
+  // Deadlines sit inside the panel with the rest of the booking detail, so
+  // every card reads the same height. They are styled large within it.
+  (function hotelBookingToggle() {
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('#travel .hotel-card').forEach(function (card) {
         var panel = card.querySelector('.hotel-expanded');
-        if (!panel) return;
-        // Only worth collapsing if there is real detail behind the button.
+        var summary = card.querySelector('.hotel-summary');
+        if (!panel || !summary) return;
+        // Only worth a button if there is real detail behind it.
         if (!panel.querySelector('.rate-table, .form-download, .booking-steps')) return;
+
+        var always = document.createElement('div');
+        always.className = 'hotel-always';
+
+        // Website row and any deadline stay on the face of the card.
+        var website = Array.prototype.find.call(
+          panel.querySelectorAll('.hotel-detail-row'),
+          function (r) {
+            var l = r.querySelector('.hotel-detail-label');
+            return l && /website/i.test(l.textContent);
+          }
+        );
+        // Show the hotel's own site as a proper link people will click, not a
+        // small label buried among the details.
+        if (website) {
+          var siteLink = website.querySelector('a');
+          if (siteLink) {
+            var visit = document.createElement('a');
+            visit.className = 'hotel-visit-btn';
+            visit.href = siteLink.href;
+            visit.target = '_blank';
+            visit.rel = 'noopener';
+            visit.innerHTML = '<span>Visit Website</span><span class="hotel-visit-host">' + siteLink.textContent.trim() + '</span>';
+            always.appendChild(visit);
+          } else {
+            always.appendChild(website);
+          }
+        }
+        if (always.children.length) summary.appendChild(always);
 
         var name = (card.querySelector('.hotel-name') || {}).textContent || 'this hotel';
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'hotel-toggle-btn';
         btn.setAttribute('aria-expanded', 'false');
-        btn.innerHTML = '<span class="hotel-toggle-text">View More</span><span class="hotel-toggle-caret" aria-hidden="true">▾</span>';
-        btn.setAttribute('aria-label', 'View rates and booking details for ' + name.trim());
+        btn.setAttribute('aria-label', 'Show rates and booking details for ' + name.trim());
+        btn.innerHTML = '<span class="hotel-toggle-text">Details</span><span class="hotel-toggle-caret" aria-hidden="true">▾</span>';
 
         card.classList.add('is-collapsed');
-        card.querySelector('.hotel-summary').appendChild(btn);
+        summary.appendChild(btn);
 
-        btn.addEventListener('click', function () {
-          var open = card.classList.toggle('is-open');
+        function setOpen(open) {
+          card.classList.toggle('is-open', open);
           card.classList.toggle('is-collapsed', !open);
           btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-          btn.querySelector('.hotel-toggle-text').textContent = open ? 'View Less' : 'View More';
+          btn.querySelector('.hotel-toggle-text').textContent = open ? 'Close' : 'Details';
+        }
+
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          setOpen(!card.classList.contains('is-open'));
+        });
+
+        // The whole card face opens it too — people tap the photo or the
+        // hotel name long before they aim for a button. Clicks on a real
+        // link (the hotel's website, a phone number) are left alone so they
+        // still do what they say.
+        card.classList.add('is-clickable');
+        summary.addEventListener('click', function (e) {
+          if (e.target.closest('a')) return;
+          setOpen(!card.classList.contains('is-open'));
+        });
+        card.querySelector('.hotel-img').addEventListener('click', function () {
+          setOpen(!card.classList.contains('is-open'));
         });
       });
     });
