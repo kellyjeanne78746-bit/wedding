@@ -1849,6 +1849,25 @@
     line-height: 1.7;
   }
   .booking-steps li { margin-bottom: 0.3rem; }
+  .room-info {
+    margin: 0;
+    padding-left: 1.2rem;
+    font-size: 0.88rem;
+    color: #B17F5F;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .room-info li { margin-bottom: 0.45rem; }
+  /* The block-rate clarification answers the question a guest has the moment
+     they open the hotel's form and see different numbers, so it is set apart
+     from the plain notes around it. */
+  .rate-note--flat {
+    margin-top: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    background: rgba(201,169,110,0.08);
+    border-radius: 4px;
+    opacity: 1;
+  }
   .booking-steps a {
     color: #B17F5F;
     border-bottom: 1px solid rgba(201,169,110,0.4);
@@ -3294,6 +3313,10 @@
               </ol>
             </div>
 
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.villamercede.com/en/" target="_blank">villamercede.com</a></div>
+            </div>
             <div class="hotel-tags">
               <span class="hotel-tag">Breakfast Included</span>
               <span class="hotel-tag">Free Parking</span>
@@ -3339,6 +3362,7 @@
                 <li>Download and complete the reservation form below.</li>
                 <li>Email the completed form to <a href="mailto:congressi@villa-grazioli.it?subject=Natale%2FHill%20Wedding%20—%20Room%20Reservation">congressi@villa-grazioli.it</a>.</li>
               </ol>
+              <p class="rate-note rate-note--flat">Wedding guests will receive the special flat rates listed on this website as part of our reserved hotel block, rather than the standard rates shown on the form.</p>
               <!-- PDF opens straight in the browser on phones and laptops; the
                    Word version stays available for anyone who would rather type
                    into it than print it. -->
@@ -3384,20 +3408,69 @@
           </div>
         </div>
       </div>
-      <div class="hotel-card" data-hotel="hotel-flora">
+      <div class="hotel-card hotel-card--featured" data-hotel="hotel-flora">
         <img class="hotel-img" src="images/hotel_flora.jpg" alt="Hotel Flora — rooftop terrace looking across Rome to St. Peter's">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">Rates Coming Soon</div>
+            <div class="hotel-type">Frascati</div>
             <div class="hotel-name">Hotel Flora</div>
-            <div class="hotel-price-brief">Details to follow</div>
+            <div class="hotel-price-brief">From €120/night · ~$138 USD</div>
           </div>
         </div>
         <div class="hotel-expanded">
           <div class="hotel-expanded-inner">
-            <p class="hotel-blurb">We have also arranged accommodations for our wedding guests at Hotel Flora. Wedding guest rates and booking instructions are coming soon — please check back for additional information before making your reservation.</p>
+            <p class="hotel-blurb">We have also arranged accommodations for our wedding guests at Hotel Flora.</p>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">Wedding Guest Rates</div>
+              <div class="rate-table-scroll">
+              <table class="rate-table">
+                <thead>
+                  <tr><th>Room Type</th><th>Per Night</th><th class="rate-usd">Approx. USD</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Double Room for Single Use</td><td>€120</td><td class="rate-usd">~$138</td></tr>
+                  <tr><td>Comfort Double/Twin Room</td><td>€140</td><td class="rate-usd">~$161</td></tr>
+                  <tr><td>Superior Double/Twin Room</td><td>€160</td><td class="rate-usd">~$184</td></tr>
+                  <tr><td>Triple Room</td><td>€170</td><td class="rate-usd">~$196</td></tr>
+                  <tr><td>Junior Suite (2 Adults + 2 Children)</td><td>€180</td><td class="rate-usd">~$207</td></tr>
+                </tbody>
+              </table>
+              </div>
+              <p class="rate-note">Rates are per room, per night and include breakfast, service, and VAT.</p>
+              <p class="rate-note">A tourist tax of €2 per person, per night is not included and must be paid directly to the hotel. Children under 10 and guests over 70 are exempt from the tourist tax.</p>
+              <p class="rate-note">The hotel bills in euro. Dollar amounts are a guide only, converted at about $1.15 to €1 — your bank's rate on the day will differ slightly.</p>
+            </div>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">Room Information</div>
+              <ul class="room-info">
+                <li><strong>Comfort Double/Twin Rooms</strong> are located in the villa adjacent to the main hotel building. These are standard-sized rooms located on an upper floor without elevator access.</li>
+                <li><strong>Superior Double/Twin Rooms</strong> are more spacious and located in the main hotel building, which has elevator access.</li>
+                <li><strong>Triple Rooms</strong> are located in the main hotel building.</li>
+                <li><strong>Junior Suites</strong> are located in the main hotel building and accommodate 2 adults and 2 children. Each includes a bedroom, small living area, and bathroom with a bathtub.</li>
+              </ul>
+            </div>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">How to Book</div>
+              <ol class="booking-steps">
+                <!-- The bride's note says to email the hotel but gives no
+                     address; this is the one published on hotel-flora.it.
+                     Swap it if she confirms a different booking contact. -->
+                <li>Contact Hotel Flora directly by email at <a href="mailto:info@hotel-flora.it?subject=Natale-Hill%20Wedding%20—%20Room%20Reservation">info@hotel-flora.it</a> with your requested stay dates, room type, and booking details.</li>
+                <li>Please reference <strong class="promo-code">Natale-Hill Wedding</strong> when booking.</li>
+                <li>A credit card number and expiration date are required to guarantee the reservation. Payment for your stay will be made directly to the hotel at check-in.</li>
+              </ol>
+            </div>
+
+            <div class="hotel-detail-row">
+              <div class="hotel-detail-label">Website</div>
+              <div class="hotel-detail-value"><a href="https://www.hotel-flora.it/en/" target="_blank">hotel-flora.it</a></div>
+            </div>
             <div class="hotel-tags">
-              <span class="hotel-tag">Rates Coming Soon</span>
+              <span class="hotel-tag">Breakfast Included</span>
+              <span class="hotel-tag">VAT Included</span>
             </div>
           </div>
         </div>
@@ -3690,8 +3763,11 @@
       <ul>
         <li>For our out-of-town guests, transportation will be provided with prearranged pick-up and drop-off times from a designated hotel</li>
         <li>Additional details will be shared closer to the date</li>
+        <!-- Removed 2026-09-20 as no longer accurate; restore only with
+             current figures / advice:
         <li>Taxi from venue back to Rome — budget ~€40–50 · ~$45–55 USD</li>
         <li>We recommend downloading the <strong>FREE NOW</strong> or <strong>Uber</strong> app for Rome</li>
+        -->
       </ul>
     </div>
   </div>
