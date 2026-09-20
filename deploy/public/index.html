@@ -100,6 +100,12 @@
           // remaining nav items close ranks with no empty gap), and the bare
           // mobile-menu <a> (which is not wrapped in an <li>).
           css += '#' + id + '{display:none !important;}';
+          // Accommodations is an anchor inside the travel section, so its
+          // nav links have to disappear along with it.
+          if (id === 'travel') {
+            css += 'li:has(> a[href="#accommodations"]){display:none !important;}';
+            css += 'a[href="#accommodations"]{display:none !important;}';
+          }
           css += 'li:has(> a[href="#' + id + '"]){display:none !important;}';
           css += 'a[href="#' + id + '"]{display:none !important;}';
         }
@@ -178,6 +184,9 @@
   }
 
   /* ─── STICKY HEADER (monogram banner + nav pinned together) ─── */
+  /* The header is sticky, so an anchor jumped to from the nav would sit
+     underneath it. Leave room above each jump target. */
+  #accommodations { scroll-margin-top: 6rem; }
   .site-header {
     position: sticky;
     top: 0;
@@ -1627,10 +1636,6 @@
   .hotel-card .hotel-expanded { flex: 1; }
   /* Keep the photo at its fixed height inside the flex column. */
   .hotel-img { flex-shrink: 0; }
-  /* The Flora photo is a tall portrait shot in a wide strip, so the crop
-     is anchored just below the top — that keeps the facade and the Latin
-     inscription in frame instead of centring on blank wall. */
-  .hotel-card[data-hotel="hotel-flora"] .hotel-img { object-position: center 30%; }
   .hotel-card {
     background: var(--white);
     border: 1px solid rgba(201,169,110,0.15);
@@ -1642,9 +1647,16 @@
     transform: translateY(-4px);
     box-shadow: 0 8px 30px rgba(58,53,50,0.12);
   }
+  /* One frame for every hotel photo, set to 16:10 — the average shape of
+     the four (1.85, 1.78, 1.60, 1.39). A wider frame would crop the top and
+     bottom off the tallest; a taller one crops the sides off the widest.
+     This is the middle ground, so each loses as little as possible while
+     all four stay the same size. Height follows the card width, so the
+     ratio holds at every screen size. */
   .hotel-img {
     width: 100%;
-    height: 260px;
+    aspect-ratio: 16 / 10;
+    height: auto;
     object-fit: cover;
     transition: transform 0.6s;
   }
@@ -2107,6 +2119,31 @@
     max-width: min(60ch, 100%);
   }
   .travel-tips { text-align: center; }
+  .tips-text {
+    color: #B17F5F;
+    font-size: 1.02rem;
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: min(62ch, 100%);
+    margin: 0 auto 0.9rem;
+  }
+  /* Transfer tables carry four columns of prices, so they get a little more
+     room than the hotel rate tables and their own narrow phone sizing. */
+  .transfer-table { max-width: min(52ch, 100%); margin: 0 auto; }
+  .transfer-table td:first-child { text-align: left; }
+  @media (max-width: 480px) {
+    .transfer-table { font-size: 0.78rem; }
+    .transfer-table th { font-size: 0.58rem; letter-spacing: 0.06em; }
+    .transfer-table th:first-child,
+    .transfer-table td:first-child { width: 40%; }
+  }
+  .tips-subhead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.12rem;
+    font-style: italic;
+    color: #B17F5F;
+    margin: 1.1rem 0 0.4rem;
+  }
   .travel-tips p, .travel-tips li {
     font-size: 1.1rem;
     color: #B17F5F;
@@ -2919,7 +2956,7 @@
 
     /* Hotels */
     .hotels-grid { grid-template-columns: 1fr; }
-    .hotel-img { height: 220px; }
+    /* ratio is set once above and holds on phones too */
     .hotel-face-about { font-size: 0.98rem; margin: 0.6rem auto 0.8rem; }
     .hotel-face-row { margin-bottom: 0.6rem; }
     .hotel-face-tags { margin-bottom: 0.8rem; gap: 0.3rem; }
@@ -3102,7 +3139,7 @@
       <li><a href="#venue">Venue</a></li>
       <li><a href="#schedule">Timeline</a></li>
       <li><a href="#travel">Traveling</a></li>
-      <li><a href="#travel">Accommodations</a></li>
+      <li><a href="#accommodations">Accommodations</a></li>
       <li><a href="#rsvp">RSVP</a></li>
       <li><a href="#registry">Registry</a></li>
       <li><a href="#updates">Updates</a></li>
@@ -3125,7 +3162,7 @@
   <a href="#venue" onclick="closeMenu()">Venue</a>
   <a href="#schedule" onclick="closeMenu()">Timeline</a>
   <a href="#travel" onclick="closeMenu()">Traveling</a>
-  <a href="#travel" onclick="closeMenu()">Accommodations</a>
+  <a href="#accommodations" onclick="closeMenu()">Accommodations</a>
   <a href="#rsvp" onclick="closeMenu()">RSVP</a>
   <a href="#registry" onclick="closeMenu()">Registry</a>
   <a href="#updates" onclick="closeMenu()">Updates</a>
@@ -3319,35 +3356,77 @@
   <div class="section-inner">
     <div class="section-label">Getting There</div>
     <div class="section-title">Travelling to Italy</div>
-    <p class="section-text">Rome is well-connected by two airports. We recommend flying into <strong>Fiumicino (FCO)</strong> for the best connections. Book accommodation early — late May is beautiful in Rome!</p>
+    <p class="section-text">For guests flying to Italy, we recommend <strong>Rome Fiumicino Airport (FCO)</strong> as your arrival and departure airport.</p>
 
     <div class="travel-tips">
-      <h3>✈️ Flights</h3>
+      <h3>Arriving in Italy</h3>
+      <p class="tips-text">After landing at Fiumicino, follow signs for passport control and baggage claim. U.S. travelers should allow additional time for entry procedures under Europe's Entry/Exit System (EES).</p>
+      <p class="tips-subhead">Before you travel:</p>
       <ul>
-        <li><strong>From the USA</strong> — Fly into <strong>Fiumicino Airport (FCO)</strong> for international arrivals</li>
-        <li><strong>From within the EU</strong> — Either <strong>Ciampino (CIA)</strong> or <strong>Fiumicino (FCO)</strong> work well</li>
+        <li>Your passport must be valid for at least <strong>three months</strong> beyond your planned departure from the Schengen Area; six months of remaining validity is recommended.</li>
+        <li><strong>ETIAS</strong> — New European travel authorization requirements may be in effect by the time of our wedding. Please stay tuned for updated travel requirements as we get closer to the date.</li>
       </ul>
     </div>
 
     <div class="travel-tips">
-      <h3>🚆 Trains &amp; Getting Around</h3>
+      <h3>Getting to Frascati</h3>
+      <p class="tips-text">All our recommended accommodations are located in Frascati, approximately 30–45 minutes outside central Rome.</p>
+      <p class="tips-subhead">Via Taxi or Private Transfer</p>
+      <p class="tips-text">For guests traveling directly to Frascati, a taxi or pre-arranged private transfer is the easiest option, particularly when traveling with luggage. Several of our recommended hotels offer private transfer services for their guests. Please see the <strong>Accommodations</strong> section below for rates and booking information.</p>
+      <p class="tips-subhead">Via Train</p>
+      <p class="tips-text">Regional trains run between <strong>Roma Termini and Frascati Station</strong>. From Frascati Station, you can take a short taxi ride to your hotel or arrange a pickup through your hotel or a private transfer service.</p>
+    </div>
+
+    <div class="travel-tips">
+      <h3>Getting Around</h3>
       <ul>
-        <li><strong>Want to see Rome before or after the wedding?</strong> Take the train from FCO airport directly to <strong>Termini Station</strong> in central Rome</li>
-        <li><strong>To reach your hotel for the wedding</strong> — From Termini, take the <strong>“Castelli Romani”</strong> regional line to <strong>Frascati</strong></li>
-        <li><strong>Uber works in Rome</strong> — and we also recommend the <strong>FREE NOW</strong> taxi app</li>
+        <li><strong>Uber</strong> is available in Rome, with service primarily through Uber Black.</li>
+        <li><strong>Taxis</strong> are widely available and we recommend downloading <strong>FREE NOW</strong> or <strong>itTaxi</strong> before your trip.</li>
+        <li><strong>Trains and Metro</strong> are an easy way to explore central Rome and travel between Rome and the surrounding area.</li>
+        <li><strong>Private Transfers</strong> are available through several of our recommended hotels. See the Accommodations section below for hotel-specific services, rates, and contact information.</li>
       </ul>
     </div>
 
     <div class="travel-tips">
-      <h3>📋 Things to Remember</h3>
-      <ul>
-        <li><strong>ETIAS is required</strong> for visa-exempt travelers entering the Schengen Area — apply online before you fly</li>
-        <li><strong>Check your passport</strong> — make sure it's valid for at least 6 months beyond your travel dates</li>
-        <li><strong>Currency</strong> — Italy uses the Euro (€). Cards are widely accepted; carry some cash for cafés and small shops</li>
-      </ul>
+      <h3>Private Transfer Service</h3>
+      <p class="tips-text">For added convenience, private car service is available for hotel guests. Transfers can be arranged between the hotel and Rome Fiumicino Airport (FCO), Ciampino Airport (CIA), and central Rome.</p>
+
+      <p class="tips-subhead">Hotel Villa Mercede</p>
+      <div class="rate-table-scroll">
+      <table class="rate-table transfer-table">
+        <thead>
+          <tr><th>Transfer</th><th>1–3 Guests</th><th>4–6 Guests</th><th>7–8 Guests</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hotel → Fiumicino Airport (FCO)</td><td>€90</td><td>€120</td><td>€140</td></tr>
+          <tr><td>Fiumicino Airport (FCO) → Hotel</td><td>€100</td><td>€130</td><td>€150</td></tr>
+          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td>€50</td><td>€60</td><td>€70</td></tr>
+          <tr><td>Hotel ↔ Roma Termini</td><td>€75</td><td>€95</td><td>€115</td></tr>
+          <tr><td>Hotel ↔ Central Rome</td><td>€90</td><td>€100</td><td>€120</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="rate-note">To arrange a transfer: Marco — <a href="tel:+393286248270">+39 328 624 8270</a> or <a href="tel:+393474893557">+39 347 489 3557</a> · <a href="mailto:marcolombardi48@gmail.com?subject=Natale-Hill%20Wedding%20—%20Private%20Transfer">marcolombardi48@gmail.com</a></p>
+      <p class="rate-note">Night and holiday service is subject to a 30% surcharge (minimum €10). The hotel recommends reserving at least one hour in advance.</p>
+
+      <p class="tips-subhead">Villa Tuscolana</p>
+      <div class="rate-table-scroll">
+      <table class="rate-table transfer-table">
+        <thead>
+          <tr><th>Transfer</th><th>1–3 Guests</th><th>4–8 Guests</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hotel ↔ Fiumicino Airport (FCO)</td><td>€99</td><td>€99 + €10 per additional guest</td></tr>
+          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td>€55</td><td>€55 + €7 per additional guest</td></tr>
+          <tr><td>Hotel ↔ Central Rome</td><td>€89</td><td>€89 + €10 per additional guest</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="rate-note">To arrange a transfer: Vincenzo — <a href="tel:+393401570316">+39 340 157 0316</a> · Massimo — <a href="tel:+393273984046">+39 327 398 4046</a></p>
+      <p class="rate-note">Night service from 8:30 PM–6:30 AM is subject to a 30% surcharge.</p>
     </div>
 
-    <h3 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 3rem 0 0.4rem; letter-spacing: 0.04em;">Hotels &amp; Accommodations</h3>
+    <h3 id="accommodations" style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 3rem 0 0.4rem; letter-spacing: 0.04em;">Wedding Hotels</h3>
     <!-- Original tabbed intro (restore when SHOW_LOCATION_TABS goes back to true):
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">Two clusters of options — close to the venue or in central Rome — to fit how you'd like to experience the trip.</p>
     -->
@@ -3477,20 +3556,20 @@
         </div>
       </div>
       <div class="hotel-card hotel-card--featured" data-hotel="hotel-flora">
-        <img class="hotel-img" src="images/hotel_flora.jpg" alt="Hotel Flora — the Liberty-style facade in Frascati">
+        <img class="hotel-img" src="images/hotel_flora.jpg" alt="Hotel Flora — the villa and its gardens in Frascati">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
-            <div class="hotel-type">Liberty Mansion · Frascati</div>
+            <div class="hotel-type">Historic Villa · Frascati</div>
             <div class="hotel-name">Hotel Flora</div>
             <div class="hotel-price-brief">€120–€180/night · ~$138–207 USD</div>
-            <p class="hotel-face-about">A restored 19th-century Liberty-style mansion with 37 rooms across two buildings and a rooftop terrace looking across Tusculum to Rome.</p>
+            <p class="hotel-face-about">A restored 19th-century villa with 37 rooms across two buildings and a rooftop terrace looking across Tusculum to Rome.</p>
             <div class="hotel-detail-row hotel-face-row">
               <div class="hotel-detail-label">Address</div>
               <div class="hotel-detail-value">Viale V. Veneto 8, 00044 Frascati (RM)</div>
             </div>
             <div class="hotel-tags hotel-face-tags">
               <span class="hotel-tag">Rooftop Terrace</span>
-              <span class="hotel-tag">Liberty-Style Mansion</span>
+              <span class="hotel-tag">19th-Century Villa</span>
               <span class="hotel-tag">Breakfast Included</span>
             </div>
           </div>
@@ -3537,7 +3616,7 @@
                      address; this is the one published on hotel-flora.it.
                      Swap it if she confirms a different booking contact. -->
                 <li>Contact Hotel Flora directly by email at <a href="mailto:info@hotel-flora.it?subject=Natale-Hill%20Wedding%20—%20Room%20Reservation">info@hotel-flora.it</a> with your requested stay dates, room type, and booking details.</li>
-                <li>Please reference <strong class="promo-code">Natale-Hill Wedding</strong> when booking.</li>
+                <li>Please reference <strong class="promo-code">WEDDING NATALE-HILL</strong> when booking.</li>
                 <li>A credit card number and expiration date are required to guarantee the reservation. Payment for your stay will be made directly to the hotel at check-in.</li>
               </ol>
             </div>
@@ -3558,7 +3637,7 @@
         </div>
       </div>
       <div class="hotel-card hotel-card--featured" data-hotel="villa-mercede">
-        <img class="hotel-img" src="images/hotel_villa_mercede.jpg" alt="Villa Mercede — pool with views over the Castelli Romani">
+        <img class="hotel-img" src="images/hotel_villa_mercede_bride.jpg" alt="Hotel Villa Mercede — the lit entrance and terrace at dusk">
         <div class="hotel-summary">
           <div class="hotel-summary-left">
             <div class="hotel-type">Panoramic Pool · Frascati</div>
@@ -3613,7 +3692,7 @@
                      third-party system (hotel id 2027 in the URL), so if it
                      ever breaks, fall back to the hotel website link below. -->
                 <li>Visit the <a href="https://www.villamercede.com/en/" target="_blank">Hotel Villa Mercede website</a> and select <strong>Reservations</strong> — or go <a href="https://www.hoteleasyreservations.it/herx?form=load&amp;hotel=115&amp;hlang=en" target="_blank" rel="noopener">straight to their booking page</a>.</li>
-                <li>Use our wedding promo code: <strong class="promo-code">WEDDINGNATALE</strong></li>
+                <li>Use our wedding promo code: <strong class="promo-code">WEDDING NATALE-HILL</strong></li>
                 <li>The website will automatically display the special rates reserved for our wedding guests for the eligible dates.</li>
               </ol>
             </div>
@@ -3743,7 +3822,8 @@
     </div>
 
     <div class="location-panel" id="central-rome">
-    <p class="section-text">For those who want to explore the city before or after the wedding. ~30–40 min to venue by car or shuttle.</p>
+    <h3 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #B17F5F; margin: 3rem 0 0.4rem; letter-spacing: 0.04em;">Exploring Rome</h3>
+    <p class="section-text">For those who want to explore the city before or after the wedding — these dates fall outside the wedding weekend. ~30–40 min to the venue by car or shuttle.</p>
 
     <div class="hotels-grid">
       <div class="hotel-card hotel-card--nophoto" data-hotel="del-corso">
