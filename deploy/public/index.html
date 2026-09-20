@@ -45,7 +45,8 @@
     faq:         true,   // FAQ
     venue:       false,  // Villa Mondragone — hidden at the bride's request
     schedule:    false,  // Timeline — hidden until ready
-    travel:      true,   // Traveling + Accommodations (same section) — SHOWN
+    travel:      true,   // Traveling — flights, transfers, getting around
+    accommodations: true, // Accommodations — hotels (its own section now)
     rsvp:        false,  // RSVP — hidden until ready
     registry:    false,  // Registry — hidden until ready
     updates:     true,   // Updates — SHOWN (text-message sign-up)
@@ -100,12 +101,6 @@
           // remaining nav items close ranks with no empty gap), and the bare
           // mobile-menu <a> (which is not wrapped in an <li>).
           css += '#' + id + '{display:none !important;}';
-          // Accommodations is an anchor inside the travel section, so its
-          // nav links have to disappear along with it.
-          if (id === 'travel') {
-            css += 'li:has(> a[href="#accommodations"]){display:none !important;}';
-            css += 'a[href="#accommodations"]{display:none !important;}';
-          }
           css += 'li:has(> a[href="#' + id + '"]){display:none !important;}';
           css += 'a[href="#' + id + '"]{display:none !important;}';
         }
@@ -189,7 +184,6 @@
   /* ─── STICKY HEADER (monogram banner + nav pinned together) ─── */
   /* The header is sticky, so an anchor jumped to from the nav would sit
      underneath it. Leave room above each jump target. */
-  #accommodations { scroll-margin-top: 6rem; }
   .site-header {
     position: sticky;
     top: 0;
@@ -1774,7 +1768,10 @@
   .group-title {
     text-align: center;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.62rem;
+    /* Set in the cursive trial face, which runs optically much larger than a
+       serif at the same size — hence a smaller number than the old 1.6rem
+       serif heading it replaces. */
+    font-size: 1.18rem;
     font-weight: 400;
     color: #B17F5F;
     letter-spacing: 0.02em;
@@ -3535,7 +3532,7 @@
       <h3>🚆 Getting to Frascati</h3>
       <p class="tips-text">All our recommended accommodations are located in Frascati, approximately 30–45 minutes outside central Rome.</p>
       <p class="tips-subhead">Via Taxi or Private Transfer</p>
-      <p class="tips-text">For guests traveling directly to Frascati, a taxi or pre-arranged private transfer is the easiest option, particularly when traveling with luggage. Several of our recommended hotels offer private transfer services for their guests. Please see the <strong>Accommodations</strong> section below for rates and booking information.</p>
+      <p class="tips-text">For guests traveling directly to Frascati, a taxi or pre-arranged private transfer is the easiest option, particularly when traveling with luggage. Several of our recommended hotels offer private transfer services for their guests — please see the rates and booking details below.</p>
       <p class="tips-subhead">Via Train</p>
       <p class="tips-text">Regional trains run between <strong>Roma Termini and Frascati Station</strong>. From Frascati Station, you can take a short taxi ride to your hotel or arrange a pickup through your hotel or a private transfer service.</p>
     </div>
@@ -3546,9 +3543,10 @@
         <li><strong>Uber</strong> is available in Rome, with service primarily through Uber Black.</li>
         <li><strong>Taxis</strong> are widely available and we recommend downloading <strong>FREE NOW</strong> or <strong>itTaxi</strong> before your trip.</li>
         <li><strong>Trains and Metro</strong> are an easy way to explore central Rome and travel between Rome and the surrounding area.</li>
-        <li><strong>Private Transfers</strong> are available through several of our recommended hotels. See the Accommodations section below for hotel-specific services, rates, and contact information.</li>
+        <li><strong>Private Transfers</strong> are available through several of our recommended hotels — see the rates and contact details below.</li>
       </ul>
     </div>
+
 
     <div class="travel-tips">
       <h3>🚘 Private Transfer Service</h3>
@@ -3595,7 +3593,27 @@
       <p class="rate-note transfer-footnote">Night service from 8:30 PM–6:30 AM is subject to a 30% surcharge.</p>
     </div>
 
-    <h3 id="accommodations" class="group-title">Accommodations</h3>
+
+    <div class="travel-tips" style="margin-top: 2rem;">
+  
+    <h3>🚐 Wedding Day Transport</h3>
+      <p class="tips-text">For our out-of-town guests, transportation will be provided with prearranged pick-up and drop-off times from a designated hotel. Additional details will be shared closer to the date.</p>
+      <!-- Removed 2026-09-20 as no longer accurate; restore only with
+           current figures / advice:
+           • Taxi from venue back to Rome — budget ~€40–50 · ~$45–55 USD
+           • We recommend downloading FREE NOW or Uber app for Rome -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── ACCOMMODATIONS ─── -->
+<section class="full-width travel-section" id="accommodations">
+  <div class="section-inner">
+    <div class="section-label">Where to Stay</div>
+    <div class="section-title">Accommodations</div>
+
+
     <!-- Original tabbed intro (restore when SHOW_LOCATION_TABS goes back to true):
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">Two clusters of options — close to the venue or in central Rome — to fit how you'd like to experience the trip.</p>
     -->
@@ -3627,6 +3645,28 @@
               <div class="hotel-detail-value">Via del Tuscolo km 1.5, Frascati (RM)</div>
             </div>
             <p class="hotel-about-text">Wedding guest rates and booking instructions are coming soon. Please check back for additional information before making your reservation.</p>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">Private Transfer</div>
+              <p class="rate-note">Private car service for hotel guests, to and from the airports and central Rome.</p>
+              <div class="rate-table-scroll">
+              <table class="rate-table transfer-table">
+                <thead>
+                  <tr><th>Transfer</th><th>1–3 Guests</th><th>4–8 Guests</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Hotel ↔ Fiumicino (FCO)</td><td>€99<span class="rate-usd-inline">/ $114</span></td><td>€99 + €10 per additional guest<span class="rate-usd-inline">/ $114 + $12 ea</span></td></tr>
+                  <tr><td>Hotel ↔ Ciampino (CIA)</td><td>€55<span class="rate-usd-inline">/ $63</span></td><td>€55 + €7 per additional guest<span class="rate-usd-inline">/ $63 + $8 ea</span></td></tr>
+                  <tr><td>Hotel ↔ Central Rome</td><td>€89<span class="rate-usd-inline">/ $102</span></td><td>€89 + €10 per additional guest<span class="rate-usd-inline">/ $102 + $12 ea</span></td></tr>
+                </tbody>
+              </table>
+              </div>
+              <div class="hotel-detail-row">
+                <div class="hotel-detail-label">To arrange a transfer</div>
+                <div class="hotel-detail-value">Vincenzo — <a href="tel:+393401570316">+39 340 157 0316</a><br>Massimo — <a href="tel:+393273984046">+39 327 398 4046</a></div>
+              </div>
+              <p class="rate-note transfer-footnote">Night service from 8:30 PM–6:30 AM is subject to a 30% surcharge.</p>
+            </div>
 
             <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
@@ -3840,6 +3880,30 @@
               <div class="hotel-rates-title">Good to Know</div>
               <p class="hotel-blurb">All rates include breakfast, complimentary parking, Wi-Fi throughout the property, access to the TechnoGym fitness center, and use of the outdoor restaurant swimming pool during opening hours (10:00&nbsp;AM–6:00&nbsp;PM).</p>
               <p class="hotel-blurb">Wedding guests will also receive a 10% discount on eligible services not already included in the room offer or subject to another promotion, including the Là Kitchen with a View restaurant, Spa &amp; Beauty services, Rapsodia Lounge Bar, padel courts, and the outdoor pool at Padel Club Villa Mercede.</p>
+            </div>
+
+            <div class="hotel-rates">
+              <div class="hotel-rates-title">Private Transfer</div>
+              <p class="rate-note">Private car service for hotel guests, to and from the airports and central Rome.</p>
+              <div class="rate-table-scroll">
+              <table class="rate-table transfer-table">
+                <thead>
+                  <tr><th>Transfer</th><th>1–3 Guests</th><th>4–6 Guests</th><th>7–8 Guests</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Hotel → Fiumicino (FCO)</td><td>€90<span class="rate-usd-inline">/ $103</span></td><td>€120<span class="rate-usd-inline">/ $138</span></td><td>€140<span class="rate-usd-inline">/ $161</span></td></tr>
+                  <tr><td>Fiumicino (FCO) → Hotel</td><td>€100<span class="rate-usd-inline">/ $115</span></td><td>€130<span class="rate-usd-inline">/ $150</span></td><td>€150<span class="rate-usd-inline">/ $172</span></td></tr>
+                  <tr><td>Hotel ↔ Ciampino (CIA)</td><td>€50<span class="rate-usd-inline">/ $57</span></td><td>€60<span class="rate-usd-inline">/ $69</span></td><td>€70<span class="rate-usd-inline">/ $80</span></td></tr>
+                  <tr><td>Hotel ↔ Roma Termini</td><td>€75<span class="rate-usd-inline">/ $86</span></td><td>€95<span class="rate-usd-inline">/ $109</span></td><td>€115<span class="rate-usd-inline">/ $132</span></td></tr>
+                  <tr><td>Hotel ↔ Central Rome</td><td>€90<span class="rate-usd-inline">/ $103</span></td><td>€100<span class="rate-usd-inline">/ $115</span></td><td>€120<span class="rate-usd-inline">/ $138</span></td></tr>
+                </tbody>
+              </table>
+              </div>
+              <div class="hotel-detail-row">
+                <div class="hotel-detail-label">To arrange a transfer</div>
+                <div class="hotel-detail-value">Marco — <a href="tel:+393286248270">+39 328 624 8270</a> or <a href="tel:+393474893557">+39 347 489 3557</a><br><a href="mailto:marcolombardi48@gmail.com?subject=Natale-Hill%20Wedding%20—%20Private%20Transfer">marcolombardi48@gmail.com</a></div>
+              </div>
+              <p class="rate-note transfer-footnote">Night and holiday service is subject to a 30% surcharge (minimum €10 · ~$12). The hotel recommends reserving at least one hour in advance.</p>
             </div>
 
             <div class="hotel-rates">
@@ -4139,17 +4203,6 @@
         </div>
       </div>
     </div>
-    </div>
-
-
-    <div class="travel-tips" style="margin-top: 2rem;">
-  
-    <h3>🚐 Wedding Day Transport</h3>
-      <p class="tips-text">For our out-of-town guests, transportation will be provided with prearranged pick-up and drop-off times from a designated hotel. Additional details will be shared closer to the date.</p>
-      <!-- Removed 2026-09-20 as no longer accurate; restore only with
-           current figures / advice:
-           • Taxi from venue back to Rome — budget ~€40–50 · ~$45–55 USD
-           • We recommend downloading FREE NOW or Uber app for Rome -->
     </div>
   </div>
 </section>
