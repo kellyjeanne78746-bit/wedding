@@ -114,12 +114,12 @@
     }
     // Scoped to #travel so the Explore section keeps its own tabs.
     if (window.SHOW_LOCATION_TABS === false) {
-      css += '#travel .location-tabs{display:none !important;}';
+      css += '#accommodations .location-tabs{display:none !important;}';
       css += '#central-rome.location-panel{display:block !important;}';
       // With the tabs gone the panels must not stay behind their
       // "only the active one shows" rule, or a hotel in a non-active
       // panel would be invisible even when set to true above.
-      css += '#travel .location-panel{display:block !important;}';
+      css += '#accommodations .location-panel{display:block !important;}';
     }
     if (css) {
       var style = document.createElement('style');
@@ -130,7 +130,7 @@
     // A panel whose hotels are all hidden would otherwise show its intro
     // paragraph over an empty space — hide the whole panel instead.
     document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('#travel .location-panel, #explore #central-rome').forEach(function (panel) {
+      document.querySelectorAll('#accommodations .location-panel').forEach(function (panel) {
         var anyVisible = Array.prototype.some.call(
           panel.querySelectorAll('.hotel-card'),
           function (card) {
@@ -2214,7 +2214,7 @@
   }
   /* Transfer tables carry four columns of prices, so they get a little more
      room than the hotel rate tables and their own narrow phone sizing. */
-  .transfer-table { max-width: min(52ch, 100%); margin: 0 auto; }
+  .transfer-table { max-width: min(62ch, 100%); margin: 0 auto; }
   .transfer-table td:first-child { text-align: left; }
   @media (max-width: 480px) {
     .transfer-table { font-size: 0.78rem; }
@@ -3619,14 +3619,9 @@
     -->
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">For the full wedding weekend we strongly recommend arriving <strong>Thursday, May 27</strong> and departing <strong>Sunday, May 30, 2027</strong>. This gives you plenty of time to settle in, enjoy Frascati and the surrounding area, and celebrate with us all weekend long.</p>
 
-    <div class="location-tabs">
-      <button class="location-tab active" onclick="switchLocationTab('near-venue', this)">Near the Venue</button>
-      <button class="location-tab" onclick="switchLocationTab('central-rome', this)">In Central Rome</button>
-    </div>
 
     <div class="location-panel active" id="near-venue">
 
-    <div class="group-subtitle">Near the Wedding Venue</div>
 
     <div class="hotels-grid">
       <div class="hotel-card" data-hotel="villa-tuscolana">
@@ -3645,28 +3640,6 @@
               <div class="hotel-detail-value">Via del Tuscolo km 1.5, Frascati (RM)</div>
             </div>
             <p class="hotel-about-text">Wedding guest rates and booking instructions are coming soon. Please check back for additional information before making your reservation.</p>
-
-            <div class="hotel-rates">
-              <div class="hotel-rates-title">Private Transfer</div>
-              <p class="rate-note">Private car service for hotel guests, to and from the airports and central Rome.</p>
-              <div class="rate-table-scroll">
-              <table class="rate-table transfer-table">
-                <thead>
-                  <tr><th>Transfer</th><th>1–3 Guests</th><th>4–8 Guests</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>Hotel ↔ Fiumicino (FCO)</td><td>€99<span class="rate-usd-inline">/ $114</span></td><td>€99 + €10 per additional guest<span class="rate-usd-inline">/ $114 + $12 ea</span></td></tr>
-                  <tr><td>Hotel ↔ Ciampino (CIA)</td><td>€55<span class="rate-usd-inline">/ $63</span></td><td>€55 + €7 per additional guest<span class="rate-usd-inline">/ $63 + $8 ea</span></td></tr>
-                  <tr><td>Hotel ↔ Central Rome</td><td>€89<span class="rate-usd-inline">/ $102</span></td><td>€89 + €10 per additional guest<span class="rate-usd-inline">/ $102 + $12 ea</span></td></tr>
-                </tbody>
-              </table>
-              </div>
-              <div class="hotel-detail-row">
-                <div class="hotel-detail-label">To arrange a transfer</div>
-                <div class="hotel-detail-value">Vincenzo — <a href="tel:+393401570316">+39 340 157 0316</a><br>Massimo — <a href="tel:+393273984046">+39 327 398 4046</a></div>
-              </div>
-              <p class="rate-note transfer-footnote">Night service from 8:30 PM–6:30 AM is subject to a 30% surcharge.</p>
-            </div>
 
             <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
@@ -3883,30 +3856,6 @@
             </div>
 
             <div class="hotel-rates">
-              <div class="hotel-rates-title">Private Transfer</div>
-              <p class="rate-note">Private car service for hotel guests, to and from the airports and central Rome.</p>
-              <div class="rate-table-scroll">
-              <table class="rate-table transfer-table">
-                <thead>
-                  <tr><th>Transfer</th><th>1–3 Guests</th><th>4–6 Guests</th><th>7–8 Guests</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>Hotel → Fiumicino (FCO)</td><td>€90<span class="rate-usd-inline">/ $103</span></td><td>€120<span class="rate-usd-inline">/ $138</span></td><td>€140<span class="rate-usd-inline">/ $161</span></td></tr>
-                  <tr><td>Fiumicino (FCO) → Hotel</td><td>€100<span class="rate-usd-inline">/ $115</span></td><td>€130<span class="rate-usd-inline">/ $150</span></td><td>€150<span class="rate-usd-inline">/ $172</span></td></tr>
-                  <tr><td>Hotel ↔ Ciampino (CIA)</td><td>€50<span class="rate-usd-inline">/ $57</span></td><td>€60<span class="rate-usd-inline">/ $69</span></td><td>€70<span class="rate-usd-inline">/ $80</span></td></tr>
-                  <tr><td>Hotel ↔ Roma Termini</td><td>€75<span class="rate-usd-inline">/ $86</span></td><td>€95<span class="rate-usd-inline">/ $109</span></td><td>€115<span class="rate-usd-inline">/ $132</span></td></tr>
-                  <tr><td>Hotel ↔ Central Rome</td><td>€90<span class="rate-usd-inline">/ $103</span></td><td>€100<span class="rate-usd-inline">/ $115</span></td><td>€120<span class="rate-usd-inline">/ $138</span></td></tr>
-                </tbody>
-              </table>
-              </div>
-              <div class="hotel-detail-row">
-                <div class="hotel-detail-label">To arrange a transfer</div>
-                <div class="hotel-detail-value">Marco — <a href="tel:+393286248270">+39 328 624 8270</a> or <a href="tel:+393474893557">+39 347 489 3557</a><br><a href="mailto:marcolombardi48@gmail.com?subject=Natale-Hill%20Wedding%20—%20Private%20Transfer">marcolombardi48@gmail.com</a></div>
-              </div>
-              <p class="rate-note transfer-footnote">Night and holiday service is subject to a 30% surcharge (minimum €10 · ~$12). The hotel recommends reserving at least one hour in advance.</p>
-            </div>
-
-            <div class="hotel-rates">
               <div class="hotel-rates-title">How to Book</div>
               <ol class="booking-steps">
                 <!-- Direct link into the hotel's booking engine, so guests do
@@ -4047,7 +3996,6 @@
     </div>
 
     <div class="location-panel" id="central-rome">
-    <div class="group-subtitle">Central Rome</div>
     <p class="section-text">For those of you who want to explore Rome before or after the wedding, we recommend this hotel — these dates fall outside the wedding weekend. It is about 30–40 minutes from the venue by car or shuttle.</p>
 
     <div class="hotels-grid">
@@ -4937,7 +4885,7 @@
       var modal = document.getElementById('hotelModal');
       if (!modal) return;
 
-      document.querySelectorAll('#travel .hotel-card, #explore .hotel-card').forEach(function (card) {
+      document.querySelectorAll('#accommodations .hotel-card').forEach(function (card) {
         var panel = card.querySelector('.hotel-expanded');
         var summary = card.querySelector('.hotel-summary');
         if (!panel || !summary) return;
