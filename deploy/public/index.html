@@ -962,6 +962,23 @@
   }
   /* The hotel dialog reuses the contact modal's frame, widened a little
      because it carries a rate table rather than a short form. */
+  .faq-modal-card { max-width: 680px; text-align: left; }
+  .faq-modal-card .contact-modal-title { font-size: 1.9rem; text-align: center; margin-bottom: 1.2rem; }
+  .faq-modal-body {
+    font-size: 1.07rem;
+    color: #B17F5F;
+    line-height: 1.8;
+  }
+  @media (max-width: 600px) {
+    .faq-modal { padding: 0; align-items: stretch; }
+    .faq-modal-card {
+      padding: 2.4rem 1.15rem 2rem;
+      max-height: 100%;
+      min-height: 100%;
+      border-radius: 0;
+    }
+    .faq-modal-card .contact-modal-title { font-size: 1.6rem; }
+  }
   .hotel-modal-card { max-width: 760px; }
   /* Prose, not a field — so it reads as a paragraph instead of a labelled
      value. Same tokens as the contact dialog's intro line. */
@@ -2990,7 +3007,10 @@
     line-height: 1.8;
   }
   .faq-item.open .faq-answer {
-    max-height: 300px;
+    /* 300px clipped the longer answers once they wrapped on a phone — the
+       dress code one was cut mid-sentence. Generous enough for any answer
+       while keeping the open/close transition. */
+    max-height: 1200px;
     padding-top: 0.8rem;
   }
 
@@ -3452,6 +3472,14 @@
 
 <!-- ─── INVITATION MODAL ─── -->
 <!-- ─── CONTACT POPUP FORM ─── -->
+<div class="contact-modal faq-modal" id="faqModal" onclick="if(event.target===this)closeFaqModal()">
+  <div class="contact-modal-card faq-modal-card" role="dialog" aria-modal="true" aria-labelledby="faqModalTitle">
+    <button class="contact-modal-close" onclick="closeFaqModal()" aria-label="Close">&times;</button>
+    <h3 class="contact-modal-title" id="faqModalTitle"></h3>
+    <div class="faq-modal-body" id="faqModalBody"></div>
+  </div>
+</div>
+
 <div class="contact-modal hotel-modal" id="hotelModal" onclick="if(event.target===this)closeHotelModal()">
   <div class="contact-modal-card hotel-modal-card" role="dialog" aria-modal="true" aria-labelledby="hotelModalTitle">
     <button class="contact-modal-close" onclick="closeHotelModal()" aria-label="Close">&times;</button>
@@ -4867,9 +4895,28 @@
   })();
 
   // ─── FAQ ───
+  // A question opens its answer in the same dialog the hotels and contact
+  // form use, rather than unfolding in place — long answers were being
+  // clipped on a phone, and several open at once buried the questions.
   function toggleFaq(el) {
-    el.closest('.faq-item').classList.toggle('open');
+    var item = el.closest('.faq-item');
+    var q = item.querySelector('.faq-question');
+    var a = item.querySelector('.faq-answer');
+    var title = q ? q.textContent.replace(/[+\u2212-]\s*$/, '').trim() : '';
+    document.getElementById('faqModalTitle').textContent = title;
+    document.getElementById('faqModalBody').innerHTML = a ? a.innerHTML : '';
+    var m = document.getElementById('faqModal');
+    m.classList.add('active');
+    m.querySelector('.contact-modal-close').focus();
+    document.body.style.overflow = 'hidden';
   }
+  function closeFaqModal() {
+    document.getElementById('faqModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeFaqModal();
+  });
 
   function toggleVenueInfo(id) {
     const panel = document.getElementById(id);
