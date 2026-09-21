@@ -962,7 +962,7 @@
   }
   /* The hotel dialog reuses the contact modal's frame, widened a little
      because it carries a rate table rather than a short form. */
-  .hotel-modal-card { max-width: 620px; }
+  .hotel-modal-card { max-width: 760px; }
   /* Prose, not a field — so it reads as a paragraph instead of a labelled
      value. Same tokens as the contact dialog's intro line. */
   .hotel-about-text {
@@ -972,14 +972,22 @@
     line-height: 1.55;
     color: #B17F5F;
     margin: 0 auto 1.3rem;
-    max-width: 44ch;
+    max-width: min(62ch, 100%);
   }
   .hotel-modal-card .hotel-type { margin-bottom: 0.3rem; }
   .hotel-modal-card .hotel-price-brief { margin-bottom: 1.4rem; }
   .hotel-modal-card .hotel-expanded-inner { text-align: center; }
   .hotel-modal-card .hotel-detail-row { margin-bottom: 0.9rem; }
-  @media (max-width: 480px) {
-    .hotel-modal-card { padding: 2.2rem 1.2rem 1.8rem; }
+  @media (max-width: 600px) {
+    .hotel-modal { padding: 0; align-items: stretch; }
+    .hotel-modal-card {
+      padding: 2.4rem 1.15rem 2rem;
+      max-height: 100%;
+      min-height: 100%;
+      border-radius: 0;
+    }
+    /* room to breathe rather than cramming it into a short box */
+    .hotel-modal-card .hotel-expanded-inner { padding-bottom: 1rem; }
   }
   .contact-modal-close { position:absolute; top:0.6rem; right:1rem; background:none; border:none; color:#B17F5F; font-size:1.9rem; line-height:1; cursor:pointer; }
   .contact-modal-title { font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:2.3rem; color:#B17F5F; margin:0 0 0.5rem; }
@@ -1151,7 +1159,9 @@
      (Traveling: food, excursions / Accommodations: hotels) are NOT in
      this list — they would just look weirdly stretched. */
   @media (max-width: 768px) {
-    #gallery,
+    /* #gallery was here too, forcing the carousel section to a full screen
+       on phones; the carousel is shorter than that, so the remainder showed
+       as a large empty gap before the next section. */
     #venue {
       min-height: 100dvh;
       box-sizing: border-box;
@@ -1930,10 +1940,10 @@
   .hotel-card--featured .room-info {
     display: inline-block;
     text-align: left;
-    max-width: min(42ch, 100%);
+    max-width: min(60ch, 100%);
   }
-  .hotel-card--featured .rate-table-scroll { max-width: min(42ch, 100%); margin: 0 auto; }
-  .hotel-card--featured .form-download { max-width: min(34ch, 100%); margin: 0 auto; }
+  .hotel-card--featured .rate-table-scroll { max-width: 100%; margin: 0 auto; }
+  .hotel-card--featured .form-download { max-width: min(46ch, 100%); margin: 0 auto; }
   .hotel-blurb {
     font-size: 0.95rem;
     color: #B17F5F;
