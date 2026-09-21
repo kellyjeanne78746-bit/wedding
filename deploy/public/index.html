@@ -2119,6 +2119,25 @@
     margin-top: 0.1rem;
   }
 
+  /* Not a tag or a button — a quiet line of the card's own italic serif,
+     set off by a short rule, the way a note is written rather than labelled. */
+  .hotel-included {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    letter-spacing: 0.03em;
+    color: #B17F5F;
+    text-align: center;
+    margin: 1.2rem 0 0.2rem;
+  }
+  .hotel-included::before {
+    content: '';
+    display: block;
+    width: 26px;
+    height: 1px;
+    margin: 0 auto 0.7rem;
+    background: rgba(201,169,110,0.45);
+  }
   /* ─── LOCATION TOGGLE TABS ─── */
   .location-tabs {
     display: flex;
@@ -3578,8 +3597,8 @@
 <section class="full-width travel-section" id="travel">
   <div class="section-inner">
     <div class="section-label">Getting There</div>
-    <div class="section-title">Traveling to Italy</div>
-    <p class="section-text">For guests flying to Italy, we recommend <strong>Rome Fiumicino Airport (FCO)</strong> as your arrival and departure airport.</p>
+    <div class="section-title">Traveling to Rome</div>
+    <p class="section-text">For guests flying to Italy, we recommend <strong>Rome Fiumicino Airport (FCO)</strong>.</p>
 
     <div class="travel-tips">
       <h3>✈️ Arriving in Italy</h3>
@@ -3613,7 +3632,7 @@
 
     <div class="travel-tips">
       <h3>🚘 Private Transfer Service</h3>
-      <p class="tips-text">For added convenience, private car service is available for hotel guests. Transfers can be arranged between the hotel and Rome Fiumicino Airport (FCO), Ciampino Airport (CIA), and central Rome.</p>
+      <p class="tips-text">For added convenience, private car service is available for hotel guests. Transfers can be arranged between the hotel and Rome Fiumicino Airport (FCO) and central Rome.</p>
 
       <p class="tips-subhead">Hotel Villa Mercede</p>
       <div class="rate-table-scroll">
@@ -3624,7 +3643,6 @@
         <tbody>
           <tr><td>Hotel → Fiumicino Airport (FCO)</td><td data-label="1–3 Guests">€90<span class="rate-usd-inline">/ $103</span></td><td data-label="4–6 Guests">€120<span class="rate-usd-inline">/ $138</span></td><td data-label="7–8 Guests">€140<span class="rate-usd-inline">/ $161</span></td></tr>
           <tr><td>Fiumicino Airport (FCO) → Hotel</td><td data-label="1–3 Guests">€100<span class="rate-usd-inline">/ $115</span></td><td data-label="4–6 Guests">€130<span class="rate-usd-inline">/ $150</span></td><td data-label="7–8 Guests">€150<span class="rate-usd-inline">/ $172</span></td></tr>
-          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td data-label="1–3 Guests">€50<span class="rate-usd-inline">/ $57</span></td><td data-label="4–6 Guests">€60<span class="rate-usd-inline">/ $69</span></td><td data-label="7–8 Guests">€70<span class="rate-usd-inline">/ $80</span></td></tr>
           <tr><td>Hotel ↔ Roma Termini</td><td data-label="1–3 Guests">€75<span class="rate-usd-inline">/ $86</span></td><td data-label="4–6 Guests">€95<span class="rate-usd-inline">/ $109</span></td><td data-label="7–8 Guests">€115<span class="rate-usd-inline">/ $132</span></td></tr>
           <tr><td>Hotel ↔ Central Rome</td><td data-label="1–3 Guests">€90<span class="rate-usd-inline">/ $103</span></td><td data-label="4–6 Guests">€100<span class="rate-usd-inline">/ $115</span></td><td data-label="7–8 Guests">€120<span class="rate-usd-inline">/ $138</span></td></tr>
         </tbody>
@@ -3644,7 +3662,6 @@
         </thead>
         <tbody>
           <tr><td>Hotel ↔ Fiumicino Airport (FCO)</td><td data-label="1–3 Guests">€99<span class="rate-usd-inline">/ $114</span></td><td data-label="4–8 Guests">€99 + €10 per additional guest<span class="rate-usd-inline">/ $114 + $12 ea</span></td></tr>
-          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td data-label="1–3 Guests">€55<span class="rate-usd-inline">/ $63</span></td><td data-label="4–8 Guests">€55 + €7 per additional guest<span class="rate-usd-inline">/ $63 + $8 ea</span></td></tr>
           <tr><td>Hotel ↔ Central Rome</td><td data-label="1–3 Guests">€89<span class="rate-usd-inline">/ $102</span></td><td data-label="4–8 Guests">€89 + €10 per additional guest<span class="rate-usd-inline">/ $102 + $12 ea</span></td></tr>
         </tbody>
       </table>
@@ -3680,7 +3697,7 @@
     <!-- Original tabbed intro (restore when SHOW_LOCATION_TABS goes back to true):
     <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">Two clusters of options — close to the venue or in central Rome — to fit how you'd like to experience the trip.</p>
     -->
-    <p class="section-text" style="text-align: center; margin: 0 auto 1.5rem; max-width: 600px;">For the full wedding weekend we strongly recommend arriving <strong>Thursday, May 27</strong> and departing <strong>Sunday, May 30, 2027</strong>. This gives you plenty of time to settle in, enjoy Frascati and the surrounding area, and celebrate with us all weekend long.</p>
+    <p class="section-text">We have organized hotel blocks <strong>from May 27, 2027 to May 30, 2027</strong> to give you plenty of time to settle in.</p>
 
 
     <div class="location-panel active" id="near-venue">
@@ -3702,16 +3719,12 @@
               <div class="hotel-detail-label">Address</div>
               <div class="hotel-detail-value">Via del Tuscolo km 1.5, Frascati (RM)</div>
             </div>
-            <p class="hotel-about-text">Wedding guest rates and booking instructions are coming soon. Please check back for additional information before making your reservation.</p>
+            <p class="hotel-about-text">Built in 1578 on the ruins of the ancient Roman residence of Marcus Tullius Cicero, on the slopes of Tuscolo above Frascati, looking out over Rome.</p>
+            <p class="rate-note">Wedding guest rates and booking instructions are coming soon. Please check back for additional information before making your reservation.</p>
 
             <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.villatuscolana.com/en/home/" target="_blank">villatuscolana.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">1578 Villa</span>
-              <span class="hotel-tag">92 Rooms</span>
-              <span class="hotel-tag">Above Frascati</span>
             </div>
           </div>
         </div>
@@ -3722,7 +3735,7 @@
           <div class="hotel-summary-left">
             <div class="hotel-type">Historic Villa · Grottaferrata</div>
             <div class="hotel-name">Park Hotel Villa Grazioli</div>
-            <div class="hotel-price-brief"><span>€160–€190</span><span>$184–219</span><span class="per-night">per night</span></div>
+            <div class="hotel-price-brief"><span>€176–€209</span><span>$202–240</span><span class="per-night">per night</span></div>
           </div>
         </div>
         <div class="hotel-expanded">
@@ -3731,12 +3744,13 @@
               <div class="hotel-detail-label">Address</div>
               <div class="hotel-detail-value">Via Umberto Pavoni 19, 00046 Grottaferrata (RM)</div>
             </div>
-            <p class="hotel-about-text">A cardinal's residence dating to 1580 inside the Castelli Romani park, with frescoed halls, historic gardens and spectacular views over Rome.</p>
-            <p class="hotel-blurb">Special discounted rates have been arranged for our wedding guests at Park Hotel Villa Grazioli.</p>
+            <p class="hotel-about-text">A cardinal&rsquo;s residence dating to 1580 inside the Castelli Romani park.</p>
+            <p class="hotel-blurb">Special rates have been arranged for our wedding guests at Park Hotel Villa Grazioli.</p>
 
             <div class="hotel-rates">
               <div class="hotel-rates-title">Wedding Guest Rates</div>
-              <div class="rate-table-scroll"><table class="rate-table">
+              <div class="rate-table-scroll">
+              <table class="rate-table">
                 <thead>
                   <tr><th>Room Type</th><th>Per Night</th><th class="rate-usd">Approx. USD</th></tr>
                 </thead>
@@ -3745,38 +3759,26 @@
                   <tr><td>Double Room</td><td>€170</td><td class="rate-usd">~$196</td></tr>
                   <tr><td>Triple Room</td><td>€190</td><td class="rate-usd">~$219</td></tr>
                 </tbody>
-              </table></div>
-              <p class="rate-note">Rates are per room, per night and include breakfast. 10% VAT is not included. There is no city tax.</p>
-              <p class="rate-note">The hotel bills in euro. Dollar amounts are a guide only, converted at about $1.15 to €1 — your bank's rate on the day will differ slightly.</p>
-            </div>
-
-            <div class="hotel-rates">
-              <div class="hotel-rates-title">Good to Know</div>
-              <p class="rate-note rate-note--flat">Wedding guests will receive the special flat rates listed on this website as part of our reserved hotel block, rather than the standard rates shown on the form.</p>
+              </table>
+              </div>
+              <p class="rate-note">Rates are per room, per night and include breakfast. 10% VAT is not included in the rates above. There is no city tax.</p>
             </div>
 
             <div class="hotel-rates">
               <div class="hotel-rates-title">How to Book</div>
               <ol class="booking-steps">
                 <li>Download and complete the reservation form below.</li>
-                <li>Email the completed form to <a href="mailto:congressi@villa-grazioli.it?subject=Natale%2FHill%20Wedding%20—%20Room%20Reservation">congressi@villa-grazioli.it</a>.</li>
+                <li>Email the completed form to <a href="mailto:congressi@villa-grazioli.it?subject=Natale-Hill%20Wedding%20—%20Room%20Reservation">congressi@villa-grazioli.it</a>. There is no need to enter credit card details in the form.</li>
+                <li>The hotel will respond directly with a secure payment link to complete and confirm your reservation.</li>
               </ol>
-              <!-- PDF opens straight in the browser on phones and laptops; the
-                   Word version stays available for anyone who would rather type
-                   into it than print it. -->
               <a class="form-download" href="docs/villa-grazioli-reservation-form.pdf" target="_blank" rel="noopener">
                 <span class="form-download-icon">📄</span>
                 <span>
                   <span class="form-download-label">View Reservation Form</span>
-                  <span class="form-download-sub">PDF · view, save, print, or download — then email it back to the hotel</span>
+                  <span class="form-download-sub">PDF · download, complete, and email directly to the hotel</span>
                 </span>
               </a>
-              <!-- Deadline removed at the bride's request 2026-09-20 (the date had
-                   arrived). Restore with a current date when the hotel confirms one —
-                   rate-note--deadline styles it large and set apart. -->
-              <!--
-              <p class="rate-note rate-note--deadline"><strong>Booking deadline: September 20, 2026.</strong> Rooms are held for individual guest reservations through this date. After it, any rooms left in our block are released.</p>
-              -->
+              <p class="rate-note rate-note--flat">Please note: the rates shown on the reservation form include the required 10% VAT and will therefore be slightly higher than the rates listed above.</p>
             </div>
 
             <div class="hotel-detail-row">
@@ -3787,15 +3789,11 @@
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.villa-grazioli.it/en/" target="_blank">villa-grazioli.it</a></div>
             </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Breakfast Included</span>
-              <span class="hotel-tag">1580 Villa</span>
-              <span class="hotel-tag">Frescoed Halls</span>
-              <span class="hotel-tag">Views Over Rome</span>
-            </div>
+            <p class="hotel-included">Breakfast included</p>
           </div>
         </div>
       </div>
+
       <div class="hotel-card hotel-card--featured" data-hotel="hotel-flora">
         <img class="hotel-img" src="images/hotel_flora_facade.jpg" alt="Hotel Flora — the villa and its gardens in Frascati">
         <div class="hotel-summary">
@@ -3832,7 +3830,6 @@
               </div>
               <p class="rate-note">Rates are per room, per night and include breakfast, service, and VAT.</p>
               <p class="rate-note">A tourist tax of €2 (~$2.30) per person, per night is not included and must be paid directly to the hotel. Children under 10 and guests over 70 are exempt from the tourist tax.</p>
-              <p class="rate-note">The hotel bills in euro. Dollar amounts are a guide only, converted at about $1.15 to €1 — your bank's rate on the day will differ slightly.</p>
             </div>
 
             <div class="hotel-rates">
@@ -3865,13 +3862,7 @@
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.hotel-flora.it/en/" target="_blank">hotel-flora.it</a></div>
             </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Breakfast Included</span>
-              <span class="hotel-tag">VAT Included</span>
-              <span class="hotel-tag">Rooftop Terrace</span>
-              <span class="hotel-tag">19th-Century Villa</span>
-              <span class="hotel-tag">Breakfast Included</span>
-            </div>
+            <p class="hotel-included">Breakfast included</p>
           </div>
         </div>
       </div>
@@ -3909,7 +3900,6 @@
                 </tbody>
               </table></div>
               <p class="rate-note">Rates are per room, per night. A tourist tax of €2 per person, per night is not included.</p>
-              <p class="rate-note">The hotel bills in euro. Dollar amounts are a guide only, converted at about $1.15 to €1 — your bank's rate on the day will differ slightly.</p>
             </div>
 
             <div class="hotel-rates">
@@ -3939,16 +3929,7 @@
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.villamercede.com/en/" target="_blank">villamercede.com</a></div>
             </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Breakfast Included</span>
-              <span class="hotel-tag">Free Parking</span>
-              <span class="hotel-tag">Wi-Fi</span>
-              <span class="hotel-tag">Fitness Center</span>
-              <span class="hotel-tag">Outdoor Pool</span>
-              <span class="hotel-tag">Swimming Pool</span>
-              <span class="hotel-tag">Spa</span>
-              <span class="hotel-tag">Restaurant</span>
-            </div>
+            <p class="hotel-included">Breakfast included</p>
           </div>
         </div>
       </div>
@@ -3979,11 +3960,6 @@
             <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.breakinrome.it/it/camere" target="_blank">breakinrome.it</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Restaurant On-Site</span>
-              <span class="hotel-tag">Best Rate</span>
-              <span class="hotel-tag">Reservations Open</span>
             </div>
           </div>
         </div>
@@ -4017,11 +3993,6 @@
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.hotelcolonna.it/en/" target="_blank">hotelcolonna.it</a></div>
             </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Frascati Center</span>
-              <span class="hotel-tag">Boutique</span>
-              <span class="hotel-tag">No Restaurant</span>
-            </div>
           </div>
         </div>
       </div>
@@ -4045,11 +4016,7 @@
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://cacciani.it/" target="_blank">cacciani.it</a></div>
             </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Breakfast Included</span>
-              <span class="hotel-tag">Family-Run</span>
-              <span class="hotel-tag">Restaurant</span>
-            </div>
+            <p class="hotel-included">Breakfast included</p>
           </div>
         </div>
       </div>
@@ -4059,7 +4026,7 @@
     </div>
 
     <div class="location-panel" id="central-rome">
-    <p class="section-text rome-intro">For those of you who want to explore Rome before or after the wedding, we recommend this hotel — these dates fall outside the wedding weekend. It is about 30–40 minutes from the venue by car or shuttle.</p>
+    <p class="section-text rome-intro">For those of you who want to explore Rome before or after the wedding, we recommend this hotel.</p>
 
     <div class="hotels-grid">
       <div class="hotel-card" data-hotel="del-corso">
@@ -4107,11 +4074,7 @@
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.hotelsantamariatrastevere.it/en/" target="_blank">hotelsantamariatrastevere.it</a></div>
             </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Courtyard</span>
-              <span class="hotel-tag">Breakfast Included</span>
-              <span class="hotel-tag">Charming</span>
-            </div>
+            <p class="hotel-included">Breakfast included</p>
           </div>
         </div>
       </div>
@@ -4139,11 +4102,6 @@
             <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.hotelcampodefiori.com/en/" target="_blank">hotelcampodefiori.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Rooftop Terrace</span>
-              <span class="hotel-tag">Central</span>
-              <span class="hotel-tag">Walkable</span>
             </div>
           </div>
         </div>
@@ -4173,10 +4131,6 @@
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.hotelpontesisto.it/en/" target="_blank">hotelpontesisto.it</a></div>
             </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Garden</span>
-              <span class="hotel-tag">Near Campo de' Fiori</span>
-            </div>
           </div>
         </div>
       </div>
@@ -4204,11 +4158,6 @@
             <div class="hotel-detail-row">
               <div class="hotel-detail-label">Website</div>
               <div class="hotel-detail-value"><a href="https://www.vretreats.com/en/donna-camilla-savelli/" target="_blank">vretreats.com</a></div>
-            </div>
-            <div class="hotel-tags">
-              <span class="hotel-tag">Historic Monastery</span>
-              <span class="hotel-tag">Terrace</span>
-              <span class="hotel-tag">Luxury</span>
             </div>
           </div>
         </div>
@@ -4593,7 +4542,7 @@
   <div style="text-align:center;">
     <div class="section-label">Stay In The Loop</div>
     <div class="section-title">Wedding Updates</div>
-    <p class="section-text" style="max-width: 600px; margin: 0.75rem auto 0;">Leave your number and we'll send quick texts whenever there's something new — leading up to the wedding, while you're traveling, and during the celebration weekend itself. Think shuttle times, venue updates, weather notes, schedule changes, and any last-minute details. Only wedding updates, no spam.</p>
+    <p class="section-text">Leave your number to receive updates during the wedding — important information regarding transportation and any last-minute details.</p>
   </div>
 
   <div class="form-container" id="updatesForm" style="max-width: 460px;">
@@ -4637,7 +4586,7 @@
       What is the dress code?
       <span class="faq-toggle">+</span>
     </div>
-    <div class="faq-answer">We invite guests to dress in <strong>elegant garden cocktail attire</strong>. Think polished and sophisticated, with a relaxed Italian garden feel which includes midi- to floor-length flowy dresses, elevated pantsuits or matching sets, and suits with a jacket. We encourage spring colors, prints, and lightweight fabrics that feel festive and elegant for an evening in the gardens.<br><strong>Footwear guidance:</strong> Our venue includes grass and gravel pathways. If you are planning to wear heels, we recommend block heels, wedges, or styles with more support, as thinner heels may be difficult to navigate on these surfaces.</div>
+    <div class="faq-answer">We invite guests to dress in <strong>elegant garden cocktail attire</strong>. Attire may include <strong>midi- to floor-length flowy dresses, jumpsuits, matching sets, or suits with a jacket.</strong><br><strong>Footwear guidance:</strong> Our venue includes grass and gravel pathways. If you are planning to wear heels, we recommend block heels, wedges, or styles with more support, as thinner heels may be difficult to navigate on these surfaces.</div>
   </div>
 
   <div class="faq-item">
