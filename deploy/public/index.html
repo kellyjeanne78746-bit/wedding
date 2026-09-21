@@ -144,7 +144,7 @@
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italianno&family=Josefin+Sans:wght@300;400;500&family=Monsieur+La+Doulaise&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italianno&family=Josefin+Sans:wght@300;400;500;600;700&family=Monsieur+La+Doulaise&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --logo-blue: #4884cc;
@@ -964,6 +964,8 @@
      because it carries a rate table rather than a short form. */
   .faq-modal-card { max-width: 680px; text-align: left; }
   .faq-modal-card .contact-modal-title { font-size: 1.9rem; text-align: center; margin-bottom: 1.2rem; }
+  .faq-modal-body strong { font-weight: 600; }
+  .faq-answer strong { font-weight: 600; }
   .faq-modal-body {
     font-size: 1.07rem;
     color: #B17F5F;
@@ -1250,10 +1252,12 @@
      sections had been carrying their own rule for it. */
   .section-label,
   .section-title,
-  .section-inner > .section-text {
+  .section-inner > .section-text,
+  #updates .section-text {
     text-align: center;
   }
-  .section-inner > .section-text {
+  .section-inner > .section-text,
+  #updates .section-text {
     margin-left: auto;
     margin-right: auto;
   }
@@ -4577,7 +4581,7 @@
   <div style="text-align:center;">
     <div class="section-label">Stay In The Loop</div>
     <div class="section-title">Wedding Updates</div>
-    <p class="section-text">Leave your number to receive updates during the wedding — important information regarding transportation and any last-minute details.</p>
+    <p class="section-text">Leave your phone number to receive important wedding updates, including transportation details and any last-minute changes.</p>
   </div>
 
   <div class="form-container" id="updatesForm" style="max-width: 460px;">
