@@ -2295,6 +2295,53 @@
     margin-top: 0.1rem;
     white-space: nowrap;
   }
+  /* Phones: four columns of prices cannot fit, and squeezing them ran the
+     figures together. Each route becomes its own block with its prices
+     listed under it, labelled by party size. */
+  @media (max-width: 600px) {
+    .transfer-table thead { display: none; }
+    .transfer-table,
+    .transfer-table tbody,
+    .transfer-table tr,
+    .transfer-table td { display: block; width: auto; }
+    .transfer-table tr {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(201,169,110,0.2);
+    }
+    .transfer-table tr:last-child { border-bottom: none; }
+    .transfer-table td:first-child {
+      width: auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      text-align: center;
+      padding: 0 0 0.45rem;
+      border-bottom: none;
+    }
+    /* Wide letter-spacing pushed the hotel name past the edge of a phone. */
+    .travel-tips .tips-subhead {
+      letter-spacing: 0.1em;
+      font-size: 0.66rem;
+      word-spacing: -0.05em;
+    }
+    .transfer-table td:not(:first-child) {
+      /* Party size above, price beneath, both centred. No float and no flex,
+         so nothing can be pushed past the edge of a narrow screen. */
+      display: block;
+      text-align: center;
+      padding: 0.5rem 0 0.15rem;
+      border-bottom: none;
+      white-space: normal;
+    }
+    .transfer-table td:not(:first-child)::before {
+      content: attr(data-label);
+      display: block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.12rem;
+    }
+  }
   .tips-subhead {
     /* same token as .hotel-detail-label on the original cards */
     font-family: 'Josefin Sans', sans-serif;
@@ -3575,11 +3622,11 @@
           <tr><th>Transfer</th><th>1–3 Guests</th><th>4–6 Guests</th><th>7–8 Guests</th></tr>
         </thead>
         <tbody>
-          <tr><td>Hotel → Fiumicino Airport (FCO)</td><td>€90<span class="rate-usd-inline">/ $103</span></td><td>€120<span class="rate-usd-inline">/ $138</span></td><td>€140<span class="rate-usd-inline">/ $161</span></td></tr>
-          <tr><td>Fiumicino Airport (FCO) → Hotel</td><td>€100<span class="rate-usd-inline">/ $115</span></td><td>€130<span class="rate-usd-inline">/ $150</span></td><td>€150<span class="rate-usd-inline">/ $172</span></td></tr>
-          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td>€50<span class="rate-usd-inline">/ $57</span></td><td>€60<span class="rate-usd-inline">/ $69</span></td><td>€70<span class="rate-usd-inline">/ $80</span></td></tr>
-          <tr><td>Hotel ↔ Roma Termini</td><td>€75<span class="rate-usd-inline">/ $86</span></td><td>€95<span class="rate-usd-inline">/ $109</span></td><td>€115<span class="rate-usd-inline">/ $132</span></td></tr>
-          <tr><td>Hotel ↔ Central Rome</td><td>€90<span class="rate-usd-inline">/ $103</span></td><td>€100<span class="rate-usd-inline">/ $115</span></td><td>€120<span class="rate-usd-inline">/ $138</span></td></tr>
+          <tr><td>Hotel → Fiumicino Airport (FCO)</td><td data-label="1–3 Guests">€90<span class="rate-usd-inline">/ $103</span></td><td data-label="4–6 Guests">€120<span class="rate-usd-inline">/ $138</span></td><td data-label="7–8 Guests">€140<span class="rate-usd-inline">/ $161</span></td></tr>
+          <tr><td>Fiumicino Airport (FCO) → Hotel</td><td data-label="1–3 Guests">€100<span class="rate-usd-inline">/ $115</span></td><td data-label="4–6 Guests">€130<span class="rate-usd-inline">/ $150</span></td><td data-label="7–8 Guests">€150<span class="rate-usd-inline">/ $172</span></td></tr>
+          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td data-label="1–3 Guests">€50<span class="rate-usd-inline">/ $57</span></td><td data-label="4–6 Guests">€60<span class="rate-usd-inline">/ $69</span></td><td data-label="7–8 Guests">€70<span class="rate-usd-inline">/ $80</span></td></tr>
+          <tr><td>Hotel ↔ Roma Termini</td><td data-label="1–3 Guests">€75<span class="rate-usd-inline">/ $86</span></td><td data-label="4–6 Guests">€95<span class="rate-usd-inline">/ $109</span></td><td data-label="7–8 Guests">€115<span class="rate-usd-inline">/ $132</span></td></tr>
+          <tr><td>Hotel ↔ Central Rome</td><td data-label="1–3 Guests">€90<span class="rate-usd-inline">/ $103</span></td><td data-label="4–6 Guests">€100<span class="rate-usd-inline">/ $115</span></td><td data-label="7–8 Guests">€120<span class="rate-usd-inline">/ $138</span></td></tr>
         </tbody>
       </table>
       </div>
@@ -3596,9 +3643,9 @@
           <tr><th>Transfer</th><th>1–3 Guests</th><th>4–8 Guests</th></tr>
         </thead>
         <tbody>
-          <tr><td>Hotel ↔ Fiumicino Airport (FCO)</td><td>€99<span class="rate-usd-inline">/ $114</span></td><td>€99 + €10 per additional guest<span class="rate-usd-inline">/ $114 + $12 ea</span></td></tr>
-          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td>€55<span class="rate-usd-inline">/ $63</span></td><td>€55 + €7 per additional guest<span class="rate-usd-inline">/ $63 + $8 ea</span></td></tr>
-          <tr><td>Hotel ↔ Central Rome</td><td>€89<span class="rate-usd-inline">/ $102</span></td><td>€89 + €10 per additional guest<span class="rate-usd-inline">/ $102 + $12 ea</span></td></tr>
+          <tr><td>Hotel ↔ Fiumicino Airport (FCO)</td><td data-label="1–3 Guests">€99<span class="rate-usd-inline">/ $114</span></td><td data-label="4–8 Guests">€99 + €10 per additional guest<span class="rate-usd-inline">/ $114 + $12 ea</span></td></tr>
+          <tr><td>Hotel ↔ Ciampino Airport (CIA)</td><td data-label="1–3 Guests">€55<span class="rate-usd-inline">/ $63</span></td><td data-label="4–8 Guests">€55 + €7 per additional guest<span class="rate-usd-inline">/ $63 + $8 ea</span></td></tr>
+          <tr><td>Hotel ↔ Central Rome</td><td data-label="1–3 Guests">€89<span class="rate-usd-inline">/ $102</span></td><td data-label="4–8 Guests">€89 + €10 per additional guest<span class="rate-usd-inline">/ $102 + $12 ea</span></td></tr>
         </tbody>
       </table>
       </div>
